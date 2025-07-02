@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Himalayan Snow Monitor - Visualize monthly snow cover for 2024 using Sentinel-2 data in Google Earth Engine.">
+  <meta name="keywords" content="Snow Cover, Sentinel-2, GEE App, Remote Sensing, Snow Mask, Himalayas, NDSI, Earth Engine, Snow Monitoring India">
+  <title>🧊 Himalayan Snow Monitor 2024 | GEE App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      color: #222;
+    }
+
+    /* Top blue section */
+    .top-section {
+      background-color: #e0f7ff; /* Sky blue */
+      padding: 4rem 1rem 2rem;
+      text-align: center;
+    }
+
+    /* Title box remains white */
+    .title-box {
+      background-color: #ffffff;
+      border: 2px solid #00aaff;
+      display: inline-block;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .title-box h1 {
+      margin: 0;
+      color: #004466;
+    }
+
+    /* Intro text directly on blue */
+    .intro-text {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      color: #003344;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Image overlay section */
+    .image-overlay-section {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      overflow: hidden;
+    }
+
+    .image-overlay-section img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(75%);
+      z-index: 1;
+    }
+
+    .overlay-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+      color: #fff;
+    }
+
+    .overlay-content h2 {
+      margin-top: 0;
+    }
+
+    .overlay-content ul {
+      list-style: disc;
+      padding-left: 1.2rem;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #00ffff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .overlay-content {
+        padding: 1rem;
+      }
+      .title-box {
+        padding: 0.8rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sky Blue Top Section -->
+  <div class="top-section">
+    <div class="title-box">
+      <h1>🧊 Himalayan Snow Monitor (2024)</h1>
+    </div>
+    <p class="intro-text">
+      Monitor monthly snow cover in the Uttarkashi region using Sentinel-2 imagery and NDSI thresholding in Google Earth Engine.
+    </p>
+  </div>
+
+  <!-- Image Background with Overlay -->
+  <div class="image-overlay-section">
+    <img src="background.png" alt="Himalayan Snow Background" />
+    <div class="overlay-content">
+      <h2>📊 Features</h2>
+      <ul>
+        <li>Monthly snow detection for 2024</li>
+        <li>Sentinel-2 based NDSI thresholding</li>
+        <li>Cloud & shadow masking</li>
+        <li>Area calculation in sq. km</li>
+        <li>CSV export and map legend</li>
+      </ul>
+
+      <h2>🔗 Launch the App</h2>
+      <p>
+        <a href="https://sayantansaga17.users.earthengine.app/view/himalayan-snow-monitor" target="_blank">
+          👉 Open the Snow Mask Viewer
+        </a>
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
