@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="google-site-verification" content="FDAepvkc_7N8kAMgrvHQ4tpftIC419QJffiE-ZtBYf0" />
   <meta name="description" content="Himalayan Snow Monitor - Visualize monthly snow cover for 2024 using Sentinel-2 data in Google Earth Engine.">
-  <meta name="keywords" content="Snow Cover, Sentinel-2, GEE App, Remote Sensing, Snow Mask, Himalayas, NDSI, Earth Engine, Snow Monitoring India">
+  <meta name="keywords" content="Snow Cover, Sentinel-2, GEE App, Remote Sensing, Snow Mask, Himalayas, NDSI, Earth Engine, Snow Monitoring India, Climate Change, Glacier Monitoring">
+  <meta property="og:title" content="Himalayan Snow Monitor 2024 | GEE App" />
+  <meta property="og:description" content="Visualize snow cover trends in the Himalayas using Sentinel-2 data and NDSI index." />
+  <meta property="og:image" content="background.png" />
+  <meta property="og:type" content="website" />
   <title>🧊 Himalayan Snow Monitor 2024 | GEE App</title>
 
   <!-- Google Fonts -->
@@ -26,9 +30,10 @@
       font-family: 'Inter', sans-serif;
       background-color: #f8f9fa;
       color: #222;
+      transition: background 0.3s, color 0.3s;
     }
 
-    /* Sticky Navbar */
+    /* 🌍 Navbar */
     .navbar {
       position: fixed;
       top: 0;
@@ -38,98 +43,111 @@
       border-bottom: 1px solid #00aaff44;
       padding: 0.8rem 2rem;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      z-index: 1000;
+      z-index: 900; /* Lower than toggle */
+      transition: background 0.3s ease;
     }
-
     .navbar span {
       font-weight: bold;
       color: #0077aa;
-    }
-
-    /* Top Section */
-    .top-section {
-      background-color: #e0f7ff;
-      padding: 6rem 1rem 2rem;
-      text-align: center;
-    }
-
-    .title-box {
-      background-color: #ffffff;
-      border: 2px solid #00aaff;
-      display: inline-block;
-      padding: 1rem 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .title-box h1 {
-      margin: 0;
-      color: #004466;
-    }
-
-    .intro-text {
-      margin-top: 1.5rem;
       font-size: 1.1rem;
-      color: #003344;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
-    /* Image Overlay Section */
-    .image-overlay-section {
+    /* 🌄 Hero Section */
+    .hero {
       position: relative;
-      width: 100%;
-      height: 80vh;
-      overflow: hidden;
+      height: clamp(60vh, 85vh, 100vh);
+      background: url('background.png') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      color: #fff;
     }
-
-    .image-overlay-section img {
+    .hero-overlay {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(75%);
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.45);
       z-index: 1;
     }
-
-    .overlay-content {
+    .hero-content {
       position: relative;
       z-index: 2;
       max-width: 800px;
-      margin: auto;
-      padding: 2rem;
-      color: #fff;
+      padding: 1rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      margin-bottom: 1rem;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      margin-bottom: 1.5rem;
     }
 
-    .overlay-content h2 {
-      margin-top: 0;
-    }
-
-    .overlay-content ul {
-      list-style: disc;
-      padding-left: 1.2rem;
-      line-height: 1.6;
-    }
-
-    /* CTA Button */
+    /* 🚀 CTA Button */
     .cta-button {
       display: inline-block;
       background: #00aaff;
       color: white;
-      padding: 0.75rem 1.5rem;
+      padding: 0.9rem 1.8rem;
       border-radius: 8px;
       font-size: 1.1rem;
-      margin-top: 1.2rem;
       text-decoration: none;
-      transition: background 0.3s ease;
+      transition: background 0.3s ease, transform 0.2s ease;
     }
-
     .cta-button:hover {
       background: #007acc;
+      transform: translateY(-3px);
     }
 
+    /* 🌙 Dark/Light Floating Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 1001; /* stays above navbar + scrollbars */
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      border: none;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+    .theme-toggle:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    /* 📊 Features Section */
+    .features {
+      background: #e0f7ff;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+    .features h2 {
+      margin-bottom: 1.5rem;
+      color: #004466;
+    }
+    .features ul {
+      max-width: 600px;
+      margin: auto;
+      text-align: left;
+      list-style: disc;
+      padding-left: 1.5rem;
+      line-height: 1.7;
+      color: #003344;
+    }
+
+    /* 📱 Footer */
     footer {
       background: #e0f7ff;
       padding: 1rem;
@@ -138,61 +156,101 @@
       color: #004466;
     }
 
+    /* 📱 Mobile Adjustments */
     @media (max-width: 768px) {
-      .overlay-content {
-        padding: 1rem;
-      }
-      .title-box {
-        padding: 0.8rem 1rem;
-      }
       .navbar {
         flex-direction: column;
         align-items: flex-start;
         padding: 1rem;
       }
+      .hero {
+        height: 65vh;
+        padding: 2rem 1rem;
+      }
+      .cta-button {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.8rem 1.4rem;
+      }
+    }
+
+    /* 🌑 Dark Mode Styles */
+    body.dark {
+      background-color: #121212;
+      color: #eee;
+    }
+    body.dark .navbar {
+      background: rgba(30,30,30,0.9);
+      border-bottom: 1px solid #ffaa0044;
+    }
+    body.dark .hero-overlay {
+      background: rgba(0, 0, 0, 0.65);
+    }
+    body.dark .cta-button {
+      background: #ffaa00;
+    }
+    body.dark .cta-button:hover {
+      background: #cc8800;
+    }
+    body.dark footer {
+      background: #1e1e1e;
+      color: #bbb;
+    }
+    body.dark .theme-toggle {
+      background: rgba(255, 255, 255, 0.8);
+      color: #222;
     }
   </style>
 </head>
 <body>
 
-  <!-- Sticky Navbar -->
+  <!-- 🌍 Navbar -->
   <div class="navbar">
     <span>❄️ Snow Monitor</span>
   </div>
 
-  <!-- Top Section -->
-  <div class="top-section">
-    <div class="title-box" data-aos="fade-up">
+  <!-- 🌙 Floating Theme Toggle -->
+  <button class="theme-toggle">🌙</button>
+
+  <!-- 🌄 Hero Section -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content" data-aos="fade-up">
       <h1>🧊 Himalayan Snow Monitor (2024)</h1>
-    </div>
-    <p class="intro-text" data-aos="fade-up" data-aos-delay="200">
-      Monitor monthly snow cover in the Uttarkashi region using Sentinel-2 imagery and NDSI thresholding in Google Earth Engine.
-    </p>
-  </div>
-
-  <!-- Image Background with Overlay -->
-  <div class="image-overlay-section">
-    <img src="background.png" alt="Himalayan Snow Background" />
-    <div class="overlay-content" data-aos="fade-up">
-      <h2>📊 Features</h2>
-      <ul>
-        <li>Monthly snow detection for 2024</li>
-        <li>Sentinel-2 based NDSI thresholding</li>
-        <li>Cloud & shadow masking</li>
-        <li>Area calculation in sq. km</li>
-      </ul>
-
-      <h2>🔗 Launch the App</h2>
-      <a href="https://sayantansaga17.users.earthengine.app/view/himalayan-snow-monitor" class="cta-button" target="_blank">
+      <p>Visualize monthly snow cover in the Himalayas using Sentinel-2 and NDSI in Google Earth Engine.</p>
+      <a href="https://sayantansaga17.users.earthengine.app/view/himalayan-snow-monitor"
+         class="cta-button" target="_blank">
         👉 Try Snow Monitor Now
       </a>
     </div>
-  </div>
+  </section>
 
-  <!-- Footer -->
+  <!-- 📊 Features Section -->
+  <section class="features" data-aos="fade-up">
+    <h2>📊 Features</h2>
+    <ul>
+      <li>Monthly snow detection for 2024</li>
+      <li>Sentinel-2 based NDSI thresholding</li>
+      <li>Cloud & shadow masking</li>
+      <li>Area calculation in sq. km</li>
+    </ul>
+  </section>
+
+  <!-- 📱 Footer -->
   <footer>
     &copy; 2025 Sayantan Majumder | Built using Sentinel-2 & Google Earth Engine
   </footer>
+
+  <script>
+    // 🌙 Dark/Light Mode Toggle
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleBtn = document.querySelector(".theme-toggle");
+      toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+        toggleBtn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+      });
+    });
+  </script>
 
 </body>
 </html>
