@@ -45,7 +45,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 900; /* Lower than toggle */
+      z-index: 900;
       transition: background 0.3s ease;
     }
     .navbar span {
@@ -109,7 +109,7 @@
       position: fixed;
       top: 15px;
       right: 15px;
-      z-index: 1001; /* stays above navbar + scrollbars */
+      z-index: 1001;
       width: 45px;
       height: 45px;
       border-radius: 50%;
@@ -147,6 +147,32 @@
       color: #003344;
     }
 
+    /* 🏔️ Glacial Lake Section */
+    .glacial-lake {
+      position: relative;
+      height: clamp(60vh, 85vh, 100vh);
+      background: url('E:/HTML/Glacial lake/glacial lake image.png') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 1rem;
+      color: #fff;
+    }
+    .glacial-lake-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: 1;
+    }
+    .glacial-lake-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 1rem;
+    }
+
     /* 📱 Footer */
     footer {
       background: #e0f7ff;
@@ -163,7 +189,7 @@
         align-items: flex-start;
         padding: 1rem;
       }
-      .hero {
+      .hero, .glacial-lake {
         height: 65vh;
         padding: 2rem 1rem;
       }
@@ -183,7 +209,8 @@
       background: rgba(30,30,30,0.9);
       border-bottom: 1px solid #ffaa0044;
     }
-    body.dark .hero-overlay {
+    body.dark .hero-overlay,
+    body.dark .glacial-lake-overlay {
       background: rgba(0, 0, 0, 0.65);
     }
     body.dark .cta-button {
@@ -216,7 +243,7 @@
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content" data-aos="fade-up">
-      <h1>🧊 Himalayan Snow Monitor </h1>
+      <h1>🧊 Himalayan Snow Monitor</h1>
       <p>Visualize monthly snow cover in the Himalayas using Sentinel-2 and NDSI in Google Earth Engine.</p>
       <a href="https://sayantansaga17.users.earthengine.app/view/himalayan-snow-monitor"
          class="cta-button" target="_blank">
@@ -225,14 +252,38 @@
     </div>
   </section>
 
-  <!-- 📊 Features Section -->
+  <!-- 📊 Snow Features Section -->
   <section class="features" data-aos="fade-up">
-    <h2>📊 Features</h2>
+    <h2>📊 Snow Monitor Features</h2>
     <ul>
-      <li>Monthly snow detection </li>
+      <li>Monthly snow detection</li>
       <li>Sentinel-2 based NDSI thresholding</li>
       <li>Cloud & shadow masking</li>
       <li>Area calculation in sq. km</li>
+    </ul>
+  </section>
+
+  <!-- 🏔️ Glacial Lake Section -->
+  <section class="glacial-lake">
+    <div class="glacial-lake-overlay"></div>
+    <div class="glacial-lake-content" data-aos="fade-up">
+      <h1>🏔️ Explore Glacial Lakes</h1>
+      <p>Discover glacial lake data and insights powered by Sentinel-2 and Google Earth Engine.</p>
+      <a href="https://ee-sayantansaga17.projects.earthengine.app/view/glacial-lake"
+         class="cta-button" target="_blank">
+        🌊 Explore Glacial Lakes
+      </a>
+    </div>
+  </section>
+
+  <!-- 📊 Glacial Lake Features Section -->
+  <section class="features" data-aos="fade-up">
+    <h2>🌊 Glacial Lake Features</h2>
+    <ul>
+      <li>Automated glacial lake mapping</li>
+      <li>NDWI-based water body detection</li>
+      <li>Interactive map visualization</li>
+      <li>Lake area calculation and statistics</li>
     </ul>
   </section>
 
@@ -254,6 +305,3 @@
 
 </body>
 </html>
-
-
-
