@@ -3,307 +3,163 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="google-site-verification" content="FDAepvkc_7N8kAMgrvHQ4tpftIC419QJffiE-ZtBYf0" />
-  <meta name="description" content="Himalayan Snow Monitor - Visualize monthly snow cover for using Sentinel-2 data in Google Earth Engine.">
-  <meta name="keywords" content="Snow Cover, Sentinel-2, GEE App, Remote Sensing, Snow Mask, Himalayas, NDSI, Earth Engine, Snow Monitoring India, Climate Change, Glacier Monitoring">
-  <meta property="og:title" content="Himalayan Snow Monitor | GEE App" />
-  <meta property="og:description" content="Visualize snow cover trends in the Himalayas using Sentinel-2 data and NDSI index." />
-  <meta property="og:image" content="background.png" />
-  <meta property="og:type" content="website" />
+  <meta name="description" content="Himalayan Snow Monitor - Track the Himalayas’ snowy peaks, month by month, with high-resolution Satellite magic">
   <title>🧊 Himalayan Snow Monitor | GEE App</title>
 
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-
-  <!-- AOS Animation Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      AOS.init({ duration: 1000 });
-    });
+    document.addEventListener("DOMContentLoaded", () => { AOS.init({ duration: 1000 }); });
   </script>
 
   <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #f8f9fa;
-      color: #222;
-      transition: background 0.3s, color 0.3s;
-    }
+    body { margin:0; font-family:'Inter',sans-serif; background-color:#f8f9fa; color:#222; transition: background 0.3s,color 0.3s; }
+    .navbar { position:fixed; top:0;width:100%;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);border-bottom:1px solid #00aaff44; padding:0.8rem 2rem; display:flex; justify-content:space-between; align-items:center; z-index:900; }
+    .navbar span { font-weight:bold;color:#0077aa;font-size:1.1rem; }
 
-    /* 🌍 Navbar */
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #00aaff44;
-      padding: 0.8rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 900;
-      transition: background 0.3s ease;
-    }
-    .navbar span {
-      font-weight: bold;
-      color: #0077aa;
-      font-size: 1.1rem;
-    }
+    .hero { position:relative; height:clamp(60vh,85vh,100vh); background:url('background.png') center/cover no-repeat; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:1rem; color:#fff; }
+    .hero-overlay { position:absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.45); z-index:1; }
+    .hero-content { position:relative; z-index:2; max-width:800px; padding:1rem; width:100%; }
+    .hero h1 { font-size:clamp(1.8rem,5vw,3rem); margin-bottom:1rem; }
+    .hero p { font-size:clamp(1rem,2.5vw,1.3rem); margin-bottom:1.5rem; }
 
-    /* 🌄 Hero Section */
-    .hero {
-      position: relative;
-      height: clamp(60vh, 85vh, 100vh);
-      background: url('background.png') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 1rem;
-      color: #fff;
-    }
-    .hero-overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: 1;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      padding: 1rem;
-    }
-    .hero h1 {
-      font-size: clamp(1.8rem, 5vw, 3rem);
-      margin-bottom: 1rem;
-    }
-    .hero p {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      margin-bottom: 1.5rem;
-    }
+    .cta-button { display:inline-block; background:#00aaff; color:white; padding:0.9rem 1.8rem; border-radius:8px; font-size:1.1rem; text-decoration:none; transition:background 0.3s ease,transform 0.2s ease; cursor:pointer; }
+    .cta-button:hover { background:#007acc; transform:translateY(-3px); }
 
-    /* 🚀 CTA Button */
-    .cta-button {
-      display: inline-block;
-      background: #00aaff;
-      color: white;
-      padding: 0.9rem 1.8rem;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      text-decoration: none;
-      transition: background 0.3s ease, transform 0.2s ease;
-    }
-    .cta-button:hover {
-      background: #007acc;
-      transform: translateY(-3px);
-    }
+    .hierarchy-buttons { position:relative; width:100%; margin-top:40px; opacity:0; transform:scale(0); transition:all 0.4s ease; display:flex; justify-content:space-between; max-width:100%; }
+    .hierarchy-buttons.show { opacity:1; transform:scale(1); }
+    .hierarchy-buttons button { background:#00aaff; color:white; border:none; padding:1rem 1.5rem; border-radius:8px; cursor:pointer; font-weight:bold; font-size:1.3rem; transition:background 0.3s ease; min-width:120px; }
+    .hierarchy-buttons button:hover { background:#007acc; }
 
-    /* 🌙 Dark/Light Floating Toggle */
-    .theme-toggle {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      z-index: 1001;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.6);
-      border: none;
-      color: white;
-      font-size: 1.3rem;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.3s ease;
-    }
-    .theme-toggle:hover {
-      background: rgba(0,0,0,0.8);
-    }
+    .descriptive-box { margin-top:30px; display:none; background: rgba(255,255,255,0.95); padding:20px; border-radius:10px; text-align:left; max-width:600px; width:90%; color:#222; box-shadow:0 8px 12px rgba(0,0,0,0.2); }
+    .descriptive-box label { display:block; margin-top:10px; font-weight:bold; }
+    .descriptive-box input, .descriptive-box select { width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1px solid #ccc; }
 
-    /* 📊 Features Section */
-    .features {
-      background: #e0f7ff;
-      padding: 3rem 1rem;
-      text-align: center;
-    }
-    .features h2 {
-      margin-bottom: 1.5rem;
-      color: #004466;
-    }
-    .features ul {
-      max-width: 600px;
-      margin: auto;
-      text-align: left;
-      list-style: disc;
-      padding-left: 1.5rem;
-      line-height: 1.7;
-      color: #003344;
-    }
+    .theme-toggle { position:fixed; top:15px; right:15px; z-index:1001; width:45px; height:45px; border-radius:50%; background: rgba(0,0,0,0.6); border:none; color:white; font-size:1.3rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:0.3s; }
+    .theme-toggle:hover { background: rgba(0,0,0,0.8); }
+    footer { background:#e0f7ff; padding:1rem; text-align:center; font-size:0.9rem; color:#004466; }
 
-    /* 🏔️ Glacial Lake Section */
-    .glacial-lake {
-      position: relative;
-      height: clamp(60vh, 85vh, 100vh);
-      background: url('glacial_lake.png') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 1rem;
-      color: #fff;
-    }
-    .glacial-lake-overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.45);
-      z-index: 1;
-    }
-    .glacial-lake-content {
-      position: relative;
-      z-index: 2;
-      max-width: 800px;
-      padding: 1rem;
-    }
+    body.dark { background-color:#121212; color:#eee; }
+    body.dark .navbar { background: rgba(30,30,30,0.9); border-bottom:1px solid #ffaa0044; }
+    body.dark .hero-overlay { background: rgba(0,0,0,0.65); }
+    body.dark footer { background:#1e1e1e; color:#bbb; }
+    body.dark .theme-toggle { background: rgba(255, 255, 255, 0.8); color:#222; }
+    body.dark .cta-button, body.dark .hierarchy-buttons button, body.dark #feedback-toggle, body.dark #feedback-submit { background:#ffaa00; color:white; }
+    body.dark .cta-button:hover, body.dark .hierarchy-buttons button:hover, body.dark #feedback-toggle:hover, body.dark #feedback-submit:hover { background:#e69500; }
 
-    /* 📱 Footer */
-    footer {
-      background: #e0f7ff;
-      padding: 1rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #004466;
-    }
+    #feedback-widget { position:fixed; bottom:20px; right:20px; z-index:1002; font-family:'Inter',sans-serif; }
+    #feedback-toggle { background:#00aaff; border:none; padding:0.8rem 1rem; border-radius:50px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.2); transition:0.3s; color:white; }
+    #feedback-form { display:none; margin-top:10px; background:white; border-radius:10px; box-shadow:0 8px 12px rgba(0,0,0,0.2); padding:1rem; width:250px; color:#222; }
+    #feedback-form h3 { margin:0 0 0.5rem 0; font-size:1.1rem; color:#0077aa; }
+    #feedback-form textarea {
+  width: 100%;
+  box-sizing: border-box; /* Add this */
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  resize: none;
+  margin-bottom: 0.5rem;
+}
 
-    /* 📱 Mobile Adjustments */
-    @media (max-width: 768px) {
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem;
-      }
-      .hero, .glacial-lake {
-        height: 65vh;
-        padding: 2rem 1rem;
-      }
-      .cta-button {
-        width: 100%;
-        font-size: 1rem;
-        padding: 0.8rem 1.4rem;
-      }
-    }
-
-    /* 🌑 Dark Mode Styles */
-    body.dark {
-      background-color: #121212;
-      color: #eee;
-    }
-    body.dark .navbar {
-      background: rgba(30,30,30,0.9);
-      border-bottom: 1px solid #ffaa0044;
-    }
-    body.dark .hero-overlay,
-    body.dark .glacial-lake-overlay {
-      background: rgba(0, 0, 0, 0.65);
-    }
-    body.dark .cta-button {
-      background: #ffaa00;
-    }
-    body.dark .cta-button:hover {
-      background: #cc8800;
-    }
-    body.dark footer {
-      background: #1e1e1e;
-      color: #bbb;
-    }
-    body.dark .theme-toggle {
-      background: rgba(255, 255, 255, 0.8);
-      color: #222;
-    }
+    #feedback-submit { background:#00aaff; color:white; border:none; padding:0.5rem 0.8rem; border-radius:6px; cursor:pointer; width:100%; font-weight:bold; }
+    #feedback-submit:hover { background:#007acc; }
+    body.dark #feedback-form { background:#222; color:#eee; }
+    body.dark #feedback-form textarea { background:#333; color:#eee; border:1px solid #555; }
   </style>
 </head>
 <body>
 
-  <!-- 🌍 Navbar -->
-  <div class="navbar">
-    <span>❄️ Snow Monitor</span>
+<div class="navbar"><span>❄️ Snow Monitor</span></div>
+<button class="theme-toggle">🌙</button>
+
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content" data-aos="fade-up">
+    <h1>🧊 Himalayan Snow Monitor</h1>
+    <p>Track the Himalayas’ snowy peaks, month by month, with high-resolution Satellite magic</p>
+    <button class="cta-button" id="explore-btn">🌐 Explore</button>
+
+    <div class="hierarchy-buttons" id="hierarchy-buttons">
+      <button id="btn-what" style="align-self:flex-start;">What?</button>
+      <button id="btn-where" style="align-self:center;">Where?</button>
+      <button id="btn-when" style="align-self:flex-end;">When?</button>
+    </div>
+
+    <div class="descriptive-box" id="box-what">
+      <label>Type of Satellite Imagery</label>
+      <select id="satellite-type">
+        <option>Sentinel-2</option>
+        <option>Landsat-8</option>
+        <option>MODIS</option>
+      </select>
+    </div>
+
+    <div class="descriptive-box" id="box-where">
+      <label>Location of Himalayan Region</label>
+      <input type="text" id="location" placeholder="E.g., Uttarakhand, Nepal, Ladakh">
+    </div>
+
+    <div class="descriptive-box" id="box-when">
+      <label>Select Date (Year 2018-2026)</label>
+      <input type="date" id="date" min="2018-01-01" max="2026-12-31">
+    </div>
+
   </div>
+</section>
 
-  <!-- 🌙 Floating Theme Toggle -->
-  <button class="theme-toggle">🌙</button>
+<footer>&copy; 2025 Sayantan Majumder | High-resolution snow cover analysis using Earth observation data.</footer>
 
-  <!-- 🌄 Hero Section -->
-  <section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content" data-aos="fade-up">
-      <h1>🧊 Himalayan Snow Monitor</h1>
-      <p>Visualize monthly snow cover in the Himalayas using Sentinel-2 and NDSI in Google Earth Engine.</p>
-      <a href="https://sayantansaga17.users.earthengine.app/view/himalayan-snow-monitor"
-         class="cta-button" target="_blank">
-        👉 Try Snow Monitor Now
-      </a>
-    </div>
-  </section>
+<div id="feedback-widget">
+  <button id="feedback-toggle">💬 Feedback</button>
+  <div id="feedback-form">
+    <h3>Send Feedback</h3>
+    <textarea id="feedback-text" placeholder="Your thoughts..." rows="4"></textarea>
+    <button id="feedback-submit">Submit</button>
+  </div>
+</div>
 
-  <!-- 📊 Snow Features Section -->
-  <section class="features" data-aos="fade-up">
-    <h2>📊 Snow Monitor Features</h2>
-    <ul>
-      <li>Monthly snow detection</li>
-      <li>Sentinel-2 based NDSI thresholding</li>
-      <li>Cloud & shadow masking</li>
-      <li>Area calculation in sq. km</li>
-    </ul>
-  </section>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.querySelector(".theme-toggle");
+  toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    toggleBtn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+  });
 
-  <!-- 🏔️ Glacial Lake Section -->
-  <section class="glacial-lake">
-    <div class="glacial-lake-overlay"></div>
-    <div class="glacial-lake-content" data-aos="fade-up">
-      <h1>🏔️ Explore Glacial Lakes</h1>
-      <p>Discover glacial lake data and insights powered by Sentinel-2 and Google Earth Engine.</p>
-      <a href="https://ee-sayantansaga17.projects.earthengine.app/view/glacial-lake"
-         class="cta-button" target="_blank">
-        🌊 Explore Glacial Lakes
-      </a>
-    </div>
-  </section>
+  const feedbackToggle = document.getElementById("feedback-toggle");
+  const feedbackForm = document.getElementById("feedback-form");
+  const feedbackSubmit = document.getElementById("feedback-submit");
+  feedbackToggle.addEventListener("click", () => {
+    feedbackForm.style.display = feedbackForm.style.display === "block" ? "none" : "block";
+  });
+  feedbackSubmit.addEventListener("click", () => {
+    const feedback = document.getElementById("feedback-text").value;
+    if(feedback.trim() !== "") {
+      alert("Thanks for your feedback! ✅\n\n" + feedback);
+      document.getElementById("feedback-text").value = "";
+      feedbackForm.style.display = "none";
+    } else alert("Please enter some feedback before submitting.");
+  });
 
-  <!-- 📊 Glacial Lake Features Section -->
-  <section class="features" data-aos="fade-up">
-    <h2>🌊 Glacial Lake Features</h2>
-    <ul>
-      <li>Automated glacial lake mapping</li>
-      <li>NDWI-based water body detection</li>
-      <li>Interactive map visualization</li>
-      <li>Lake area calculation and statistics</li>
-    </ul>
-  </section>
+  const exploreBtn = document.getElementById("explore-btn");
+  const hierarchyButtons = document.getElementById("hierarchy-buttons");
+  exploreBtn.addEventListener("click", () => hierarchyButtons.classList.toggle("show"));
 
-  <!-- 📱 Footer -->
-  <footer>
-    &copy; 2025 Sayantan Majumder | Built using Sentinel-2 & Google Earth Engine
-  </footer>
-
-  <script>
-    // 🌙 Dark/Light Mode Toggle
-    document.addEventListener("DOMContentLoaded", () => {
-      const toggleBtn = document.querySelector(".theme-toggle");
-      toggleBtn.addEventListener("click", () => {
-        document.body.classList.toggle("dark");
-        toggleBtn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
-      });
-    });
-  </script>
+  document.getElementById("btn-what").addEventListener("click", () => {
+    document.getElementById("box-what").style.display =
+      document.getElementById("box-what").style.display === "block" ? "none" : "block";
+  });
+  document.getElementById("btn-where").addEventListener("click", () => {
+    document.getElementById("box-where").style.display =
+      document.getElementById("box-where").style.display === "block" ? "none" : "block";
+  });
+  document.getElementById("btn-when").addEventListener("click", () => {
+    document.getElementById("box-when").style.display =
+      document.getElementById("box-when").style.display === "block" ? "none" : "block";
+  });
+});
+</script>
 
 </body>
 </html>
-
-
