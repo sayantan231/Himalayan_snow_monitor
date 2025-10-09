@@ -9,6 +9,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init("KDneGv21Mr1F9mnoL"); // Your public key
+    })();
+  </script>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => { AOS.init({ duration: 1000 }); });
   </script>
@@ -52,20 +61,19 @@
     #feedback-toggle { background:#00aaff; border:none; padding:0.8rem 1rem; border-radius:50px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.2); transition:0.3s; color:white; }
     #feedback-form { display:none; margin-top:10px; background:white; border-radius:10px; box-shadow:0 8px 12px rgba(0,0,0,0.2); padding:1rem; width:250px; color:#222; }
     #feedback-form h3 { margin:0 0 0.5rem 0; font-size:1.1rem; color:#0077aa; }
-    #feedback-form textarea {
-  width: 100%;
-  box-sizing: border-box; /* Add this */
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  resize: none;
-  margin-bottom: 0.5rem;
-}
-
+    #feedback-form input, #feedback-form textarea {
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      resize: none;
+    }
     #feedback-submit { background:#00aaff; color:white; border:none; padding:0.5rem 0.8rem; border-radius:6px; cursor:pointer; width:100%; font-weight:bold; }
     #feedback-submit:hover { background:#007acc; }
     body.dark #feedback-form { background:#222; color:#eee; }
-    body.dark #feedback-form textarea { background:#333; color:#eee; border:1px solid #555; }
+    body.dark #feedback-form input, body.dark #feedback-form textarea { background:#333; color:#eee; border:1px solid #555; }
   </style>
 </head>
 <body>
@@ -114,6 +122,8 @@
   <button id="feedback-toggle">💬 Feedback</button>
   <div id="feedback-form">
     <h3>Send Feedback</h3>
+    <input type="text" id="feedback-name" placeholder="Your Name" />
+    <input type="email" id="feedback-email" placeholder="Your Email" />
     <textarea id="feedback-text" placeholder="Your thoughts..." rows="4"></textarea>
     <button id="feedback-submit">Submit</button>
   </div>
@@ -121,42 +131,62 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  // Theme toggle
   const toggleBtn = document.querySelector(".theme-toggle");
   toggleBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark");
     toggleBtn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
   });
 
+  // Feedback widget toggle
   const feedbackToggle = document.getElementById("feedback-toggle");
   const feedbackForm = document.getElementById("feedback-form");
-  const feedbackSubmit = document.getElementById("feedback-submit");
   feedbackToggle.addEventListener("click", () => {
     feedbackForm.style.display = feedbackForm.style.display === "block" ? "none" : "block";
   });
+
+  // Feedback submission via EmailJS
+  const feedbackSubmit = document.getElementById("feedback-submit");
   feedbackSubmit.addEventListener("click", () => {
-    const feedback = document.getElementById("feedback-text").value;
-    if(feedback.trim() !== "") {
-      alert("Thanks for your feedback! ✅\n\n" + feedback);
-      document.getElementById("feedback-text").value = "";
-      feedbackForm.style.display = "none";
-    } else alert("Please enter some feedback before submitting.");
+    const name = document.getElementById("feedback-name").value.trim() || "Anonymous";
+    const email = document.getElementById("feedback-email").value.trim() || "no-reply@example.com";
+    const feedback = document.getElementById("feedback-text").value.trim();
+
+    if(feedback === "") {
+      alert("Please enter some feedback before submitting.");
+      return;
+    }
+
+    const tempForm = { user_name: name, user_email: email, message: feedback };
+
+    emailjs.send('service_2uxoh21', 'template_05vbc95', tempForm)
+      .then(() => {
+        alert("Thanks for your feedback! ✅");
+        document.getElementById("feedback-name").value = "";
+        document.getElementById("feedback-email").value = "";
+        document.getElementById("feedback-text").value = "";
+        feedbackForm.style.display = "none";
+      }, (error) => {
+        alert("Oops... something went wrong. Please try again later.\n" + JSON.stringify(error));
+      });
   });
 
+  // Explore button and hierarchy toggles
   const exploreBtn = document.getElementById("explore-btn");
   const hierarchyButtons = document.getElementById("hierarchy-buttons");
   exploreBtn.addEventListener("click", () => hierarchyButtons.classList.toggle("show"));
 
   document.getElementById("btn-what").addEventListener("click", () => {
-    document.getElementById("box-what").style.display =
-      document.getElementById("box-what").style.display === "block" ? "none" : "block";
+    const box = document.getElementById("box-what");
+    box.style.display = box.style.display === "block" ? "none" : "block";
   });
   document.getElementById("btn-where").addEventListener("click", () => {
-    document.getElementById("box-where").style.display =
-      document.getElementById("box-where").style.display === "block" ? "none" : "block";
+    const box = document.getElementById("box-where");
+    box.style.display = box.style.display === "block" ? "none" : "block";
   });
   document.getElementById("btn-when").addEventListener("click", () => {
-    document.getElementById("box-when").style.display =
-      document.getElementById("box-when").style.display === "block" ? "none" : "block";
+    const box = document.getElementById("box-when");
+    box.style.display = box.style.display === "block" ? "none" : "block";
   });
 });
 </script>
