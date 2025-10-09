@@ -61,7 +61,7 @@
     #feedback-toggle { background:#00aaff; border:none; padding:0.8rem 1rem; border-radius:50px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.2); transition:0.3s; color:white; }
     #feedback-form { display:none; margin-top:10px; background:white; border-radius:10px; box-shadow:0 8px 12px rgba(0,0,0,0.2); padding:1rem; width:250px; color:#222; }
     #feedback-form h3 { margin:0 0 0.5rem 0; font-size:1.1rem; color:#0077aa; }
-    #feedback-form input, #feedback-form textarea {
+    #feedback-form textarea {
       width: 100%;
       box-sizing: border-box;
       border-radius: 6px;
@@ -73,7 +73,7 @@
     #feedback-submit { background:#00aaff; color:white; border:none; padding:0.5rem 0.8rem; border-radius:6px; cursor:pointer; width:100%; font-weight:bold; }
     #feedback-submit:hover { background:#007acc; }
     body.dark #feedback-form { background:#222; color:#eee; }
-    body.dark #feedback-form input, body.dark #feedback-form textarea { background:#333; color:#eee; border:1px solid #555; }
+    body.dark #feedback-form textarea { background:#333; color:#eee; border:1px solid #555; }
   </style>
 </head>
 <body>
@@ -116,14 +116,12 @@
   </div>
 </section>
 
-<footer>&copy; 2025 Sayantan Majumder | High-resolution snow cover analysis using Earth observation data.</footer>
+<footer>&copy; 2025 | High-resolution snow cover analysis using Earth observation data.</footer>
 
 <div id="feedback-widget">
   <button id="feedback-toggle">💬 Feedback</button>
   <div id="feedback-form">
     <h3>Send Feedback</h3>
-    <input type="text" id="feedback-name" placeholder="Your Name" />
-    <input type="email" id="feedback-email" placeholder="Your Email" />
     <textarea id="feedback-text" placeholder="Your thoughts..." rows="4"></textarea>
     <button id="feedback-submit">Submit</button>
   </div>
@@ -148,8 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Feedback submission via EmailJS
   const feedbackSubmit = document.getElementById("feedback-submit");
   feedbackSubmit.addEventListener("click", () => {
-    const name = document.getElementById("feedback-name").value.trim() || "Anonymous";
-    const email = document.getElementById("feedback-email").value.trim() || "no-reply@example.com";
     const feedback = document.getElementById("feedback-text").value.trim();
 
     if(feedback === "") {
@@ -157,13 +153,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const tempForm = { user_name: name, user_email: email, message: feedback };
+    const tempForm = { message: feedback };
 
     emailjs.send('service_2uxoh21', 'template_05vbc95', tempForm)
       .then(() => {
         alert("Thanks for your feedback! ✅");
-        document.getElementById("feedback-name").value = "";
-        document.getElementById("feedback-email").value = "";
         document.getElementById("feedback-text").value = "";
         feedbackForm.style.display = "none";
       }, (error) => {
