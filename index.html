@@ -140,39 +140,44 @@
 </script>
 
 <!-- EmailJS SDK (UMD) -->
-<script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script type="text/javascript">
-  (function(){
-    emailjs.init("KDneGv21Mr1F9mnoL"); // Your public key
-  })();
+<script type="module">
+  import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+
+  emailjs.init({ publicKey: 'KDneGv21Mr1F9mnoL' });
 
   document.addEventListener("DOMContentLoaded", function() {
     const feedbackToggle = document.getElementById("feedback-toggle");
     const feedbackForm = document.getElementById("feedback-form");
     const feedbackSubmit = document.getElementById("feedback-submit");
 
-    feedbackToggle.addEventListener("click", function() {
+    feedbackToggle.addEventListener("click", () => {
       feedbackForm.style.display = feedbackForm.style.display === "block" ? "none" : "block";
     });
 
-    feedbackSubmit.addEventListener("click", function() {
+    feedbackSubmit.addEventListener("click", async () => {
       const feedback = document.getElementById("feedback-text").value.trim();
-      if (!feedback) { alert("Please enter some feedback before submitting."); return; }
+      if (!feedback) return alert("Please enter some feedback before submitting.");
 
-      const tempForm = { message: feedback };
+      const tempForm = {
+        name: "Anonymous User",
+        time: new Date().toLocaleString(),
+        message: feedback
+      };
 
-      emailjs.send('service_2uxoh21', 'template_05vbc95', tempForm)
-        .then(function() {
-          alert("Thanks for your feedback! ✅");
-          document.getElementById("feedback-text").value = "";
-          feedbackForm.style.display = "none";
-        }, function(error) {
-          console.error(error);
-          alert("Oops... something went wrong. Please try again later.");
-        });
+      try {
+        await emailjs.send('service_2uxoh21', 'template_05vbc95', tempForm);
+        alert("Thanks for your feedback! ✅");
+        document.getElementById("feedback-text").value = "";
+        feedbackForm.style.display = "none";
+      } catch (error) {
+        console.error("EmailJS Error:", error);
+        alert("Oops... something went wrong. Please try again later.");
+      }
     });
   });
 </script>
 
+
 </body>
 </html>
+
