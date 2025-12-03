@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +14,12 @@
 body{margin:0;font-family:'Inter',sans-serif;transition:0.3s;background:#f8f9fa;color:#222;}
 .navbar{position:fixed;top:0;width:100%;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);border-bottom:1px solid #00aaff44;padding:.8rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:900;}
 .navbar span{font-weight:bold;color:#0077aa;font-size:1.1rem;}
+
+/* Dark Mode Toggle Button */
+.theme-toggle{position:fixed;top:15px;right:15px;width:45px;height:45px;border-radius:50%;background:rgba(0,170,255,0.85);border:none;color:white;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.3s;z-index:1000;}
+.theme-toggle:hover{background:rgba(0,140,220,0.9);}
+
+/* Hero Sections */
 .hero{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem;color:#fff;}
 .hero-overlay{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;}
 .hero-content{position:relative;z-index:2;max-width:800px;padding:1rem;width:100%;}
@@ -22,16 +27,10 @@ body{margin:0;font-family:'Inter',sans-serif;transition:0.3s;background:#f8f9fa;
 .hero p{font-size:clamp(1rem,2.5vw,1.3rem);margin-bottom:1.5rem;}
 .cta-button{background:#00aaff;color:#fff;padding:.9rem 1.8rem;border-radius:8px;font-size:1.1rem;text-decoration:none;transition:.3s;cursor:pointer;}
 .cta-button:hover{background:#007acc;transform:translateY(-3px);}
-.theme-toggle{position:fixed;top:15px;right:15px;width:45px;height:45px;border-radius:50%;background:rgba(0,0,0,0.6);border:none;color:white;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.3s;}
-.theme-toggle:hover{background:rgba(0,0,0,0.8);}
+
 footer{background:#e0f7ff;padding:1rem;text-align:center;font-size:.9rem;color:#004466;}
-body.dark{background:#121212;color:#eee;}
-body.dark .navbar{background:rgba(30,30,30,0.9);border-bottom:1px solid #ffaa0044;}
-body.dark .hero-overlay{background:rgba(0,0,0,0.65);}
-body.dark footer{background:#1e1e1e;color:#bbb;}
-body.dark .theme-toggle{background:rgba(255,255,255,0.8);color:#222;}
-body.dark .cta-button{background:#ffaa00;}
-body.dark .cta-button:hover{background:#e69500;}
+
+/* Feedback Widget */
 #feedback-widget{position:fixed;bottom:20px;right:20px;z-index:1002;font-family:'Inter',sans-serif;}
 #feedback-toggle{background:#00aaff;border:none;padding:.8rem 1rem;border-radius:50px;cursor:pointer;box-shadow:0 4px 6px rgba(0,0,0,.2);transition:.3s;color:white;}
 #feedback-form{display:none;margin-top:10px;background:white;border-radius:10px;box-shadow:0 8px 12px rgba(0,0,0,.2);padding:1rem;width:250px;color:#222;}
@@ -39,9 +38,8 @@ body.dark .cta-button:hover{background:#e69500;}
 #feedback-form input,#feedback-form textarea{width:100%;box-sizing:border-box;border-radius:6px;border:1px solid #ccc;padding:.5rem;margin-bottom:.5rem;resize:none;}
 #feedback-submit{background:#00aaff;color:white;border:none;padding:.5rem .8rem;border-radius:6px;cursor:pointer;width:100%;font-weight:bold;}
 #feedback-submit:hover{background:#007acc;}
-body.dark #feedback-form{background:#222;color:#eee;}
-body.dark #feedback-form input,body.dark #feedback-form textarea{background:#333;color:#eee;border:1px solid #555;}
-/* Hero Sections */
+
+/* Hero specific */
 .hero:first-of-type{height:clamp(60vh,85vh,100vh);background:url('background.png') center/cover no-repeat;flex-direction:column;}
 .hero:first-of-type .hero-overlay{background:rgba(0,0,0,0.45);}
 .second-hero,.third-hero{height:clamp(60vh,85vh,100vh);display:flex;align-items:center;justify-content:center;padding:2rem;position:relative;}
@@ -53,8 +51,18 @@ body.dark #feedback-form input,body.dark #feedback-form textarea{background:#333
 .hero-video{flex:1 1 450px;max-width:600px;}
 .hero-text{flex:1 1 450px;text-align:left;}
 @media(max-width:900px){.split-content{flex-direction:column;text-align:center;}.hero-text{text-align:center;}.hero-video{max-width:100%;}}
+
+/* Dark Mode Styles */
+body.dark{background:#121212;color:#eee;}
+body.dark .navbar{background:rgba(30,30,30,0.9);border-bottom:1px solid #ffaa0044;}
+body.dark .hero-overlay{background:rgba(0,0,0,0.65);}
+body.dark footer{background:#1e1e1e;color:#bbb;}
+body.dark .theme-toggle{background:rgba(255,255,255,0.85);color:#222;}
+body.dark .cta-button{background:#ffaa00;}
+body.dark .cta-button:hover{background:#e69500;}
+body.dark #feedback-form{background:#222;color:#eee;}
+body.dark #feedback-form input,body.dark #feedback-form textarea{background:#333;color:#eee;border:1px solid #555;}
 body.dark .second-hero{background:#1e1e3e;}
-body.dark .second-hero .hero-text,.body.dark .third-hero .hero-text{color:#eee;}
 body.dark .third-hero{background:#2a3d5f;}
 </style>
 </head>
@@ -82,6 +90,7 @@ body.dark .third-hero{background:#2a3d5f;}
       <p>Get your very own high-resolution, tailor-made maps of the Himalayas! Perfect for adventure planning, research, or as a stunning wall display. Maps crafted to your specifications—ready to wow.</p>
     </div>
     <div class="hero-video">
+      <!-- Use relative path for local image -->
       <img src="jk.png" alt="Custom Himalayan Map" style="width:100%; border-radius:12px;">
     </div>
   </div>
@@ -117,34 +126,40 @@ body.dark .third-hero{background:#2a3d5f;}
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded",()=>{
+document.addEventListener("DOMContentLoaded", () => {
   AOS.init({duration:1000});
-  const toggleBtn=document.querySelector(".theme-toggle");
-  toggleBtn.addEventListener("click",()=>{
+
+  // Dark mode toggle
+  const toggleBtn = document.querySelector(".theme-toggle");
+  toggleBtn.addEventListener("click", () => {
     document.body.classList.toggle("dark");
-    toggleBtn.textContent=document.body.classList.contains("dark")?"☀️":"🌙";
+    toggleBtn.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
   });
-  const feedbackToggle=document.getElementById("feedback-toggle"),feedbackForm=document.getElementById("feedback-form");
-  feedbackToggle.addEventListener("click",()=>{feedbackForm.style.display=feedbackForm.style.display==="block"?"none":"block";});
-  const feedbackSubmit=document.getElementById("feedback-submit");
-  feedbackSubmit.addEventListener("click",()=>{
-    const n=document.getElementById("feedback-name").value.trim()||"Anonymous",
-          e=document.getElementById("feedback-email").value.trim()||"no-reply@example.com",
-          m=document.getElementById("feedback-text").value.trim();
-    if(!m){alert("Please enter some feedback.");return;}
-    emailjs.send('service_2uxoh21','template_05vbc95',{user_name:n,user_email:e,message:m}).then(()=>{
-      alert("Thanks for your feedback! ✅");
-      feedbackForm.style.display="none";
-      document.getElementById("feedback-name").value="";
-      document.getElementById("feedback-email").value="";
-      document.getElementById("feedback-text").value="";
-    },(err)=>{alert("Oops... something went wrong.\n"+JSON.stringify(err));});
+
+  // Feedback widget
+  const feedbackToggle = document.getElementById("feedback-toggle");
+  const feedbackForm = document.getElementById("feedback-form");
+  feedbackToggle.addEventListener("click", () => {
+    feedbackForm.style.display = feedbackForm.style.display === "block" ? "none" : "block";
   });
-  document.getElementById("explore-btn").addEventListener("click",()=>{
+  document.getElementById("feedback-submit").addEventListener("click", () => {
+    const n = document.getElementById("feedback-name").value.trim() || "Anonymous",
+          e = document.getElementById("feedback-email").value.trim() || "no-reply@example.com",
+          m = document.getElementById("feedback-text").value.trim();
+    if (!m) { alert("Please enter some feedback."); return; }
+    emailjs.send('service_2uxoh21','template_05vbc95',{user_name:n,user_email:e,message:m})
+      .then(() => { alert("Thanks for your feedback! ✅"); feedbackForm.style.display="none";
+                    document.getElementById("feedback-name").value="";
+                    document.getElementById("feedback-email").value="";
+                    document.getElementById("feedback-text").value=""; })
+      .catch(err => { alert("Oops... something went wrong.\n"+JSON.stringify(err)); });
+  });
+
+  // Explore button
+  document.getElementById("explore-btn").addEventListener("click", () => {
     window.location.href="https://docs.google.com/forms/d/e/1FAIpQLSdpQy887K025QVm6z-VNOADV9GAJM3yWcs4N8k4FoNe1yc0Tg/viewform?usp=sharing";
   });
 });
 </script>
 </body>
 </html>
-
