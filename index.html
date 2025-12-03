@@ -72,23 +72,21 @@ body.dark .third-hero{background:#2a3d5f;}
   </div>
 </section>
 
-<!-- Second Hero -->
+<!-- Second Hero (Custom Maps Promo) -->
 <section class="hero second-hero">
   <div class="hero-overlay"></div>
   <div class="hero-content split-content" data-aos="fade-up">
     <div class="hero-text">
-      <h1>Uttarakhand</h1>
-      <p>Witness the mesmerizing seasonal changes of Uttarakhand’s glaciers through high-resolution satellite timelapse.</p>
+      <h1>Custom Himalayan Maps</h1>
+      <p>Get your very own high-resolution, tailor-made maps of the Himalayas! Perfect for adventure planning, research, or as a stunning wall display. Maps crafted to your specifications—ready to wow.</p>
     </div>
     <div class="hero-video">
-      <video autoplay muted loop playsinline style="width:100%; border-radius:12px;">
-        <source src="Uttarakhand_timelapse_2024.mp4" type="video/mp4">
-      </video>
+      <img src="E:\HTML\jk.png" alt="Custom Himalayan Map" style="width:100%; border-radius:12px;">
     </div>
   </div>
 </section>
 
-<!-- Third Hero -->
+<!-- Third Hero (Timelapse Videos) -->
 <section class="hero third-hero">
   <div class="hero-overlay"></div>
   <div class="hero-content split-content" data-aos="fade-up">
@@ -98,8 +96,8 @@ body.dark .third-hero{background:#2a3d5f;}
       </video>
     </div>
     <div class="hero-text">
-      <h1>Himachal Pradesh</h1>
-      <p>Explore the seasonal transformations of Himachal Pradesh’s glaciers captured in high-resolution timelapse.</p>
+      <h1>Timelapse Videos</h1>
+      <p>Experience the majestic transformations of Himalayan snow and glaciers captured in stunning high-resolution timelapse videos. Perfect for enthusiasts, researchers, or anyone fascinated by the mountains.</p>
     </div>
   </div>
 </section>
@@ -121,18 +119,29 @@ body.dark .third-hero{background:#2a3d5f;}
 document.addEventListener("DOMContentLoaded",()=>{
   AOS.init({duration:1000});
   const toggleBtn=document.querySelector(".theme-toggle");
-  toggleBtn.addEventListener("click",()=>{document.body.classList.toggle("dark");toggleBtn.textContent=document.body.classList.contains("dark")?"☀️":"🌙";});
+  toggleBtn.addEventListener("click",()=>{
+    document.body.classList.toggle("dark");
+    toggleBtn.textContent=document.body.classList.contains("dark")?"☀️":"🌙";
+  });
   const feedbackToggle=document.getElementById("feedback-toggle"),feedbackForm=document.getElementById("feedback-form");
   feedbackToggle.addEventListener("click",()=>{feedbackForm.style.display=feedbackForm.style.display==="block"?"none":"block";});
   const feedbackSubmit=document.getElementById("feedback-submit");
   feedbackSubmit.addEventListener("click",()=>{
-    const n=document.getElementById("feedback-name").value.trim()||"Anonymous",e=document.getElementById("feedback-email").value.trim()||"no-reply@example.com",m=document.getElementById("feedback-text").value.trim();
+    const n=document.getElementById("feedback-name").value.trim()||"Anonymous",
+          e=document.getElementById("feedback-email").value.trim()||"no-reply@example.com",
+          m=document.getElementById("feedback-text").value.trim();
     if(!m){alert("Please enter some feedback.");return;}
     emailjs.send('service_2uxoh21','template_05vbc95',{user_name:n,user_email:e,message:m}).then(()=>{
-      alert("Thanks for your feedback! ✅");feedbackForm.style.display="none";document.getElementById("feedback-name").value="";document.getElementById("feedback-email").value="";document.getElementById("feedback-text").value="";
+      alert("Thanks for your feedback! ✅");
+      feedbackForm.style.display="none";
+      document.getElementById("feedback-name").value="";
+      document.getElementById("feedback-email").value="";
+      document.getElementById("feedback-text").value="";
     },(err)=>{alert("Oops... something went wrong.\n"+JSON.stringify(err));});
   });
-  document.getElementById("explore-btn").addEventListener("click",()=>{window.location.href="https://docs.google.com/forms/d/e/1FAIpQLSdpQy887K025QVm6z-VNOADV9GAJM3yWcs4N8k4FoNe1yc0Tg/viewform?usp=sharing";});
+  document.getElementById("explore-btn").addEventListener("click",()=>{
+    window.location.href="https://docs.google.com/forms/d/e/1FAIpQLSdpQy887K025QVm6z-VNOADV9GAJM3yWcs4N8k4FoNe1yc0Tg/viewform?usp=sharing";
+  });
 });
 </script>
 </body>
