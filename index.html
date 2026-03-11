@@ -55,8 +55,9 @@ const descriptionContainer=document.getElementById('cirqueDescription'),cirqueIm
 currentText=cirqueText;
 function typeWriter(text){clearTimeout(typingTimeout);descriptionContainer.innerHTML='';let i=0;function write(){if(i<text.length){descriptionContainer.innerHTML+=text.charAt(i);i++;typingTimeout=setTimeout(write,20)}}write()}
 window.addEventListener('load',()=>{typeWriter(cirqueText)});
-switchBtn.addEventListener('click',()=>{if(currentText===cirqueText){cirqueImg.src="E:/HTML/U_valley.jpg";currentText=uValleyText;typeWriter(currentText)}});
+switchBtn.addEventListener('click',()=>{if(currentText===cirqueText){cirqueImg.src="U_valley.jpg";currentText=uValleyText;typeWriter(currentText)}});
 switchBtnLeft.addEventListener('click',()=>{if(currentText===uValleyText){cirqueImg.src="Cirque_HSM.png";currentText=cirqueText;typeWriter(currentText)}});
 </script>
 </body>
 </html>
+
