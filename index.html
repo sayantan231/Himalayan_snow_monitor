@@ -1,224 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🧊 Himalayan Snow Monitor</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
-
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Inter',sans-serif; background:#000; overflow-x:hidden; scroll-behavior:smooth; }
-
-/* HERO SECTIONS */
-.hero, .second-hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; position:relative; }
-
-/* NAVBAR */
-.navbar { position:fixed; top:0; width:100%; height:70px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.9); backdrop-filter:blur(12px); border-bottom:1px solid #00aaff55; z-index:1002; }
-.nav-title { font-size:clamp(1.8rem,3vw,2.5rem); font-weight:900; text-transform:uppercase; background:linear-gradient(90deg,#0077ff,#00c6ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-shadow:0 0 12px rgba(0,174,255,0.45); text-align:center; }
-
-/* TOP RIBBON */
-.top-ribbon { width:100%; background:rgba(0,0,0,0.8); padding:6px 20px; position:fixed; top:70px; left:0; z-index:1001; display:flex; justify-content:flex-end; }
-.top-ribbon button { padding:6px 18px; font-size:0.9rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; background:linear-gradient(90deg,#0077ff,#00c6ff); color:#fff; transition:transform 0.2s; }
-.top-ribbon button:hover { transform:scale(1.05); }
-
-/* THEME TOGGLE */
-.theme-toggle { position:fixed; top:20px; right:18px; width:44px; height:44px; border-radius:50%; border:none; cursor:pointer; background:rgba(0,0,0,0.65); color:white; font-size:1.3rem; z-index:1003; }
-
-/* FIRST HERO */
-.hero { background:url("background.png") no-repeat center center; background-size:cover; padding-top:110px; }
-.explore-btn { position:absolute; left:50%; top:60%; transform:translate(-50%,-50%); padding:16px 36px; font-size:1.4rem; font-weight:700; color:#fff; background:linear-gradient(90deg,#0077ff,#00c6ff); border:none; border-radius:12px; cursor:pointer; box-shadow:0 10px 25px rgba(0,0,0,0.45); transition:transform 0.2s; z-index:100; }
-.explore-btn:hover { transform:translate(-50%,-50%) scale(1.05); }
-
-/* MAP / IFRAME */
-#mapFrame { width:0; height:0; border-radius:12px; box-shadow:0 30px 80px rgba(0,0,0,0.65); border:1px solid #00aaff55; display:none; transition:all 1s cubic-bezier(.19,1,.22,1); z-index:500; transform:translateY(50px); }
-
-/* SNOWFLAKES */
-.hero .snowflakes { position:absolute; top:0; left:0; width:100%; height:100vh; pointer-events:none; z-index:50; overflow:hidden; }
-.hero .snowflake { position:absolute; color:#fff; user-select:none; pointer-events:none; animation-name:fall,drift; animation-timing-function:linear,ease-in-out; animation-iteration-count:infinite,infinite; }
-@keyframes fall { 0% { transform:translateY(-50px); opacity:1; } 100% { transform:translateY(110vh); opacity:0.2; } }
-@keyframes drift { 0% { transform:translateX(0); } 50% { transform:translateX(20px); } 100% { transform:translateX(-20px); } }
-
-/* SECOND HERO */
-.second-hero { background:linear-gradient(135deg,#1e3c72,#2a5298); width:100%; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; position:relative; padding-top:20px; }
-.second-hero::before { content:''; position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.25); z-index:1; }
-.second-hero .content { position:relative; z-index:2; text-align:center; color:#fff; width:100%; display:flex; flex-direction:column; align-items:center; gap:20px; }
-
-/* GLACIAL LANDMARK TITLE AS HEADER */
-#glacialTitle {
-  font-size:3rem;
-  font-weight:900;
-  color:#00c6ff;
-  text-shadow:0 0 12px rgba(0,198,255,0.6);
-  margin:10px 0;
-  padding:16px 32px;
-  border-radius:20px;
-  border:2px solid #00c6ff;
-  display:inline-block;
-  background:rgba(0,0,0,0.5);
-}
-
-/* CIRQUE SECTION */
-#cirqueSection {
-  display:flex;
-  flex-direction:row;
-  align-items:flex-start;
-  gap:20px;
-  max-width:90%;
-  background:rgba(0,0,0,0.4);
-  padding:20px;
-  border-radius:16px;
-}
-#cirqueSection img {
-  width:350px;
-  height:auto;
-  border-radius:12px;
-  border:2px solid #00c6ff;
-}
-#cirqueDescription {
-  font-size:1.1rem;
-  color:#fff;
-  font-family:'Inter',sans-serif;
-  max-width:600px;
-  line-height:1.5rem;
-  border-left:2px solid #00c6ff;
-  padding-left:12px;
-  white-space:pre-wrap;
-  overflow:hidden;
-}
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Inter',sans-serif;background:#000;scroll-behavior:smooth;overflow-x:hidden}body.dark{background:#111;color:#ddd}body.dark .navbar,.dark .top-ribbon{background:#222}body.dark #cirqueSection{background:rgba(50,50,50,0.6)}body.dark #cirqueContact{background:rgba(50,50,50,0.6)}.hero,.second-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;position:relative}.navbar{position:fixed;top:0;width:100%;height:70px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.9);backdrop-filter:blur(12px);border-bottom:1px solid #00aaff55;z-index:1002}.nav-title{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;text-transform:uppercase;background:linear-gradient(90deg,#0077ff,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 12px rgba(0,174,255,0.45);text-align:center}.top-ribbon{width:100%;background:rgba(0,0,0,0.8);padding:6px 20px;position:fixed;top:70px;left:0;z-index:1001;display:flex;justify-content:flex-end}.top-ribbon button{padding:6px 18px;font-size:.9rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;background:linear-gradient(90deg,#0077ff,#00c6ff);color:#fff;transition:.2s}.top-ribbon button:hover{transform:scale(1.05)}.theme-toggle{position:fixed;top:20px;right:18px;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;background:rgba(0,0,0,.65);color:white;font-size:1.3rem;z-index:1003}.hero{background:url("background.png") no-repeat center/cover;padding-top:110px}.explore-btn{position:absolute;left:50%;top:60%;transform:translate(-50%,-50%);padding:16px 36px;font-size:1.4rem;font-weight:700;color:#fff;background:linear-gradient(90deg,#0077ff,#00c6ff);border:none;border-radius:12px;cursor:pointer;box-shadow:0 10px 25px rgba(0,0,0,.45);transition:.2s;z-index:100}.explore-btn:hover{transform:translate(-50%,-50%) scale(1.05)}#mapFrame{width:0;height:0;border-radius:12px;box-shadow:0 30px 80px rgba(0,0,0,.65);border:1px solid #00aaff55;display:none;transition:all 1s cubic-bezier(.19,1,.22,1);z-index:500;transform:translateY(50px)}.hero .snowflakes{position:absolute;top:0;left:0;width:100%;height:100vh;pointer-events:none;z-index:50;overflow:hidden}.hero .snowflake{position:absolute;color:#fff;user-select:none;pointer-events:none;animation:fall linear infinite,drift ease-in-out infinite}@keyframes fall{0%{transform:translateY(-50px);opacity:1}100%{transform:translateY(110vh);opacity:.2}}@keyframes drift{0%{transform:translateX(0)}50%{transform:translateX(20px)}100%{transform:translateX(-20px)}}.second-hero{background:linear-gradient(135deg,#1e3c72,#2a5298);width:100%;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:20px;position:relative}.second-hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.25);z-index:1}.second-hero .content{position:relative;z-index:2;text-align:center;color:#fff;width:100%;display:flex;flex-direction:column;align-items:center;gap:20px}#glacialTitle{font-size:3rem;font-weight:900;color:#00c6ff;text-shadow:0 0 12px rgba(0,198,255,.6);margin:10px 0;padding:16px 32px;border-radius:20px;border:2px solid #00c6ff;display:inline-block;background:rgba(0,0,0,.5)}#cirqueSection{display:flex;align-items:flex-start;gap:20px;max-width:90%;background:rgba(0,0,0,.4);padding:20px;border-radius:16px;position:relative}#cirqueSection img{width:350px;height:auto;border-radius:12px;border:2px solid #00c6ff}#cirqueDescription{font-size:1.1rem;color:#fff;max-width:600px;line-height:1.5rem;border-left:2px solid #00c6ff;padding-left:12px;white-space:pre-wrap;overflow:hidden}#switchBtn,#switchBtnLeft{position:absolute;top:100px;padding:8px 12px;border:none;background:none;color:#00c6ff;font-weight:bold;font-size:2rem;cursor:pointer;transition:.2s}#switchBtn{right:10px}#switchBtnLeft{left:10px}#switchBtn:hover,#switchBtnLeft:hover{transform:scale(1.2);color:#0077ff}
 </style>
 </head>
 <body>
-
 <div class="navbar"><div class="nav-title">Himalayan Snow Monitor</div></div>
 <div class="top-ribbon"><button id="landformsBtn">Landforms</button></div>
 <button class="theme-toggle">🌙</button>
 
-<!-- FIRST HERO -->
 <section class="hero">
-  <button class="explore-btn">Explore</button>
-  <iframe id="mapFrame" src="" allowfullscreen></iframe>
-  <div class="snowflakes"></div>
+<button class="explore-btn">Explore</button>
+<iframe id="mapFrame" src="" allowfullscreen></iframe>
+<div class="snowflakes"></div>
 </section>
 
-<!-- SECOND HERO WITH CIRQUE AND CONTACT -->
 <section class="hero second-hero" id="secondHero">
-  <div class="content">
-    <h2 id="glacialTitle">Glacial Landforms</h2>
-
-    <!-- Cirque Section -->
-    <div id="cirqueSection">
-      <!-- Corrected image path for GitHub Pages -->
-      <img src="Cirque_HSM.png" alt="Cirque Image">
-      <div id="cirqueDescription"></div>
-    </div>
-
-    <!-- CONTACT & SERVICES BOX -->
-    <div id="cirqueContact" style="
-      max-width:800px;
-      margin-top:30px;
-      padding:20px;
-      background:rgba(0,0,0,0.35);
-      border-radius:16px;
-      border:2px solid #00c6ff;
-      color:#fff;
-      font-family:'Inter',sans-serif;
-      text-align:center;
-      line-height:1.5rem;
-    ">
-      <h3 style="font-size:1.8rem; font-weight:800; margin-bottom:12px;">Cirque Services & Data</h3>
-      <p>
-        We provide high-resolution glacier and cirque data, snow cover maps, research-ready shapefiles, and guided eco-tourism insights.
-      </p>
-      <p style="margin-top:16px;">
-        <a href="mailto:sayantansaga17@gmail.com" style="
-          display:inline-block;
-          padding:14px 28px;
-          font-size:1.2rem;
-          font-weight:bold;
-          color:#fff;
-          background:linear-gradient(90deg,#0077ff,#00c6ff);
-          border-radius:12px;
-          text-decoration:none;
-          box-shadow:0 8px 20px rgba(0,198,255,0.5);
-          transition:transform 0.2s;
-        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-          Contact: sayantansaga17@gmail.com
-        </a>
-      </p>
-    </div>
-
-  </div>
+<div class="content">
+<h2 id="glacialTitle">Glacial Landforms</h2>
+<div id="cirqueSection">
+<button id="switchBtnLeft">◀</button>
+<img id="cirqueImg" src="Cirque_HSM.png" alt="Cirque Image">
+<button id="switchBtn">►</button>
+<div id="cirqueDescription"></div>
+</div>
+<div id="cirqueContact" style="max-width:800px;margin-top:30px;padding:20px;background:rgba(0,0,0,.35);border-radius:16px;border:2px solid #00c6ff;color:#fff;text-align:center;line-height:1.5rem">
+<h3 style="font-size:1.8rem;font-weight:800;margin-bottom:12px">Services & Data</h3>
+<p>We provide high-resolution glacier cirque and U-shaped valley data, snow cover maps, research-ready shapefiles, and guided eco-tourism insights.</p>
+<p style="margin-top:16px"><a href="mailto:sayantansaga17@gmail.com" style="display:inline-block;padding:14px 28px;font-size:1.2rem;font-weight:bold;color:#fff;background:linear-gradient(90deg,#0077ff,#00c6ff);border-radius:12px;text-decoration:none;box-shadow:0 8px 20px rgba(0,198,255,.5);transition:.2s" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">Contact: sayantansaga17@gmail.com</a></p>
+</div>
+</div>
 </section>
 
 <script>
-// Reset scroll
-window.onbeforeunload = ()=>{ window.scrollTo(0,0); };
-
-// Theme toggle
-const toggleBtn = document.querySelector(".theme-toggle");
-toggleBtn.addEventListener("click", ()=>{ document.body.classList.toggle("dark"); toggleBtn.textContent = document.body.classList.contains("dark") ? "☀️":"🌙"; });
-
-// Snowflakes
-const snowContainer = document.querySelector('.hero .snowflakes');
-for(let i=0;i<120;i++){
-  const flake=document.createElement('span');
-  flake.classList.add('snowflake');
-  flake.textContent='❄';
-  flake.style.left=Math.random()*100+'vw';
-  flake.style.fontSize=(Math.random()*20+10)+'px';
-  flake.style.animationDuration=`${Math.random()*3+2}s,${Math.random()*3+3}s`;
-  flake.style.animationDelay=`${Math.random()*5}s,${Math.random()*5}s`;
-  snowContainer.appendChild(flake);
-}
-
-// Explore button
-const exploreBtn=document.querySelector(".explore-btn");
-const mapFrame=document.getElementById("mapFrame");
-const hero=document.querySelector(".hero");
-exploreBtn.addEventListener("click", ()=>{
-  exploreBtn.style.display="none";
-  hero.classList.add("dimmed");
-  mapFrame.style.display="block";
-  mapFrame.style.width="0"; mapFrame.style.height="0";
-  setTimeout(()=>{ mapFrame.style.width="80%"; mapFrame.style.height="80vh"; },50);
-  mapFrame.src="https://sayantansaga17.users.earthengine.app/view/himalayan-snow-cover-monitor";
-});
-
-// Landforms scroll
-const landformsBtn = document.getElementById("landformsBtn");
-const secondHero = document.getElementById("secondHero");
-const navbar = document.querySelector(".navbar");
-const topRibbon = document.querySelector(".top-ribbon");
-landformsBtn.addEventListener("click", ()=>{
-  secondHero.scrollIntoView({behavior:"smooth"});
-  navbar.style.display="none"; topRibbon.style.display="none"; toggleBtn.style.display="none";
-});
-
-// Hide navbar/ribbon/toggle on scroll
-window.addEventListener("scroll", ()=>{
-  if(window.scrollY >= secondHero.offsetTop-10){
-    navbar.style.display="none"; topRibbon.style.display="none"; toggleBtn.style.display="none";
-  } else {
-    navbar.style.display="flex"; topRibbon.style.display="flex"; toggleBtn.style.display="block";
-  }
-});
-
-// TYPEWRITER FOR MULTI-LINE DESCRIPTION
-const cirqueText = `A cirque is a bowl-shaped, amphitheater-like depression carved into mountain sides by glaciers over thousands of years. These landforms are the cradles of glaciers and serve as early indicators of glacial retreat or climate change. Cirques are highly valuable for eco-tourism, attracting hikers, mountaineers, and photographers. Scientific studies of cirques help in water resource management, hydroelectric planning, and predictive climate modeling, which directly support profitable research initiatives and sustainable development projects. Developing controlled access routes, guided tours, and educational exhibits around cirques can generate steady revenue while promoting environmental awareness.`;
-
-const descriptionContainer = document.getElementById('cirqueDescription');
-let index = 0;
-function typeWriter() {
-  if(index < cirqueText.length){
-    descriptionContainer.innerHTML += cirqueText.charAt(index);
-    index++;
-    setTimeout(typeWriter, 20);
-  }
-}
-window.addEventListener('load', ()=>{ descriptionContainer.innerHTML=''; typeWriter(); });
+let typingTimeout,currentText;
+window.onbeforeunload=()=>{window.scrollTo(0,0)}
+const toggleBtn=document.querySelector(".theme-toggle");
+toggleBtn.addEventListener("click",()=>{document.body.classList.toggle("dark");toggleBtn.textContent=document.body.classList.contains("dark")?"☀️":"🌙"});
+const snowContainer=document.querySelector('.hero .snowflakes');
+for(let i=0;i<120;i++){let f=document.createElement('span');f.className='snowflake';f.textContent='❄';f.style.left=Math.random()*100+'vw';f.style.fontSize=10+Math.random()*20+'px';f.style.animationDuration=(2+Math.random()*3)+'s,'+(3+Math.random()*3)+'s';f.style.animationDelay=Math.random()*5+'s,'+Math.random()*5+'s';snowContainer.appendChild(f)}
+const exploreBtn=document.querySelector(".explore-btn"),mapFrame=document.getElementById("mapFrame"),hero=document.querySelector(".hero");
+exploreBtn.addEventListener("click",()=>{exploreBtn.style.display="none";hero.classList.add("dimmed");mapFrame.style.display="block";mapFrame.style.position="absolute";mapFrame.style.top="17%";mapFrame.style.left="50%";mapFrame.style.transform="translateX(-50%)";mapFrame.style.width="0";mapFrame.style.height="0";mapFrame.style.transition="all 1s cubic-bezier(.19,1,.22,1)";setTimeout(()=>{mapFrame.style.width="80%";mapFrame.style.height="80vh"},50);mapFrame.src="https://sayantansaga17.users.earthengine.app/view/himalayan-snow-cover-monitor"});
+const landformsBtn=document.getElementById("landformsBtn"),secondHero=document.getElementById("secondHero"),navbar=document.querySelector(".navbar"),topRibbon=document.querySelector(".top-ribbon");
+landformsBtn.addEventListener("click",()=>{secondHero.scrollIntoView({behavior:"smooth"});navbar.style.display="none";topRibbon.style.display="none";toggleBtn.style.display="none"});
+window.addEventListener("scroll",()=>{if(window.scrollY>=secondHero.offsetTop-10){navbar.style.display="none";topRibbon.style.display="none";toggleBtn.style.display="none"}else{navbar.style.display="flex";topRibbon.style.display="flex";toggleBtn.style.display="block"}});
+const cirqueText=`A cirque is a bowl-shaped, amphitheater-like depression carved into mountain sides by glaciers over thousands of years. These landforms are the cradles of glaciers and serve as early indicators of glacial retreat or climate change. Cirques are highly valuable for eco-tourism, attracting hikers, mountaineers, and photographers. Scientific studies of cirques help in water resource management, hydroelectric planning, and predictive climate modeling, which directly support profitable research initiatives and sustainable development projects. Developing controlled access routes, guided tours, and educational exhibits around cirques can generate steady revenue while promoting environmental awareness.`;
+const uValleyText=`A U-shaped valley is a glacially carved valley with steep sides and a flat bottom, formed by the erosive action of moving glaciers. These valleys indicate past glacier movement and are critical for understanding glacial dynamics, climate change, and watershed management. U-shaped valleys also attract hikers, photographers, and researchers, offering opportunities for educational tourism and geoscientific studies that contribute to sustainable development and scientific research revenue.These majestic valleys not only tell the story of ancient glaciers but also inspire awe and scientific curiosity in every visitor worldwide.`;
+const descriptionContainer=document.getElementById('cirqueDescription'),cirqueImg=document.getElementById('cirqueImg'),switchBtn=document.getElementById('switchBtn'),switchBtnLeft=document.getElementById('switchBtnLeft');
+currentText=cirqueText;
+function typeWriter(text){clearTimeout(typingTimeout);descriptionContainer.innerHTML='';let i=0;function write(){if(i<text.length){descriptionContainer.innerHTML+=text.charAt(i);i++;typingTimeout=setTimeout(write,20)}}write()}
+window.addEventListener('load',()=>{typeWriter(cirqueText)});
+switchBtn.addEventListener('click',()=>{if(currentText===cirqueText){cirqueImg.src="E:/HTML/U_valley.jpg";currentText=uValleyText;typeWriter(currentText)}});
+switchBtnLeft.addEventListener('click',()=>{if(currentText===uValleyText){cirqueImg.src="Cirque_HSM.png";currentText=cirqueText;typeWriter(currentText)}});
 </script>
 </body>
 </html>
-
