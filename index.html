@@ -15,6 +15,12 @@ body.dark #cirqueContact{background:rgba(50,50,50,0.6)}
 .hero,.second-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;position:relative}
 .navbar{position:fixed;top:0;width:100%;height:70px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.9);backdrop-filter:blur(12px);border-bottom:1px solid #00aaff55;z-index:1002}
 .nav-title{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;text-transform:uppercase;background:linear-gradient(90deg,#0077ff,#00c6ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-shadow:0 0 12px rgba(0,174,255,0.45);text-align:center}
+body.dark .nav-title{
+  background:linear-gradient(90deg,#ffd54f,#ff9800,#ff5722);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 15px rgba(255,165,0,0.7);
+}
 .top-ribbon{width:100%;background:rgba(0,0,0,0.8);padding:6px 20px;position:fixed;top:70px;left:0;z-index:1001;display:flex;justify-content:flex-end}
 .top-ribbon button{padding:6px 18px;font-size:.9rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;background:linear-gradient(90deg,#0077ff,#00c6ff);color:#fff;transition:.2s}
 .top-ribbon button:hover{transform:scale(1.05)}
@@ -86,8 +92,15 @@ body.dark #cirqueContact{background:rgba(50,50,50,0.6)}
 .floating-lines button:hover{transform:scale(1.05);}
 
 /* Second hero section */
-.second-hero{background:linear-gradient(135deg,#1e3c72,#2a5298);width:100%;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:20px;position:relative}
-.second-hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.25);z-index:1}
+.second-hero{
+  background:linear-gradient(135deg,#1e3c72,#2a5298);
+  width:100%;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding-top:45px; /* 🔥 increased */
+  position:relative
+}.second-hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.25);z-index:1}
 .second-hero .content{position:relative;z-index:2;text-align:center;color:#fff;width:100%;display:flex;flex-direction:column;align-items:center;gap:20px}
 #glacialTitle{font-size:3rem;font-weight:900;color:#00c6ff;text-shadow:0 0 12px rgba(0,198,255,.6);margin:10px 0;padding:16px 32px;border-radius:20px;border:2px solid #00c6ff;display:inline-block;background:rgba(0,0,0,.5)}
 #cirqueSection{display:flex;align-items:flex-start;gap:20px;max-width:90%;background:rgba(0,0,0,.4);padding:20px;border-radius:16px;position:relative}
@@ -100,7 +113,10 @@ body.dark #cirqueContact{background:rgba(50,50,50,0.6)}
 </head>
 <body>
 <div class="navbar"><div class="nav-title">Himalayan Snow Monitor</div></div>
-<div class="top-ribbon"><button id="landformsBtn">Landforms</button></div>
+<div class="top-ribbon">
+  <button id="trendBtn">Trend Graphs</button>
+  <button id="landformsBtn">Landforms</button>
+</div>
 <button class="theme-toggle">🌙</button>
 
 <!-- Hero Section -->
@@ -119,7 +135,7 @@ body.dark #cirqueContact{background:rgba(50,50,50,0.6)}
 
   <!-- Floating lines on right -->
   <div class="floating-lines" id="floatingLines">
-    <span>❄ Unlock long-term snow statistics across multiple Himalayan states and Basins! 📊</span>
+    <span>❄ Unlock long-term snow statistics across multiple Himalayan states! 📊</span>
     <span>📈 Access historical trends, research-ready shapefiles, and detailed datasets.</span>
     <span>🌟 Request premium insights, custom analyses, and eco-tourism planning support.</span>
     <button id="requestDataBtn">Request Access</button>
@@ -222,20 +238,6 @@ const topRibbon = document.querySelector(".top-ribbon");
 
 landformsBtn.addEventListener("click", ()=>{
   secondHero.scrollIntoView({behavior:"smooth"});
-  navbar.style.display="none";
-  topRibbon.style.display="none";
-  toggleBtn.style.display="none";
-});
-window.addEventListener("scroll", ()=>{
-  if(window.scrollY >= secondHero.offsetTop-10){
-    navbar.style.display="none";
-    topRibbon.style.display="none";
-    toggleBtn.style.display="none";
-  } else {
-    navbar.style.display="flex";
-    topRibbon.style.display="flex";
-    toggleBtn.style.display="block";
-  }
 });
 
 // Cirque / U-valley typing effect
@@ -282,6 +284,59 @@ switchBtnLeft.addEventListener('click', ()=>{
     typeWriter(currentText);
   }
 });
+document.addEventListener("DOMContentLoaded", function () {
+
+  const trendBtn = document.getElementById("trendBtn");
+  const analyticsSection = document.getElementById("analyticsSection");
+
+  if (trendBtn && analyticsSection) {
+    trendBtn.addEventListener("click", function () {
+      analyticsSection.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
+});
+// Hide ribbon on scroll to other sections
+const ribbon = document.querySelector(".top-ribbon");
+const firstHero = document.querySelector(".hero");
+const analyticsSection = document.getElementById("analyticsSection");
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  const firstHeroHeight = firstHero.offsetHeight;
+
+  // If user is below first section → hide ribbon
+  if (scrollY > firstHeroHeight - 100) {
+    ribbon.style.display = "none";
+  } else {
+    ribbon.style.display = "flex";
+  }
+});
 </script>
+<!-- Third Section: Snow Analytics Dashboard -->
+<section class="hero" id="analyticsSection" style="
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+padding:0;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+">
+
+  <div style="
+    width:100%;
+    height:100%;
+    border-radius:0px;
+    overflow:hidden;
+  ">
+    <iframe 
+      src="https://ee-sayantansaga17.projects.earthengine.app/view/himalayan-snow-trends"
+      style="width:100%; height:100%; border:none;"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+</section>
 </body>
 </html>
