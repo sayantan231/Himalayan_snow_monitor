@@ -121,7 +121,35 @@ html,body{
     font-weight:600;
 
 }
+#download-btn{
 
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#0f4c81;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+#download-btn:hover{
+
+    background:#1d70b8;
+
+}
 /* ===========================
        RESPONSIVE
 =========================== */
@@ -207,6 +235,7 @@ html,body{
 </button>
 
 </div>
+            
 
         </div>
 
@@ -363,7 +392,11 @@ fetch("Indian_Glaciers.geojson")
     alert("Unable to load Indian_Glaciers.geojson");
 
 });
+document.getElementById("download-btn").addEventListener("click", function(){
 
+    window.open("Indian_Glaciers.geojson","_blank");
+
+});
 </script>
 </body>
 
