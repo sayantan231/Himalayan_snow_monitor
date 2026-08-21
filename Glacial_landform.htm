@@ -17,7 +17,12 @@
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
+
 <style>
+
+/* =====================================================
+                    GLOBAL
+===================================================== */
 
 *{
     margin:0;
@@ -25,25 +30,36 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
     box-sizing:border-box;
 }
 
-html,body{
+html,
+body{
 
     height:100%;
+
     font-family:'Inter',sans-serif;
+
     background:#f4f7fa;
 
 }
 
+
+/* =====================================================
+                    CONTAINER
+===================================================== */
+
 .container{
 
     display:flex;
+
     width:100%;
+
     height:100vh;
 
 }
 
-/* ===========================
-        MAP
-=========================== */
+
+/* =====================================================
+                      MAP
+===================================================== */
 
 #map{
 
@@ -51,13 +67,15 @@ html,body{
 
 }
 
-/* ===========================
-      INFORMATION PANEL
-=========================== */
+
+/* =====================================================
+                  INFORMATION PANEL
+===================================================== */
 
 #sidebar{
 
     width:360px;
+
     background:#ffffff;
 
     border-left:1px solid #e5e7eb;
@@ -75,6 +93,7 @@ html,body{
 .sidebar-content h2{
 
     font-size:28px;
+
     color:#16324f;
 
     margin-bottom:25px;
@@ -83,9 +102,15 @@ html,body{
 
 }
 
+
+/* =====================================================
+                  INFORMATION TABLE
+===================================================== */
+
 .info-table{
 
     width:100%;
+
     border-collapse:collapse;
 
 }
@@ -122,15 +147,126 @@ html,body{
 
 }
 
-/* ===========================
-       DOWNLOAD BUTTON
-=========================== */
 
-#download-btn{
+/* =====================================================
+                    LEGEND
+===================================================== */
+
+.legend{
+
+    margin-top:25px;
+
+    padding:15px;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:8px;
+
+    background:#f8fafc;
+
+}
+
+.legend-title{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#16324f;
+
+    margin-bottom:12px;
+
+}
+
+.legend-item{
+
+    display:flex;
+
+    align-items:center;
+
+    margin-bottom:10px;
+
+    font-size:13px;
+
+    color:#475569;
+
+}
+
+.legend-item:last-child{
+
+    margin-bottom:0;
+
+}
+
+.legend-box{
+
+    width:18px;
+
+    height:18px;
+
+    margin-right:10px;
+
+    border-radius:3px;
+
+}
+
+
+/* Glacier legend */
+
+.glacier-legend{
+
+    background:#5BBBE8;
+
+    border:2px solid #00D4FF;
+
+}
+
+
+/* Lake legend */
+
+.lake-legend{
+
+    background:#4FC3F7;
+
+    border:2px solid #0066FF;
+
+}
+
+
+/* =====================================================
+                 DOWNLOAD SECTION
+===================================================== */
+
+.download-section{
+
+    margin-top:30px;
+
+}
+
+.download-title{
+
+    font-size:14px;
+
+    color:#64748b;
+
+    font-weight:600;
+
+    margin-bottom:12px;
+
+}
+
+
+/* =====================================================
+                  DOWNLOAD BUTTON
+===================================================== */
+
+.download-btn{
 
     width:100%;
 
     padding:14px;
+
+    margin-bottom:10px;
 
     border:none;
 
@@ -140,7 +276,7 @@ html,body{
 
     color:white;
 
-    font-size:16px;
+    font-size:15px;
 
     font-weight:600;
 
@@ -150,15 +286,22 @@ html,body{
 
 }
 
-#download-btn:hover{
+.download-btn:hover{
 
     background:#1d70b8;
 
 }
 
-/* ===========================
-       RESPONSIVE
-=========================== */
+.download-btn:last-child{
+
+    margin-bottom:0;
+
+}
+
+
+/* =====================================================
+                    RESPONSIVE
+===================================================== */
 
 @media(max-width:992px){
 
@@ -177,6 +320,7 @@ html,body{
     #sidebar{
 
         width:100%;
+
         height:40vh;
 
     }
@@ -194,68 +338,167 @@ html,body{
 <div class="container">
 
 
-    <!-- ===========================
-            MAP
-    =========================== -->
+    <!-- =================================================
+                         MAP
+    ================================================= -->
 
     <div id="map"></div>
 
 
-    <!-- ===========================
-        INFORMATION PANEL
-    =========================== -->
+    <!-- =================================================
+                    INFORMATION PANEL
+    ================================================= -->
 
     <aside id="sidebar">
 
         <div class="sidebar-content">
+
 
             <h2>Feature Information</h2>
 
 
             <table class="info-table">
 
+
+                <!-- NAME -->
+
                 <tr>
+
                     <th>Name</th>
-                    <td id="glacier-name">-</td>
+
+                    <td id="feature-name">-</td>
+
                 </tr>
 
+
+                <!-- TYPE -->
+
                 <tr>
+
                     <th>Type</th>
-                    <td id="glacier-type">-</td>
+
+                    <td id="feature-type">-</td>
+
                 </tr>
 
+
+                <!-- STATE -->
+
                 <tr>
+
                     <th>State</th>
-                    <td id="glacier-state">-</td>
+
+                    <td id="feature-state">-</td>
+
                 </tr>
 
+
+                <!-- MAIN BASIN -->
+
                 <tr>
+
                     <th>Main Basin</th>
+
                     <td id="main-basin">-</td>
+
                 </tr>
 
+
+                <!-- SUB BASIN -->
+
                 <tr>
+
                     <th>Sub Basin</th>
+
                     <td id="sub-basin">-</td>
+
                 </tr>
 
+
+                <!-- AREA -->
+
                 <tr>
+
                     <th>Area (Sq.km)</th>
-                    <td id="glacier-area">-</td>
+
+                    <td id="feature-area">-</td>
+
                 </tr>
+
 
             </table>
 
 
-            <!-- DOWNLOAD BUTTON -->
+            <!-- =================================================
+                            LEGEND
+            ================================================= -->
 
-            <div style="margin-top:30px;">
+            <div class="legend">
 
-                <button id="download-btn">
 
-                    ⬇ Download Dataset
+                <div class="legend-title">
+
+                    Map Layers
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <div class="legend-box glacier-legend"></div>
+
+                    <span>Glaciers</span>
+
+                </div>
+
+
+                <div class="legend-item">
+
+                    <div class="legend-box lake-legend"></div>
+
+                    <span>Glacial Lakes</span>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                        DOWNLOAD SECTION
+            ================================================= -->
+
+            <div class="download-section">
+
+
+                <div class="download-title">
+
+                    Download Datasets
+
+                </div>
+
+
+                <!-- GLACIER DOWNLOAD -->
+
+                <button
+                    class="download-btn"
+                    id="download-glacier">
+
+                    ⬇ Download Glacier Dataset
 
                 </button>
+
+
+                <!-- LAKE DOWNLOAD -->
+
+                <button
+                    class="download-btn"
+                    id="download-lake">
+
+                    ⬇ Download Glacial Lake Dataset
+
+                </button>
+
 
             </div>
 
@@ -268,9 +511,9 @@ html,body{
 </div>
 
 
-<!-- ===========================
-        LEAFLET JS
-=========================== -->
+<!-- =====================================================
+                    LEAFLET JS
+===================================================== -->
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -284,16 +527,19 @@ html,body{
 
 const map = L.map('map', {
 
-    zoomControl: true,
+    zoomControl:true,
 
     /* Prevent excessive zooming out */
-    minZoom: 6,
 
-    /* Allow detailed glacier viewing */
-    maxZoom: 18,
+    minZoom:6,
 
-    /* Prevent map from being dragged outside bounds */
-    maxBoundsViscosity: 1.0
+    /* Detailed viewing */
+
+    maxZoom:18,
+
+    /* Prevent dragging outside boundary */
+
+    maxBoundsViscosity:1.0
 
 });
 
@@ -302,69 +548,52 @@ const map = L.map('map', {
               INDIAN HIMALAYAN EXTENT
 ===================================================== */
 
-/*
-    Initial map extent:
-
-    Southwest:
-    27.5° N
-    73.5° E
-
-    Northeast:
-    37.5° N
-    97.5° E
-
-    This provides the Ladakh → Arunachal Pradesh
-    Himalayan overview.
-*/
-
 const himalayanBounds = L.latLngBounds(
 
-    [27.5, 73.5],
+    [27.5,73.5],
 
-    [37.5, 97.5]
+    [37.5,97.5]
 
 );
 
 
 /* =====================================================
-                  MAP PAN BOUNDARY
+                MAP PAN BOUNDARY
 ===================================================== */
-
-/*
-    This prevents the user from dragging the map
-    indefinitely to the left or right.
-
-    The boundary is slightly larger than the initial
-    extent so navigation does not feel too restrictive.
-*/
 
 const mapBounds = L.latLngBounds(
 
-    [26.5, 72.0],
+    [26.5,72.0],
 
-    [38.5, 99.0]
+    [38.5,99.0]
 
 );
 
 
-/* Apply the movement boundary */
+/* Apply map movement restriction */
 
 map.setMaxBounds(mapBounds);
 
 
 /* =====================================================
-                  INITIAL MAP VIEW
+                  INITIAL VIEW
 ===================================================== */
 
-map.fitBounds(himalayanBounds, {
+map.fitBounds(
 
-    padding: [20, 20]
+    himalayanBounds,
 
-});
+    {
+
+        padding:[20,20]
+
+    }
+
+);
 
 
 /* =====================================================
-                    ESRI SATELLITE
+                  ESRI SATELLITE
 ===================================================== */
 
 L.tileLayer(
@@ -373,9 +602,9 @@ L.tileLayer(
 
     {
 
-        attribution: 'Tiles © Esri',
+        attribution:'Tiles © Esri',
 
-        maxZoom: 19
+        maxZoom:19
 
     }
 
@@ -383,20 +612,20 @@ L.tileLayer(
 
 
 /* =====================================================
-                      SCALE BAR
+                    SCALE BAR
 ===================================================== */
 
 L.control.scale({
 
-    metric: true,
+    metric:true,
 
-    imperial: false
+    imperial:false
 
 }).addTo(map);
 
 
 /* =====================================================
-                    GLACIER STYLE
+                  GLACIER STYLE
 ===================================================== */
 
 function glacierStyle(feature){
@@ -417,10 +646,10 @@ function glacierStyle(feature){
 
 
 /* =====================================================
-                  HIGHLIGHT STYLE
+                  GLACIER HIGHLIGHT
 ===================================================== */
 
-function highlightStyle(layer){
+function glacierHighlight(layer){
 
     layer.setStyle({
 
@@ -428,7 +657,7 @@ function highlightStyle(layer){
 
         weight:3,
 
-        fillOpacity:0.7
+        fillOpacity:0.70
 
     });
 
@@ -436,26 +665,212 @@ function highlightStyle(layer){
 
 
 /* =====================================================
-                    LOAD GEOJSON
+                    LAKE STYLE
+===================================================== */
+
+function lakeStyle(feature){
+
+    return{
+
+        color:"#0066FF",
+
+        weight:1.5,
+
+        fillColor:"#4FC3F7",
+
+        fillOpacity:0.55
+
+    };
+
+}
+
+
+/* =====================================================
+                    LAKE HIGHLIGHT
+===================================================== */
+
+function lakeHighlight(layer){
+
+    layer.setStyle({
+
+        color:"#FFD700",
+
+        weight:3,
+
+        fillOpacity:0.80
+
+    });
+
+}
+
+
+/* =====================================================
+            RESET ALL FEATURE STYLES
+===================================================== */
+
+function resetAllLayers(){
+
+    if(glacierLayer){
+
+        glacierLayer.eachLayer(function(layer){
+
+            glacierLayer.resetStyle(layer);
+
+        });
+
+    }
+
+
+    if(lakeLayer){
+
+        lakeLayer.eachLayer(function(layer){
+
+            lakeLayer.resetStyle(layer);
+
+        });
+
+    }
+
+}
+
+
+/* =====================================================
+              DISPLAY FEATURE INFORMATION
+===================================================== */
+
+function displayFeatureInfo(
+
+    name,
+
+    type,
+
+    state,
+
+    mainBasin,
+
+    subBasin,
+
+    area
+
+){
+
+
+    document.getElementById(
+
+        "feature-name"
+
+    ).innerHTML = name || "-";
+
+
+    document.getElementById(
+
+        "feature-type"
+
+    ).innerHTML = type || "-";
+
+
+    document.getElementById(
+
+        "feature-state"
+
+    ).innerHTML = state || "-";
+
+
+    document.getElementById(
+
+        "main-basin"
+
+    ).innerHTML = mainBasin || "-";
+
+
+    document.getElementById(
+
+        "sub-basin"
+
+    ).innerHTML = subBasin || "-";
+
+
+    if(
+
+        area !== undefined &&
+
+        area !== null &&
+
+        area !== ""
+
+    ){
+
+        const numericArea = Number(area);
+
+
+        if(!isNaN(numericArea)){
+
+            document.getElementById(
+
+                "feature-area"
+
+            ).innerHTML =
+
+                numericArea.toFixed(3)
+
+                + " km²";
+
+        }
+
+        else{
+
+            document.getElementById(
+
+                "feature-area"
+
+            ).innerHTML = area + " km²";
+
+        }
+
+    }
+
+    else{
+
+        document.getElementById(
+
+            "feature-area"
+
+        ).innerHTML = "-";
+
+    }
+
+}
+
+
+/* =====================================================
+                  LAYER VARIABLES
 ===================================================== */
 
 let glacierLayer;
 
+let lakeLayer;
+
+
+/* =====================================================
+                    LOAD GLACIERS
+===================================================== */
 
 fetch("Indian_Glaciers.geojson")
 
 
 .then(response => {
 
+
     if(!response.ok){
 
         throw new Error(
 
-            "GeoJSON could not be loaded."
+            "Indian_Glaciers.geojson could not be loaded."
 
         );
 
     }
+
 
     return response.json();
 
@@ -465,154 +880,80 @@ fetch("Indian_Glaciers.geojson")
 .then(data => {
 
 
-    /* ================================================
-                CREATE GLACIER LAYER
-    ================================================ */
+    glacierLayer = L.geoJSON(
 
-    glacierLayer = L.geoJSON(data,{
+        data,
 
-        style: glacierStyle,
+        {
 
-
-        onEachFeature: function(feature, layer){
+            style:glacierStyle,
 
 
-            layer.on({
+            onEachFeature:function(
 
-                /* ====================================
-                        GLACIER CLICK
-                ==================================== */
+                feature,
 
-                click:function(e){
+                layer
 
-
-                    /* Reset previous glacier */
-
-                    glacierLayer.resetStyle();
+            ){
 
 
-                    /* Highlight selected glacier */
+                layer.on({
 
-                    highlightStyle(e.target);
-
-
-                    /* =================================
-                       FEATURE INFORMATION
-                    ================================= */
+                    click:function(e){
 
 
-                    document.getElementById(
+                        /* Reset both layers */
 
-                        "glacier-name"
-
-                    ).innerHTML =
-
-                        feature.properties["Name"] || "-";
+                        resetAllLayers();
 
 
-                    document.getElementById(
+                        /* Highlight glacier */
 
-                        "glacier-type"
+                        glacierHighlight(
 
-                    ).innerHTML =
+                            e.target
 
-                        feature.properties["Type"] || "-";
-
-
-                    document.getElementById(
-
-                        "glacier-state"
-
-                    ).innerHTML =
-
-                        feature.properties["State"] || "-";
+                        );
 
 
-                    document.getElementById(
+                        /* Read glacier attributes */
 
-                        "main-basin"
+                        const properties =
 
-                    ).innerHTML =
-
-                        feature.properties["Main Basin"] || "-";
+                            feature.properties;
 
 
-                    document.getElementById(
+                        displayFeatureInfo(
 
-                        "sub-basin"
+                            properties["Name"],
 
-                    ).innerHTML =
+                            properties["Type"],
 
-                        feature.properties["Sub basin"] || "-";
+                            properties["State"],
 
+                            properties["Main Basin"],
 
-                    /* =================================
-                            AREA
-                    ================================= */
+                            properties["Sub basin"],
 
-                    const area =
+                            properties["Area(Sq.km)"]
 
-                        feature.properties["Area(Sq.km)"];
-
-
-                    if(
-
-                        area !== undefined &&
-
-                        area !== null &&
-
-                        area !== ""
-
-                    ){
-
-                        document.getElementById(
-
-                            "glacier-area"
-
-                        ).innerHTML =
-
-                            Number(area).toFixed(3)
-
-                            + " km²";
+                        );
 
                     }
 
-                    else{
+                });
 
-                        document.getElementById(
-
-                            "glacier-area"
-
-                        ).innerHTML = "-";
-
-                    }
-
-                }
-
-            });
+            }
 
         }
 
-    }).addTo(map);
-
-
-    /*
-        IMPORTANT:
-
-        The map is NOT fitted to the GeoJSON.
-
-        The initial view remains the fixed
-        Indian Himalayan extent.
-    */
+    ).addTo(map);
 
 })
 
 
-/* =====================================================
-                    ERROR HANDLING
-===================================================== */
-
-.catch(error => {
+.catch(error =>{
 
     console.error(error);
 
@@ -626,18 +967,150 @@ fetch("Indian_Glaciers.geojson")
 
 
 /* =====================================================
-                  DOWNLOAD DATASET
+                  LOAD GLACIAL LAKES
+===================================================== */
+
+fetch("Indian_Glacial_Lakes.geojson")
+
+
+.then(response =>{
+
+
+    if(!response.ok){
+
+        throw new Error(
+
+            "Indian_Glacial_Lakes.geojson could not be loaded."
+
+        );
+
+    }
+
+
+    return response.json();
+
+})
+
+
+.then(data =>{
+
+
+    lakeLayer = L.geoJSON(
+
+        data,
+
+        {
+
+            style:lakeStyle,
+
+
+            onEachFeature:function(
+
+                feature,
+
+                layer
+
+            ){
+
+
+                layer.on({
+
+                    click:function(e){
+
+
+                        /* Reset both layers */
+
+                        resetAllLayers();
+
+
+                        /* Highlight lake */
+
+                        lakeHighlight(
+
+                            e.target
+
+                        );
+
+
+                        /* Read lake attributes */
+
+                        const properties =
+
+                            feature.properties;
+
+
+                        displayFeatureInfo(
+
+                            properties["Name"],
+
+                            properties["Type"],
+
+                            properties["State"],
+
+                            "-",
+
+                            "-",
+
+                            properties["Area (Sq.km)"]
+
+                        );
+
+                    }
+
+                });
+
+            }
+
+        }
+
+    ).addTo(map);
+
+})
+
+
+.catch(error =>{
+
+    console.error(error);
+
+    alert(
+
+        "Unable to load Indian_Glacial_Lakes.geojson"
+
+    );
+
+});
+
+
+/* =====================================================
+                DOWNLOAD GLACIER DATASET
 ===================================================== */
 
 document.getElementById(
 
-    "download-btn"
+    "download-glacier"
 
 ).onclick = function(){
 
     window.location.href =
 
         "Indian_Glaciers.zip";
+
+};
+
+
+/* =====================================================
+              DOWNLOAD GLACIAL LAKE DATASET
+===================================================== */
+
+document.getElementById(
+
+    "download-lake"
+
+).onclick = function(){
+
+    window.location.href =
+
+        "Indian_Glacial_Lakes.zip";
 
 };
 
