@@ -121,6 +121,11 @@ html,body{
     font-weight:600;
 
 }
+
+/* ===========================
+       DOWNLOAD BUTTON
+=========================== */
+
 #download-btn{
 
     width:100%;
@@ -150,30 +155,31 @@ html,body{
     background:#1d70b8;
 
 }
+
 /* ===========================
        RESPONSIVE
 =========================== */
 
 @media(max-width:992px){
 
-.container{
+    .container{
 
-    flex-direction:column;
+        flex-direction:column;
 
-}
+    }
 
-#map{
+    #map{
 
-    height:60vh;
+        height:60vh;
 
-}
+    }
 
-#sidebar{
+    #sidebar{
 
-    width:100%;
-    height:40vh;
+        width:100%;
+        height:40vh;
 
-}
+    }
 
 }
 
@@ -181,17 +187,30 @@ html,body{
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
+
+    <!-- ===========================
+            MAP
+    =========================== -->
+
     <div id="map"></div>
+
+
+    <!-- ===========================
+        INFORMATION PANEL
+    =========================== -->
 
     <aside id="sidebar">
 
         <div class="sidebar-content">
 
             <h2>Feature Information</h2>
+
 
             <table class="info-table">
 
@@ -226,62 +245,159 @@ html,body{
                 </tr>
 
             </table>
+
+
+            <!-- DOWNLOAD BUTTON -->
+
             <div style="margin-top:30px;">
 
-<button id="download-btn">
+                <button id="download-btn">
 
-⬇ Download Dataset
+                    ⬇ Download Dataset
 
-</button>
+                </button>
 
-</div>
-            
+            </div>
+
 
         </div>
 
     </aside>
 
+
 </div>
 
-<!-- Leaflet JS -->
+
+<!-- ===========================
+        LEAFLET JS
+=========================== -->
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+
 <script>
 
-/* ===========================
-      CREATE MAP
-=========================== */
+
+/* =====================================================
+                    CREATE MAP
+===================================================== */
 
 const map = L.map('map', {
-    zoomControl: true
-}).setView([31.2, 79.5], 9);
 
-/* ===========================
-      ESRI SATELLITE
-=========================== */
+    zoomControl: true,
+
+    /* Prevent excessive zooming out */
+    minZoom: 6,
+
+    /* Allow detailed glacier viewing */
+    maxZoom: 18,
+
+    /* Prevent map from being dragged outside bounds */
+    maxBoundsViscosity: 1.0
+
+});
+
+
+/* =====================================================
+              INDIAN HIMALAYAN EXTENT
+===================================================== */
+
+/*
+    Initial map extent:
+
+    Southwest:
+    27.5° N
+    73.5° E
+
+    Northeast:
+    37.5° N
+    97.5° E
+
+    This provides the Ladakh → Arunachal Pradesh
+    Himalayan overview.
+*/
+
+const himalayanBounds = L.latLngBounds(
+
+    [27.5, 73.5],
+
+    [37.5, 97.5]
+
+);
+
+
+/* =====================================================
+                  MAP PAN BOUNDARY
+===================================================== */
+
+/*
+    This prevents the user from dragging the map
+    indefinitely to the left or right.
+
+    The boundary is slightly larger than the initial
+    extent so navigation does not feel too restrictive.
+*/
+
+const mapBounds = L.latLngBounds(
+
+    [26.5, 72.0],
+
+    [38.5, 99.0]
+
+);
+
+
+/* Apply the movement boundary */
+
+map.setMaxBounds(mapBounds);
+
+
+/* =====================================================
+                  INITIAL MAP VIEW
+===================================================== */
+
+map.fitBounds(himalayanBounds, {
+
+    padding: [20, 20]
+
+});
+
+
+/* =====================================================
+                    ESRI SATELLITE
+===================================================== */
 
 L.tileLayer(
-'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-{
-    attribution: 'Tiles © Esri',
-    maxZoom: 19
-}).addTo(map);
+
+    'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+
+    {
+
+        attribution: 'Tiles © Esri',
+
+        maxZoom: 19
+
+    }
+
+).addTo(map);
 
 
-/* ===========================
-       SCALE BAR
-=========================== */
+/* =====================================================
+                      SCALE BAR
+===================================================== */
 
 L.control.scale({
+
     metric: true,
+
     imperial: false
+
 }).addTo(map);
 
 
-/* ===========================
-     GLACIER STYLE
-=========================== */
+/* =====================================================
+                    GLACIER STYLE
+===================================================== */
 
 function glacierStyle(feature){
 
@@ -300,9 +416,9 @@ function glacierStyle(feature){
 }
 
 
-/* ===========================
-    HIGHLIGHT STYLE
-=========================== */
+/* =====================================================
+                  HIGHLIGHT STYLE
+===================================================== */
 
 function highlightStyle(layer){
 
@@ -319,19 +435,25 @@ function highlightStyle(layer){
 }
 
 
-/* ===========================
-      LOAD GEOJSON
-=========================== */
+/* =====================================================
+                    LOAD GEOJSON
+===================================================== */
 
 let glacierLayer;
 
+
 fetch("Indian_Glaciers.geojson")
+
 
 .then(response => {
 
     if(!response.ok){
 
-        throw new Error("GeoJSON could not be loaded.");
+        throw new Error(
+
+            "GeoJSON could not be loaded."
+
+        );
 
     }
 
@@ -339,39 +461,131 @@ fetch("Indian_Glaciers.geojson")
 
 })
 
+
 .then(data => {
+
+
+    /* ================================================
+                CREATE GLACIER LAYER
+    ================================================ */
 
     glacierLayer = L.geoJSON(data,{
 
         style: glacierStyle,
 
+
         onEachFeature: function(feature, layer){
+
 
             layer.on({
 
+                /* ====================================
+                        GLACIER CLICK
+                ==================================== */
+
                 click:function(e){
+
+
+                    /* Reset previous glacier */
 
                     glacierLayer.resetStyle();
 
+
+                    /* Highlight selected glacier */
+
                     highlightStyle(e.target);
 
-                    document.getElementById("glacier-name").innerHTML =
-                    feature.properties["Name"] || "-";
 
-                    document.getElementById("glacier-type").innerHTML =
-                    feature.properties["Type"] || "-";
+                    /* =================================
+                       FEATURE INFORMATION
+                    ================================= */
 
-                    document.getElementById("glacier-state").innerHTML =
-                    feature.properties["State"] || "-";
 
-                    document.getElementById("main-basin").innerHTML =
-                    feature.properties["Main Basin"] || "-";
+                    document.getElementById(
 
-                    document.getElementById("sub-basin").innerHTML =
-                    feature.properties["Sub basin"] || "-";
+                        "glacier-name"
 
-                    document.getElementById("glacier-area").innerHTML =
-                    feature.properties["Area(Sq.km)"] + " km²";
+                    ).innerHTML =
+
+                        feature.properties["Name"] || "-";
+
+
+                    document.getElementById(
+
+                        "glacier-type"
+
+                    ).innerHTML =
+
+                        feature.properties["Type"] || "-";
+
+
+                    document.getElementById(
+
+                        "glacier-state"
+
+                    ).innerHTML =
+
+                        feature.properties["State"] || "-";
+
+
+                    document.getElementById(
+
+                        "main-basin"
+
+                    ).innerHTML =
+
+                        feature.properties["Main Basin"] || "-";
+
+
+                    document.getElementById(
+
+                        "sub-basin"
+
+                    ).innerHTML =
+
+                        feature.properties["Sub basin"] || "-";
+
+
+                    /* =================================
+                            AREA
+                    ================================= */
+
+                    const area =
+
+                        feature.properties["Area(Sq.km)"];
+
+
+                    if(
+
+                        area !== undefined &&
+
+                        area !== null &&
+
+                        area !== ""
+
+                    ){
+
+                        document.getElementById(
+
+                            "glacier-area"
+
+                        ).innerHTML =
+
+                            Number(area).toFixed(3)
+
+                            + " km²";
+
+                    }
+
+                    else{
+
+                        document.getElementById(
+
+                            "glacier-area"
+
+                        ).innerHTML = "-";
+
+                    }
 
                 }
 
@@ -381,21 +595,56 @@ fetch("Indian_Glaciers.geojson")
 
     }).addTo(map);
 
-    map.fitBounds(glacierLayer.getBounds());
+
+    /*
+        IMPORTANT:
+
+        The map is NOT fitted to the GeoJSON.
+
+        The initial view remains the fixed
+        Indian Himalayan extent.
+    */
 
 })
+
+
+/* =====================================================
+                    ERROR HANDLING
+===================================================== */
 
 .catch(error => {
 
     console.error(error);
 
-    alert("Unable to load Indian_Glaciers.geojson");
+    alert(
+
+        "Unable to load Indian_Glaciers.geojson"
+
+    );
 
 });
-document.getElementById("download-btn").onclick = function () {
-    window.location.href = "Indian_Glaciers.zip";
+
+
+/* =====================================================
+                  DOWNLOAD DATASET
+===================================================== */
+
+document.getElementById(
+
+    "download-btn"
+
+).onclick = function(){
+
+    window.location.href =
+
+        "Indian_Glaciers.zip";
+
 };
+
+
 </script>
+
+
 </body>
 
 </html>
