@@ -672,11 +672,11 @@ function lakeStyle(feature){
 
     return{
 
-        color:"#0066FF",
+        color:"#001F5B",       /* Navy blue outline */
 
-        weight:1.5,
+        weight:1.8,
 
-        fillColor:"#4FC3F7",
+        fillColor:"#001F5B",   /* Navy blue fill */
 
         fillOpacity:0.55
 
@@ -686,7 +686,7 @@ function lakeStyle(feature){
 
 
 /* =====================================================
-                    LAKE HIGHLIGHT
+                  LAKE HIGHLIGHT
 ===================================================== */
 
 function lakeHighlight(layer){
@@ -702,7 +702,6 @@ function lakeHighlight(layer){
     });
 
 }
-
 
 /* =====================================================
             RESET ALL FEATURE STYLES
@@ -1051,7 +1050,7 @@ fetch("Indian_Glacial_Lakes.geojson")
 
                             "-",
 
-                            properties["Area (Sq.km)"]
+                            properties["Area (km2)"]
 
                         );
 
