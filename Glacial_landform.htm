@@ -104,6 +104,77 @@ body{
 
 
 /* =====================================================
+                 STATE SELECTOR
+===================================================== */
+
+.state-selector{
+
+    margin-bottom:10px;
+
+    padding-bottom:18px;
+
+    border-bottom:1px solid #eceff3;
+
+}
+
+.state-selector label{
+
+    display:block;
+
+    font-size:15px;
+
+    color:#64748b;
+
+    font-weight:600;
+
+    margin-bottom:9px;
+
+}
+
+.state-select{
+
+    width:100%;
+
+    padding:12px 14px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:8px;
+
+    background:#ffffff;
+
+    color:#1f2937;
+
+    font-family:'Inter',sans-serif;
+
+    font-size:14px;
+
+    font-weight:500;
+
+    cursor:pointer;
+
+    outline:none;
+
+    transition:.2s;
+
+}
+
+.state-select:hover{
+
+    border-color:#5BBBE8;
+
+}
+
+.state-select:focus{
+
+    border-color:#0f4c81;
+
+    box-shadow:0 0 0 3px rgba(15,76,129,0.10);
+
+}
+
+
+/* =====================================================
                   INFORMATION TABLE
 ===================================================== */
 
@@ -234,72 +305,6 @@ body{
 
 
 /* =====================================================
-                 DOWNLOAD SECTION
-===================================================== */
-
-.download-section{
-
-    margin-top:30px;
-
-}
-
-.download-title{
-
-    font-size:14px;
-
-    color:#64748b;
-
-    font-weight:600;
-
-    margin-bottom:12px;
-
-}
-
-
-/* =====================================================
-                  DOWNLOAD BUTTON
-===================================================== */
-
-.download-btn{
-
-    width:100%;
-
-    padding:14px;
-
-    margin-bottom:10px;
-
-    border:none;
-
-    border-radius:8px;
-
-    background:#0f4c81;
-
-    color:white;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.download-btn:hover{
-
-    background:#1d70b8;
-
-}
-
-.download-btn:last-child{
-
-    margin-bottom:0;
-
-}
-
-
-/* =====================================================
                     RESPONSIVE
 ===================================================== */
 
@@ -356,6 +361,37 @@ body{
 
             <h2>Feature Information</h2>
 
+
+            <!-- =================================================
+                        STATE / UT SELECTOR
+            ================================================= -->
+
+            <div class="state-selector">
+
+                <label for="state-select">
+
+                    Select State/UT
+
+                </label>
+
+                <select
+                    id="state-select"
+                    class="state-select">
+
+                    <option value="ALL">
+
+                        All States/UTs
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                    FEATURE INFORMATION TABLE
+            ================================================= -->
 
             <table class="info-table">
 
@@ -464,45 +500,6 @@ body{
             </div>
 
 
-            <!-- =================================================
-                        DOWNLOAD SECTION
-            ================================================= -->
-
-            <div class="download-section">
-
-
-                <div class="download-title">
-
-                    Download Datasets
-
-                </div>
-
-
-                <!-- GLACIER DOWNLOAD -->
-
-                <button
-                    class="download-btn"
-                    id="download-glacier">
-
-                    ⬇ Download Glacier Dataset
-
-                </button>
-
-
-                <!-- LAKE DOWNLOAD -->
-
-                <button
-                    class="download-btn"
-                    id="download-lake">
-
-                    ⬇ Download Glacial Lake Dataset
-
-                </button>
-
-
-            </div>
-
-
         </div>
 
     </aside>
@@ -529,15 +526,9 @@ const map = L.map('map', {
 
     zoomControl:true,
 
-    /* Prevent excessive zooming out */
-
     minZoom:6,
 
-    /* Detailed viewing */
-
     maxZoom:18,
-
-    /* Prevent dragging outside boundary */
 
     maxBoundsViscosity:1.0
 
@@ -672,11 +663,11 @@ function lakeStyle(feature){
 
     return{
 
-        color:"#0096FF",       /* Bright blue outline */
+        color:"#0096FF",
 
         weight:1.8,
 
-        fillColor:"#0096FF",   /* Bright blue fill */
+        fillColor:"#0096FF",
 
         fillOpacity:0.55
 
@@ -702,6 +693,7 @@ function lakeHighlight(layer){
     });
 
 }
+
 
 /* =====================================================
             RESET ALL FEATURE STYLES
@@ -752,7 +744,6 @@ function displayFeatureInfo(
     area
 
 ){
-
 
     document.getElementById(
 
@@ -822,7 +813,9 @@ function displayFeatureInfo(
 
                 "feature-area"
 
-            ).innerHTML = area + " km²";
+            ).innerHTML =
+
+                area + " km²";
 
         }
 
@@ -842,12 +835,377 @@ function displayFeatureInfo(
 
 
 /* =====================================================
+                  RESET FEATURE INFORMATION
+===================================================== */
+
+function resetFeatureInfo(){
+
+    document.getElementById(
+
+        "feature-name"
+
+    ).innerHTML = "-";
+
+
+    document.getElementById(
+
+        "feature-type"
+
+    ).innerHTML = "-";
+
+
+    document.getElementById(
+
+        "feature-state"
+
+    ).innerHTML = "-";
+
+
+    document.getElementById(
+
+        "main-basin"
+
+    ).innerHTML = "-";
+
+
+    document.getElementById(
+
+        "sub-basin"
+
+    ).innerHTML = "-";
+
+
+    document.getElementById(
+
+        "feature-area"
+
+    ).innerHTML = "-";
+
+}
+
+
+/* =====================================================
                   LAYER VARIABLES
 ===================================================== */
 
 let glacierLayer;
 
 let lakeLayer;
+
+
+/* =====================================================
+              ORIGINAL GLACIER DATA
+===================================================== */
+
+let glacierData;
+
+
+/* =====================================================
+            GET STATE FIELD FROM GEOJSON
+===================================================== */
+
+/*
+   This function supports both:
+
+   state
+
+   and
+
+   State
+
+   so the dropdown will work even if
+   the field capitalization differs.
+*/
+
+function getState(properties){
+
+    if(!properties){
+
+        return "";
+
+    }
+
+
+    return (
+
+        properties["state"] ??
+
+        properties["State"] ??
+
+        ""
+
+    ).toString().trim();
+
+}
+
+
+/* =====================================================
+              POPULATE STATE DROPDOWN
+===================================================== */
+
+function populateStateDropdown(data){
+
+    const stateSelect =
+
+        document.getElementById(
+
+            "state-select"
+
+        );
+
+
+    const states = new Set();
+
+
+    /* Read state from every glacier */
+
+    data.features.forEach(function(feature){
+
+        const state = getState(
+
+            feature.properties
+
+        );
+
+
+        if(state){
+
+            states.add(state);
+
+        }
+
+    });
+
+
+    /* Sort states alphabetically */
+
+    const sortedStates =
+
+        Array.from(states).sort(
+
+            function(a,b){
+
+                return a.localeCompare(b);
+
+            }
+
+        );
+
+
+    /* Add states to dropdown */
+
+    sortedStates.forEach(function(state){
+
+        const option =
+
+            document.createElement("option");
+
+
+        option.value = state;
+
+        option.textContent = state;
+
+
+        stateSelect.appendChild(option);
+
+    });
+
+}
+
+
+/* =====================================================
+              FILTER GLACIERS BY STATE
+===================================================== */
+
+function filterGlaciersByState(selectedState){
+
+    if(!glacierData){
+
+        return;
+
+    }
+
+
+    /* Remove existing glacier layer */
+
+    if(glacierLayer){
+
+        map.removeLayer(glacierLayer);
+
+    }
+
+
+    resetFeatureInfo();
+
+
+    /*
+       ALL STATES
+    */
+
+    if(selectedState === "ALL"){
+
+        glacierLayer = L.geoJSON(
+
+            glacierData,
+
+            {
+
+                style:glacierStyle,
+
+                onEachFeature:
+
+                    glacierFeatureEvents
+
+            }
+
+        ).addTo(map);
+
+
+        return;
+
+    }
+
+
+    /*
+       FILTER SELECTED STATE
+    */
+
+    const filteredFeatures =
+
+        glacierData.features.filter(
+
+            function(feature){
+
+                return (
+
+                    getState(
+
+                        feature.properties
+
+                    ) === selectedState
+
+                );
+
+            }
+
+        );
+
+
+    const filteredData = {
+
+        type:"FeatureCollection",
+
+        features:filteredFeatures
+
+    };
+
+
+    glacierLayer = L.geoJSON(
+
+        filteredData,
+
+        {
+
+            style:glacierStyle,
+
+            onEachFeature:
+
+                glacierFeatureEvents
+
+        }
+
+    ).addTo(map);
+
+
+    /*
+       Zoom to selected state glaciers
+    */
+
+    if(
+
+        filteredFeatures.length > 0 &&
+
+        glacierLayer.getBounds().isValid()
+
+    ){
+
+        map.fitBounds(
+
+            glacierLayer.getBounds(),
+
+            {
+
+                padding:[40,40],
+
+                maxZoom:10
+
+            }
+
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+            GLACIER FEATURE EVENTS
+===================================================== */
+
+function glacierFeatureEvents(
+
+    feature,
+
+    layer
+
+){
+
+    layer.on({
+
+        click:function(e){
+
+            /* Reset all layers */
+
+            resetAllLayers();
+
+
+            /* Highlight selected glacier */
+
+            glacierHighlight(
+
+                e.target
+
+            );
+
+
+            /* Read glacier attributes */
+
+            const properties =
+
+                feature.properties;
+
+
+            displayFeatureInfo(
+
+                properties["Name"],
+
+                properties["Type"],
+
+                getState(properties),
+
+                properties["Main Basin"],
+
+                properties["Sub basin"],
+
+                properties["Area(Sq.km)"]
+
+            );
+
+        }
+
+    });
+
+}
 
 
 /* =====================================================
@@ -858,7 +1216,6 @@ fetch("Indian_Glaciers.geojson")
 
 
 .then(response => {
-
 
     if(!response.ok){
 
@@ -878,6 +1235,25 @@ fetch("Indian_Glaciers.geojson")
 
 .then(data => {
 
+    /*
+       Save original GeoJSON
+       so it can be filtered later.
+    */
+
+    glacierData = data;
+
+
+    /*
+       Automatically read all unique
+       states from the 'state' field.
+    */
+
+    populateStateDropdown(data);
+
+
+    /*
+       Load all glaciers initially.
+    */
 
     glacierLayer = L.geoJSON(
 
@@ -887,63 +1263,9 @@ fetch("Indian_Glaciers.geojson")
 
             style:glacierStyle,
 
+            onEachFeature:
 
-            onEachFeature:function(
-
-                feature,
-
-                layer
-
-            ){
-
-
-                layer.on({
-
-                    click:function(e){
-
-
-                        /* Reset both layers */
-
-                        resetAllLayers();
-
-
-                        /* Highlight glacier */
-
-                        glacierHighlight(
-
-                            e.target
-
-                        );
-
-
-                        /* Read glacier attributes */
-
-                        const properties =
-
-                            feature.properties;
-
-
-                        displayFeatureInfo(
-
-                            properties["Name"],
-
-                            properties["Type"],
-
-                            properties["State"],
-
-                            properties["Main Basin"],
-
-                            properties["Sub basin"],
-
-                            properties["Area(Sq.km)"]
-
-                        );
-
-                    }
-
-                });
-
-            }
+                glacierFeatureEvents
 
         }
 
@@ -966,6 +1288,54 @@ fetch("Indian_Glaciers.geojson")
 
 
 /* =====================================================
+                  STATE DROPDOWN EVENT
+===================================================== */
+
+document.getElementById(
+
+    "state-select"
+
+).addEventListener(
+
+    "change",
+
+    function(){
+
+        const selectedState =
+
+            this.value;
+
+
+        /*
+           Reset selected feature
+        */
+
+        resetFeatureInfo();
+
+
+        /*
+           Reset layer styles
+        */
+
+        resetAllLayers();
+
+
+        /*
+           Filter glacier layer
+        */
+
+        filterGlaciersByState(
+
+            selectedState
+
+        );
+
+    }
+
+);
+
+
+/* =====================================================
                   LOAD GLACIAL LAKES
 ===================================================== */
 
@@ -973,7 +1343,6 @@ fetch("Indian_Glacial_Lakes.geojson")
 
 
 .then(response =>{
-
 
     if(!response.ok){
 
@@ -993,7 +1362,6 @@ fetch("Indian_Glacial_Lakes.geojson")
 
 .then(data =>{
 
-
     lakeLayer = L.geoJSON(
 
         data,
@@ -1011,18 +1379,20 @@ fetch("Indian_Glacial_Lakes.geojson")
 
             ){
 
-
                 layer.on({
 
                     click:function(e){
 
-
-                        /* Reset both layers */
+                        /*
+                           Reset both layers
+                        */
 
                         resetAllLayers();
 
 
-                        /* Highlight lake */
+                        /*
+                           Highlight lake
+                        */
 
                         lakeHighlight(
 
@@ -1031,7 +1401,9 @@ fetch("Indian_Glacial_Lakes.geojson")
                         );
 
 
-                        /* Read lake attributes */
+                        /*
+                           Read lake attributes
+                        */
 
                         const properties =
 
@@ -1044,7 +1416,9 @@ fetch("Indian_Glacial_Lakes.geojson")
 
                             properties["Type"],
 
-                            properties["State"],
+                            properties["State"] ??
+
+                            properties["state"],
 
                             "-",
 
@@ -1078,40 +1452,6 @@ fetch("Indian_Glacial_Lakes.geojson")
     );
 
 });
-
-
-/* =====================================================
-                DOWNLOAD GLACIER DATASET
-===================================================== */
-
-document.getElementById(
-
-    "download-glacier"
-
-).onclick = function(){
-
-    window.location.href =
-
-        "Indian_Glaciers.zip";
-
-};
-
-
-/* =====================================================
-              DOWNLOAD GLACIAL LAKE DATASET
-===================================================== */
-
-document.getElementById(
-
-    "download-lake"
-
-).onclick = function(){
-
-    window.location.href =
-
-        "Indian_Glacial_Lakes.zip";
-
-};
 
 
 </script>
