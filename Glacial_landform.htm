@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Glacial Landforms</title>
+<title>Indian Glaciology</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +15,7 @@
 
 <!-- Leaflet CSS -->
 <link rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 
 <style>
@@ -44,7 +43,86 @@ body{
 
 
 /* =====================================================
-                    CONTAINER
+                    HEADER
+===================================================== */
+
+#header{
+
+    height:60px;
+
+    width:100%;
+
+    background:#ffffff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+
+    border-bottom:1px solid #e5e7eb;
+
+    z-index:1000;
+
+}
+
+
+/* =====================================================
+                    HEADER LOGO
+===================================================== */
+
+.header-logo{
+
+    position:absolute;
+
+    left:20px;
+
+    height:44px;
+
+    width:auto;
+
+    object-fit:contain;
+
+}
+
+
+/* =====================================================
+                    HEADER TITLE
+===================================================== */
+
+.header-title{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    letter-spacing:0.5px;
+
+    background:linear-gradient(
+
+        90deg,
+
+        #0f4c81,
+
+        #1677b7,
+
+        #5BBBE8
+
+    );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    background-clip:text;
+
+}
+
+
+/* =====================================================
+                    MAIN CONTAINER
 ===================================================== */
 
 .container{
@@ -53,7 +131,7 @@ body{
 
     width:100%;
 
-    height:100vh;
+    height:calc(100vh - 60px);
 
 }
 
@@ -326,26 +404,37 @@ body{
 }
 
 
-/* Lake legend */
-
-.lake-legend{
-
-    background:#0096FF;
-
-    border:2px solid #0066FF;
-
-}
-
-
 /* =====================================================
                     RESPONSIVE
 ===================================================== */
 
 @media(max-width:992px){
 
+    #header{
+
+        height:55px;
+
+    }
+
+    .header-logo{
+
+        left:12px;
+
+        height:40px;
+
+    }
+
+    .header-title{
+
+        font-size:22px;
+
+    }
+
     .container{
 
         flex-direction:column;
+
+        height:calc(100vh - 55px);
 
     }
 
@@ -372,6 +461,31 @@ body{
 
 <body>
 
+
+<!-- =====================================================
+                        HEADER
+===================================================== -->
+
+<header id="header">
+
+    <img
+        src="Indian_Glaciology_Logo.jpg"
+        alt="Indian Glaciology Logo"
+        class="header-logo"
+    >
+
+    <div class="header-title">
+
+        Indian Glaciology
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+                    MAIN CONTAINER
+===================================================== -->
 
 <div class="container">
 
@@ -555,15 +669,6 @@ body{
                 </div>
 
 
-                <div class="legend-item">
-
-                    <div class="legend-box lake-legend"></div>
-
-                    <span>Glacial Lakes</span>
-
-                </div>
-
-
             </div>
 
 
@@ -721,47 +826,7 @@ function glacierHighlight(layer){
 
 
 /* =====================================================
-                    LAKE STYLE
-===================================================== */
-
-function lakeStyle(feature){
-
-    return{
-
-        color:"#0096FF",
-
-        weight:1.8,
-
-        fillColor:"#0096FF",
-
-        fillOpacity:0.55
-
-    };
-
-}
-
-
-/* =====================================================
-                  LAKE HIGHLIGHT
-===================================================== */
-
-function lakeHighlight(layer){
-
-    layer.setStyle({
-
-        color:"#FFD700",
-
-        weight:3,
-
-        fillOpacity:0.80
-
-    });
-
-}
-
-
-/* =====================================================
-            RESET ALL FEATURE STYLES
+            RESET GLACIER FEATURE STYLES
 ===================================================== */
 
 function resetAllLayers(){
@@ -771,17 +836,6 @@ function resetAllLayers(){
         glacierLayer.eachLayer(function(layer){
 
             glacierLayer.resetStyle(layer);
-
-        });
-
-    }
-
-
-    if(lakeLayer){
-
-        lakeLayer.eachLayer(function(layer){
-
-            lakeLayer.resetStyle(layer);
 
         });
 
@@ -955,8 +1009,6 @@ function resetFeatureInfo(){
 
 let glacierLayer;
 
-let lakeLayer;
-
 
 /* =====================================================
               ORIGINAL GLACIER DATA
@@ -1100,16 +1152,8 @@ function populateGlacierDropdown(selectedState){
         );
 
 
-    /*
-       Clear existing options
-    */
-
     glacierSelect.innerHTML = "";
 
-
-    /*
-       Default option
-    */
 
     const defaultOption =
 
@@ -1130,10 +1174,6 @@ function populateGlacierDropdown(selectedState){
     );
 
 
-    /*
-       If no data exists
-    */
-
     if(!glacierData){
 
         glacierSelect.disabled = true;
@@ -1142,11 +1182,6 @@ function populateGlacierDropdown(selectedState){
 
     }
 
-
-    /*
-       Get glaciers belonging to
-       selected state.
-    */
 
     let filteredFeatures;
 
@@ -1184,10 +1219,6 @@ function populateGlacierDropdown(selectedState){
     }
 
 
-    /*
-       Sort glaciers alphabetically
-    */
-
     filteredFeatures.sort(
 
         function(a,b){
@@ -1211,13 +1242,9 @@ function populateGlacierDropdown(selectedState){
     );
 
 
-    /*
-       Add glaciers to dropdown
-    */
-
     filteredFeatures.forEach(
 
-        function(feature,index){
+        function(feature){
 
             const name =
 
@@ -1238,12 +1265,6 @@ function populateGlacierDropdown(selectedState){
 
                     );
 
-
-                /*
-                   Use feature index as value.
-                   This lets us identify the
-                   exact GeoJSON feature.
-                */
 
                 option.value =
 
@@ -1270,10 +1291,6 @@ function populateGlacierDropdown(selectedState){
     );
 
 
-    /*
-       Enable dropdown
-    */
-
     glacierSelect.disabled = false;
 
 }
@@ -1292,10 +1309,6 @@ function filterGlaciersByState(selectedState){
     }
 
 
-    /*
-       Remove existing glacier layer
-    */
-
     if(glacierLayer){
 
         map.removeLayer(glacierLayer);
@@ -1303,16 +1316,8 @@ function filterGlaciersByState(selectedState){
     }
 
 
-    /*
-       Reset feature information
-    */
-
     resetFeatureInfo();
 
-
-    /*
-       Reset glacier dropdown
-    */
 
     populateGlacierDropdown(
 
@@ -1321,9 +1326,9 @@ function filterGlaciersByState(selectedState){
     );
 
 
-    /*
-       ALL STATES
-    */
+    /* =================================================
+                    ALL STATES
+    ================================================= */
 
     if(selectedState === "ALL"){
 
@@ -1344,10 +1349,6 @@ function filterGlaciersByState(selectedState){
         ).addTo(map);
 
 
-        /*
-           Return to Himalayan extent
-        */
-
         map.fitBounds(
 
             himalayanBounds,
@@ -1366,9 +1367,9 @@ function filterGlaciersByState(selectedState){
     }
 
 
-    /*
-       FILTER SELECTED STATE
-    */
+    /* =================================================
+                  FILTER SELECTED STATE
+    ================================================= */
 
     const filteredFeatures =
 
@@ -1417,9 +1418,9 @@ function filterGlaciersByState(selectedState){
     ).addTo(map);
 
 
-    /*
-       Zoom to selected state glaciers
-    */
+    /* =================================================
+                  ZOOM TO STATE GLACIERS
+    ================================================= */
 
     if(
 
@@ -1464,16 +1465,12 @@ function glacierFeatureEvents(
 
         click:function(e){
 
-            /*
-               Reset all layers
-            */
+            /* Reset glacier styles */
 
             resetAllLayers();
 
 
-            /*
-               Highlight selected glacier
-            */
+            /* Highlight selected glacier */
 
             glacierHighlight(
 
@@ -1482,9 +1479,7 @@ function glacierFeatureEvents(
             );
 
 
-            /*
-               Read glacier attributes
-            */
+            /* Read glacier attributes */
 
             const properties =
 
@@ -1508,10 +1503,7 @@ function glacierFeatureEvents(
             );
 
 
-            /*
-               Automatically select this
-               glacier in dropdown.
-            */
+            /* Automatically select glacier */
 
             const glacierSelect =
 
@@ -1585,10 +1577,9 @@ function selectGlacierFromDropdown(
     }
 
 
-    /*
-       Find the corresponding
-       Leaflet layer.
-    */
+    /* =================================================
+              FIND CORRESPONDING LEAFLET LAYER
+    ================================================= */
 
     let selectedLayer = null;
 
@@ -1616,16 +1607,12 @@ function selectGlacierFromDropdown(
     }
 
 
-    /*
-       Reset all glacier styles
-    */
+    /* Reset all glacier styles */
 
     resetAllLayers();
 
 
-    /*
-       Highlight selected glacier
-    */
+    /* Highlight selected glacier */
 
     if(selectedLayer){
 
@@ -1638,9 +1625,7 @@ function selectGlacierFromDropdown(
     }
 
 
-    /*
-       Read attributes
-    */
+    /* Read glacier attributes */
 
     const properties =
 
@@ -1664,9 +1649,9 @@ function selectGlacierFromDropdown(
     );
 
 
-    /*
-       Zoom to glacier
-    */
+    /* =================================================
+                    ZOOM TO GLACIER
+    ================================================= */
 
     if(
 
@@ -1731,31 +1716,22 @@ fetch("Indian_Glaciers.geojson")
 
 .then(data => {
 
-    /*
-       Store original GeoJSON
-    */
+    /* Store original GeoJSON */
 
     glacierData = data;
 
 
-    /*
-       Populate State/UT dropdown
-    */
+    /* Populate State/UT dropdown */
 
     populateStateDropdown(data);
 
 
-    /*
-       Populate Glacier dropdown
-       with all glaciers initially
-    */
+    /* Populate Glacier dropdown */
 
     populateGlacierDropdown("ALL");
 
 
-    /*
-       Load all glaciers initially
-    */
+    /* Load all glaciers initially */
 
     glacierLayer = L.geoJSON(
 
@@ -1808,16 +1784,8 @@ document.getElementById(
             this.value;
 
 
-        /*
-           Reset feature information
-        */
-
         resetFeatureInfo();
 
-
-        /*
-           Filter glaciers
-        */
 
         filterGlaciersByState(
 
@@ -1858,125 +1826,6 @@ document.getElementById(
     }
 
 );
-
-
-/* =====================================================
-                  LOAD GLACIAL LAKES
-===================================================== */
-
-fetch("Indian_Glacial_Lakes.geojson")
-
-
-.then(response =>{
-
-    if(!response.ok){
-
-        throw new Error(
-
-            "Indian_Glacial_Lakes.geojson could not be loaded."
-
-        );
-
-    }
-
-
-    return response.json();
-
-})
-
-
-.then(data =>{
-
-    lakeLayer = L.geoJSON(
-
-        data,
-
-        {
-
-            style:lakeStyle,
-
-
-            onEachFeature:function(
-
-                feature,
-
-                layer
-
-            ){
-
-                layer.on({
-
-                    click:function(e){
-
-                        /*
-                           Reset both layers
-                        */
-
-                        resetAllLayers();
-
-
-                        /*
-                           Highlight lake
-                        */
-
-                        lakeHighlight(
-
-                            e.target
-
-                        );
-
-
-                        /*
-                           Read lake attributes
-                        */
-
-                        const properties =
-
-                            feature.properties;
-
-
-                        displayFeatureInfo(
-
-                            properties["Name"],
-
-                            properties["Type"],
-
-                            properties["State"] ??
-
-                            properties["state"],
-
-                            "-",
-
-                            "-",
-
-                            properties["Area(km2)"]
-
-                        );
-
-                    }
-
-                });
-
-            }
-
-        }
-
-    ).addTo(map);
-
-})
-
-
-.catch(error =>{
-
-    console.error(error);
-
-    alert(
-
-        "Unable to load Indian_Glacial_Lakes.geojson"
-
-    );
-
-});
 
 
 </script>
