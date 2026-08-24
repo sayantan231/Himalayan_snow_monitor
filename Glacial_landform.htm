@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,10 +105,10 @@ body{
 
 
 /* =====================================================
-                 STATE SELECTOR
+                 DROPDOWN SECTION
 ===================================================== */
 
-.state-selector{
+.selector-section{
 
     margin-bottom:10px;
 
@@ -117,7 +118,12 @@ body{
 
 }
 
-.state-selector label{
+
+/* =====================================================
+                 DROPDOWN LABEL
+===================================================== */
+
+.selector-label{
 
     display:block;
 
@@ -131,7 +137,13 @@ body{
 
 }
 
-.state-select{
+
+/* =====================================================
+                  DROPDOWN
+===================================================== */
+
+.state-select,
+.glacier-select{
 
     width:100%;
 
@@ -159,17 +171,38 @@ body{
 
 }
 
-.state-select:hover{
+
+/* Hover */
+
+.state-select:hover,
+.glacier-select:hover{
 
     border-color:#5BBBE8;
 
 }
 
-.state-select:focus{
+
+/* Focus */
+
+.state-select:focus,
+.glacier-select:focus{
 
     border-color:#0f4c81;
 
     box-shadow:0 0 0 3px rgba(15,76,129,0.10);
+
+}
+
+
+/* Disabled Glacier Dropdown */
+
+.glacier-select:disabled{
+
+    background:#f1f5f9;
+
+    color:#94a3b8;
+
+    cursor:not-allowed;
 
 }
 
@@ -363,16 +396,19 @@ body{
 
 
             <!-- =================================================
-                        STATE / UT SELECTOR
+                        SELECT STATE / UT
             ================================================= -->
 
-            <div class="state-selector">
+            <div class="selector-section">
 
-                <label for="state-select">
+                <label
+                    class="selector-label"
+                    for="state-select">
 
                     Select State/UT
 
                 </label>
+
 
                 <select
                     id="state-select"
@@ -381,6 +417,37 @@ body{
                     <option value="ALL">
 
                         All States/UTs
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                        SELECT GLACIER
+            ================================================= -->
+
+            <div class="selector-section">
+
+                <label
+                    class="selector-label"
+                    for="glacier-select">
+
+                    Select Glacier
+
+                </label>
+
+
+                <select
+                    id="glacier-select"
+                    class="glacier-select"
+                    disabled>
+
+                    <option value="">
+
+                        Select a State/UT first
 
                     </option>
 
@@ -560,8 +627,6 @@ const mapBounds = L.latLngBounds(
 
 );
 
-
-/* Apply map movement restriction */
 
 map.setMaxBounds(mapBounds);
 
@@ -835,7 +900,7 @@ function displayFeatureInfo(
 
 
 /* =====================================================
-                  RESET FEATURE INFORMATION
+              RESET FEATURE INFORMATION
 ===================================================== */
 
 function resetFeatureInfo(){
@@ -904,19 +969,6 @@ let glacierData;
             GET STATE FIELD FROM GEOJSON
 ===================================================== */
 
-/*
-   This function supports both:
-
-   state
-
-   and
-
-   State
-
-   so the dropdown will work even if
-   the field capitalization differs.
-*/
-
 function getState(properties){
 
     if(!properties){
@@ -931,6 +983,32 @@ function getState(properties){
         properties["state"] ??
 
         properties["State"] ??
+
+        ""
+
+    ).toString().trim();
+
+}
+
+
+/* =====================================================
+            GET GLACIER NAME FROM GEOJSON
+===================================================== */
+
+function getGlacierName(properties){
+
+    if(!properties){
+
+        return "";
+
+    }
+
+
+    return (
+
+        properties["Name"] ??
+
+        properties["name"] ??
 
         ""
 
@@ -957,8 +1035,6 @@ function populateStateDropdown(data){
     const states = new Set();
 
 
-    /* Read state from every glacier */
-
     data.features.forEach(function(feature){
 
         const state = getState(
@@ -977,8 +1053,6 @@ function populateStateDropdown(data){
     });
 
 
-    /* Sort states alphabetically */
-
     const sortedStates =
 
         Array.from(states).sort(
@@ -991,8 +1065,6 @@ function populateStateDropdown(data){
 
         );
 
-
-    /* Add states to dropdown */
 
     sortedStates.forEach(function(state){
 
@@ -1014,6 +1086,200 @@ function populateStateDropdown(data){
 
 
 /* =====================================================
+              POPULATE GLACIER DROPDOWN
+===================================================== */
+
+function populateGlacierDropdown(selectedState){
+
+    const glacierSelect =
+
+        document.getElementById(
+
+            "glacier-select"
+
+        );
+
+
+    /*
+       Clear existing options
+    */
+
+    glacierSelect.innerHTML = "";
+
+
+    /*
+       Default option
+    */
+
+    const defaultOption =
+
+        document.createElement("option");
+
+
+    defaultOption.value = "";
+
+    defaultOption.textContent =
+
+        "Select Glacier";
+
+
+    glacierSelect.appendChild(
+
+        defaultOption
+
+    );
+
+
+    /*
+       If no data exists
+    */
+
+    if(!glacierData){
+
+        glacierSelect.disabled = true;
+
+        return;
+
+    }
+
+
+    /*
+       Get glaciers belonging to
+       selected state.
+    */
+
+    let filteredFeatures;
+
+
+    if(selectedState === "ALL"){
+
+        filteredFeatures =
+
+            glacierData.features;
+
+    }
+
+    else{
+
+        filteredFeatures =
+
+            glacierData.features.filter(
+
+                function(feature){
+
+                    return (
+
+                        getState(
+
+                            feature.properties
+
+                        ) === selectedState
+
+                    );
+
+                }
+
+            );
+
+    }
+
+
+    /*
+       Sort glaciers alphabetically
+    */
+
+    filteredFeatures.sort(
+
+        function(a,b){
+
+            return getGlacierName(
+
+                a.properties
+
+            ).localeCompare(
+
+                getGlacierName(
+
+                    b.properties
+
+                )
+
+            );
+
+        }
+
+    );
+
+
+    /*
+       Add glaciers to dropdown
+    */
+
+    filteredFeatures.forEach(
+
+        function(feature,index){
+
+            const name =
+
+                getGlacierName(
+
+                    feature.properties
+
+                );
+
+
+            if(name){
+
+                const option =
+
+                    document.createElement(
+
+                        "option"
+
+                    );
+
+
+                /*
+                   Use feature index as value.
+                   This lets us identify the
+                   exact GeoJSON feature.
+                */
+
+                option.value =
+
+                    glacierData.features.indexOf(
+
+                        feature
+
+                    );
+
+
+                option.textContent = name;
+
+
+                glacierSelect.appendChild(
+
+                    option
+
+                );
+
+            }
+
+        }
+
+    );
+
+
+    /*
+       Enable dropdown
+    */
+
+    glacierSelect.disabled = false;
+
+}
+
+
+/* =====================================================
               FILTER GLACIERS BY STATE
 ===================================================== */
 
@@ -1026,7 +1292,9 @@ function filterGlaciersByState(selectedState){
     }
 
 
-    /* Remove existing glacier layer */
+    /*
+       Remove existing glacier layer
+    */
 
     if(glacierLayer){
 
@@ -1035,7 +1303,22 @@ function filterGlaciersByState(selectedState){
     }
 
 
+    /*
+       Reset feature information
+    */
+
     resetFeatureInfo();
+
+
+    /*
+       Reset glacier dropdown
+    */
+
+    populateGlacierDropdown(
+
+        selectedState
+
+    );
 
 
     /*
@@ -1059,6 +1342,23 @@ function filterGlaciersByState(selectedState){
             }
 
         ).addTo(map);
+
+
+        /*
+           Return to Himalayan extent
+        */
+
+        map.fitBounds(
+
+            himalayanBounds,
+
+            {
+
+                padding:[20,20]
+
+            }
+
+        );
 
 
         return;
@@ -1164,12 +1464,16 @@ function glacierFeatureEvents(
 
         click:function(e){
 
-            /* Reset all layers */
+            /*
+               Reset all layers
+            */
 
             resetAllLayers();
 
 
-            /* Highlight selected glacier */
+            /*
+               Highlight selected glacier
+            */
 
             glacierHighlight(
 
@@ -1178,7 +1482,9 @@ function glacierFeatureEvents(
             );
 
 
-            /* Read glacier attributes */
+            /*
+               Read glacier attributes
+            */
 
             const properties =
 
@@ -1187,7 +1493,7 @@ function glacierFeatureEvents(
 
             displayFeatureInfo(
 
-                properties["Name"],
+                getGlacierName(properties),
 
                 properties["Type"],
 
@@ -1201,9 +1507,199 @@ function glacierFeatureEvents(
 
             );
 
+
+            /*
+               Automatically select this
+               glacier in dropdown.
+            */
+
+            const glacierSelect =
+
+                document.getElementById(
+
+                    "glacier-select"
+
+                );
+
+
+            const index =
+
+                glacierData.features.indexOf(
+
+                    feature
+
+                );
+
+
+            if(index !== -1){
+
+                glacierSelect.value = index;
+
+            }
+
         }
 
     });
+
+}
+
+
+/* =====================================================
+              SELECT GLACIER FROM DROPDOWN
+===================================================== */
+
+function selectGlacierFromDropdown(
+
+    featureIndex
+
+){
+
+    if(
+
+        featureIndex === "" ||
+
+        !glacierData
+
+    ){
+
+        resetFeatureInfo();
+
+        return;
+
+    }
+
+
+    const feature =
+
+        glacierData.features[
+
+            Number(featureIndex)
+
+        ];
+
+
+    if(!feature){
+
+        return;
+
+    }
+
+
+    /*
+       Find the corresponding
+       Leaflet layer.
+    */
+
+    let selectedLayer = null;
+
+
+    if(glacierLayer){
+
+        glacierLayer.eachLayer(
+
+            function(layer){
+
+                if(
+
+                    layer.feature === feature
+
+                ){
+
+                    selectedLayer = layer;
+
+                }
+
+            }
+
+        );
+
+    }
+
+
+    /*
+       Reset all glacier styles
+    */
+
+    resetAllLayers();
+
+
+    /*
+       Highlight selected glacier
+    */
+
+    if(selectedLayer){
+
+        glacierHighlight(
+
+            selectedLayer
+
+        );
+
+    }
+
+
+    /*
+       Read attributes
+    */
+
+    const properties =
+
+        feature.properties;
+
+
+    displayFeatureInfo(
+
+        getGlacierName(properties),
+
+        properties["Type"],
+
+        getState(properties),
+
+        properties["Main Basin"],
+
+        properties["Sub basin"],
+
+        properties["Area(Sq.km)"]
+
+    );
+
+
+    /*
+       Zoom to glacier
+    */
+
+    if(
+
+        feature.geometry &&
+
+        selectedLayer
+
+    ){
+
+        const bounds =
+
+            selectedLayer.getBounds();
+
+
+        if(bounds.isValid()){
+
+            map.fitBounds(
+
+                bounds,
+
+                {
+
+                    padding:[70,70],
+
+                    maxZoom:14
+
+                }
+
+            );
+
+        }
+
+    }
 
 }
 
@@ -1236,23 +1732,29 @@ fetch("Indian_Glaciers.geojson")
 .then(data => {
 
     /*
-       Save original GeoJSON
-       so it can be filtered later.
+       Store original GeoJSON
     */
 
     glacierData = data;
 
 
     /*
-       Automatically read all unique
-       states from the 'state' field.
+       Populate State/UT dropdown
     */
 
     populateStateDropdown(data);
 
 
     /*
-       Load all glaciers initially.
+       Populate Glacier dropdown
+       with all glaciers initially
+    */
+
+    populateGlacierDropdown("ALL");
+
+
+    /*
+       Load all glaciers initially
     */
 
     glacierLayer = L.geoJSON(
@@ -1307,26 +1809,49 @@ document.getElementById(
 
 
         /*
-           Reset selected feature
+           Reset feature information
         */
 
         resetFeatureInfo();
 
 
         /*
-           Reset layer styles
-        */
-
-        resetAllLayers();
-
-
-        /*
-           Filter glacier layer
+           Filter glaciers
         */
 
         filterGlaciersByState(
 
             selectedState
+
+        );
+
+    }
+
+);
+
+
+/* =====================================================
+                  GLACIER DROPDOWN EVENT
+===================================================== */
+
+document.getElementById(
+
+    "glacier-select"
+
+).addEventListener(
+
+    "change",
+
+    function(){
+
+        const selectedGlacier =
+
+            this.value;
+
+
+        selectGlacierFromDropdown(
+
+            selectedGlacier
 
         );
 
@@ -1460,3 +1985,4 @@ fetch("Indian_Glacial_Lakes.geojson")
 </body>
 
 </html>
+```
