@@ -17,6 +17,7 @@
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
+
 <style>
 
 /* =====================================================
@@ -248,18 +249,12 @@ body{
 
 }
 
-
-/* Hover */
-
 .state-select:hover,
 .glacier-select:hover{
 
     border-color:#5BBBE8;
 
 }
-
-
-/* Focus */
 
 .state-select:focus,
 .glacier-select:focus{
@@ -271,7 +266,7 @@ body{
 }
 
 
-/* Disabled Glacier Dropdown */
+/* Disabled */
 
 .glacier-select:disabled{
 
@@ -330,16 +325,20 @@ body{
 
 
 /* =====================================================
-              DOWNLOAD GLACIER BUTTON
+                    DOWNLOAD BUTTON
 ===================================================== */
 
-#download-glacier-btn{
+.download-section{
+
+    margin-top:25px;
+
+}
+
+#download-btn{
 
     width:100%;
 
-    margin-top:20px;
-
-    padding:13px 16px;
+    padding:13px 18px;
 
     border:none;
 
@@ -347,35 +346,37 @@ body{
 
     background:#0f4c81;
 
-    color:#ffffff;
+    color:white;
 
     font-family:'Inter',sans-serif;
 
-    font-size:14px;
+    font-size:15px;
 
     font-weight:600;
 
     cursor:pointer;
 
-    transition:.2s;
+    transition:0.2s;
 
 }
 
-
-#download-glacier-btn:hover{
+#download-btn:hover{
 
     background:#1677b7;
 
+    transform:translateY(-1px);
+
 }
 
-
-#download-glacier-btn:disabled{
+#download-btn:disabled{
 
     background:#cbd5e1;
 
-    color:#94a3b8;
+    color:#64748b;
 
     cursor:not-allowed;
+
+    transform:none;
 
 }
 
@@ -450,6 +451,254 @@ body{
     background:#5BBBE8;
 
     border:2px solid #00D4FF;
+
+}
+
+
+/* =====================================================
+                  LOGIN OVERLAY
+===================================================== */
+
+#login-overlay{
+
+    display:none;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:100%;
+
+    background:rgba(3,15,27,0.65);
+
+    backdrop-filter:blur(5px);
+
+    z-index:5000;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+
+/* =====================================================
+                    LOGIN BOX
+===================================================== */
+
+.login-box{
+
+    width:390px;
+
+    max-width:90%;
+
+    background:#ffffff;
+
+    border-radius:14px;
+
+    padding:32px;
+
+    box-shadow:0 20px 60px rgba(0,0,0,0.25);
+
+    position:relative;
+
+    animation:loginAppear .25s ease;
+
+}
+
+
+@keyframes loginAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(15px) scale(.98);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0) scale(1);
+
+    }
+
+}
+
+
+/* =====================================================
+                    LOGIN TITLE
+===================================================== */
+
+.login-title{
+
+    text-align:center;
+
+    font-size:25px;
+
+    font-weight:700;
+
+    color:#16324f;
+
+    margin-bottom:8px;
+
+}
+
+
+.login-subtitle{
+
+    text-align:center;
+
+    font-size:13px;
+
+    color:#64748b;
+
+    margin-bottom:25px;
+
+}
+
+
+/* =====================================================
+                  CLOSE BUTTON
+===================================================== */
+
+.login-close{
+
+    position:absolute;
+
+    top:14px;
+
+    right:18px;
+
+    border:none;
+
+    background:none;
+
+    font-size:25px;
+
+    color:#64748b;
+
+    cursor:pointer;
+
+}
+
+.login-close:hover{
+
+    color:#0f4c81;
+
+}
+
+
+/* =====================================================
+                    LOGIN LABEL
+===================================================== */
+
+.login-label{
+
+    display:block;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#475569;
+
+    margin-bottom:7px;
+
+}
+
+
+/* =====================================================
+                  LOGIN INPUT
+===================================================== */
+
+.login-input{
+
+    width:100%;
+
+    padding:12px 13px;
+
+    margin-bottom:17px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:8px;
+
+    font-family:'Inter',sans-serif;
+
+    font-size:14px;
+
+    outline:none;
+
+}
+
+.login-input:focus{
+
+    border-color:#1677b7;
+
+    box-shadow:0 0 0 3px rgba(22,119,183,0.10);
+
+}
+
+
+/* =====================================================
+                    LOGIN BUTTON
+===================================================== */
+
+#login-btn{
+
+    width:100%;
+
+    padding:13px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#0f4c81;
+
+    color:white;
+
+    font-family:'Inter',sans-serif;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+#login-btn:hover{
+
+    background:#1677b7;
+
+}
+
+
+/* =====================================================
+                    LOGIN MESSAGE
+===================================================== */
+
+#login-message{
+
+    margin-top:14px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    color:#dc2626;
+
+    display:none;
 
 }
 
@@ -540,16 +789,12 @@ body{
 <div class="container">
 
 
-    <!-- =================================================
-                         MAP
-    ================================================= -->
+    <!-- MAP -->
 
     <div id="map"></div>
 
 
-    <!-- =================================================
-                    INFORMATION PANEL
-    ================================================= -->
+    <!-- INFORMATION PANEL -->
 
     <aside id="sidebar">
 
@@ -559,9 +804,7 @@ body{
             <h2>Feature Information</h2>
 
 
-            <!-- =================================================
-                        SELECT STATE / UT
-            ================================================= -->
+            <!-- SELECT STATE -->
 
             <div class="selector-section">
 
@@ -572,7 +815,6 @@ body{
                     Select State/UT
 
                 </label>
-
 
                 <select
                     id="state-select"
@@ -589,9 +831,7 @@ body{
             </div>
 
 
-            <!-- =================================================
-                        SELECT GLACIER
-            ================================================= -->
+            <!-- SELECT GLACIER -->
 
             <div class="selector-section">
 
@@ -602,7 +842,6 @@ body{
                     Select Glacier
 
                 </label>
-
 
                 <select
                     id="glacier-select"
@@ -620,14 +859,10 @@ body{
             </div>
 
 
-            <!-- =================================================
-                    FEATURE INFORMATION TABLE
-            ================================================= -->
+            <!-- INFORMATION TABLE -->
 
             <table class="info-table">
 
-
-                <!-- NAME -->
 
                 <tr>
 
@@ -638,8 +873,6 @@ body{
                 </tr>
 
 
-                <!-- TYPE -->
-
                 <tr>
 
                     <th>Type</th>
@@ -648,8 +881,6 @@ body{
 
                 </tr>
 
-
-                <!-- STATE -->
 
                 <tr>
 
@@ -660,8 +891,6 @@ body{
                 </tr>
 
 
-                <!-- MAIN BASIN -->
-
                 <tr>
 
                     <th>Main Basin</th>
@@ -671,8 +900,6 @@ body{
                 </tr>
 
 
-                <!-- SUB BASIN -->
-
                 <tr>
 
                     <th>Sub Basin</th>
@@ -681,8 +908,6 @@ body{
 
                 </tr>
 
-
-                <!-- AREA -->
 
                 <tr>
 
@@ -697,31 +922,31 @@ body{
 
 
             <!-- =================================================
-                DOWNLOAD SELECTED GLACIER
+                    DOWNLOAD SELECTED GLACIER
             ================================================= -->
 
-            <button
-                id="download-glacier-btn"
-                disabled>
+            <div class="download-section">
 
-                Download Selected Glacier
+                <button
+                    id="download-btn"
+                    disabled>
 
-            </button>
+                    🔐 Download Selected Glacier
+
+                </button>
+
+            </div>
 
 
-            <!-- =================================================
-                            LEGEND
-            ================================================= -->
+            <!-- LEGEND -->
 
             <div class="legend">
-
 
                 <div class="legend-title">
 
                     Map Layers
 
                 </div>
-
 
                 <div class="legend-item">
 
@@ -731,7 +956,6 @@ body{
 
                 </div>
 
-
             </div>
 
 
@@ -739,6 +963,102 @@ body{
 
     </aside>
 
+</div>
+
+
+<!-- =====================================================
+                    LOGIN OVERLAY
+===================================================== -->
+
+<div id="login-overlay">
+
+
+    <div class="login-box">
+
+
+        <!-- CLOSE -->
+
+        <button
+            class="login-close"
+            id="login-close">
+
+            ×
+
+        </button>
+
+
+        <!-- TITLE -->
+
+        <div class="login-title">
+
+            Welcome Back
+
+        </div>
+
+
+        <div class="login-subtitle">
+
+            Login to download glacier datasets
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <label
+            class="login-label"
+            for="login-email">
+
+            Email Address
+
+        </label>
+
+
+        <input
+            type="email"
+            id="login-email"
+            class="login-input"
+            placeholder="Enter your email"
+        >
+
+
+        <!-- PASSWORD -->
+
+        <label
+            class="login-label"
+            for="login-password">
+
+            Password
+
+        </label>
+
+
+        <input
+            type="password"
+            id="login-password"
+            class="login-input"
+            placeholder="Enter your password"
+        >
+
+
+        <!-- LOGIN -->
+
+        <button
+            id="login-btn">
+
+            Login & Download
+
+        </button>
+
+
+        <div id="login-message">
+
+            Please enter your email and password.
+
+        </div>
+
+
+    </div>
 
 </div>
 
@@ -794,7 +1114,6 @@ const mapBounds = L.latLngBounds(
     [38.5,99.0]
 
 );
-
 
 map.setMaxBounds(mapBounds);
 
@@ -914,60 +1233,43 @@ function resetAllLayers(){
 function displayFeatureInfo(
 
     name,
-
     type,
-
     state,
-
     mainBasin,
-
     subBasin,
-
     area
 
 ){
 
     document.getElementById(
-
         "feature-name"
-
     ).innerHTML = name || "-";
 
 
     document.getElementById(
-
         "feature-type"
-
     ).innerHTML = type || "-";
 
 
     document.getElementById(
-
         "feature-state"
-
     ).innerHTML = state || "-";
 
 
     document.getElementById(
-
         "main-basin"
-
     ).innerHTML = mainBasin || "-";
 
 
     document.getElementById(
-
         "sub-basin"
-
     ).innerHTML = subBasin || "-";
 
 
     if(
 
         area !== undefined &&
-
         area !== null &&
-
         area !== ""
 
     ){
@@ -978,9 +1280,7 @@ function displayFeatureInfo(
         if(!isNaN(numericArea)){
 
             document.getElementById(
-
                 "feature-area"
-
             ).innerHTML =
 
                 numericArea.toFixed(3)
@@ -992,9 +1292,7 @@ function displayFeatureInfo(
         else{
 
             document.getElementById(
-
                 "feature-area"
-
             ).innerHTML =
 
                 area + " km²";
@@ -1006,9 +1304,7 @@ function displayFeatureInfo(
     else{
 
         document.getElementById(
-
             "feature-area"
-
         ).innerHTML = "-";
 
     }
@@ -1023,45 +1319,38 @@ function displayFeatureInfo(
 function resetFeatureInfo(){
 
     document.getElementById(
-
         "feature-name"
-
     ).innerHTML = "-";
 
 
     document.getElementById(
-
         "feature-type"
-
     ).innerHTML = "-";
 
 
     document.getElementById(
-
         "feature-state"
-
     ).innerHTML = "-";
 
 
     document.getElementById(
-
         "main-basin"
-
     ).innerHTML = "-";
 
 
     document.getElementById(
-
         "sub-basin"
-
     ).innerHTML = "-";
 
 
     document.getElementById(
-
         "feature-area"
-
     ).innerHTML = "-";
+
+
+    document.getElementById(
+        "download-btn"
+    ).disabled = true;
 
 }
 
@@ -1081,27 +1370,14 @@ let glacierData;
 
 
 /* =====================================================
-            SELECTED GLACIER
+              CURRENT SELECTED GLACIER
 ===================================================== */
 
 let selectedGlacierFeature = null;
 
 
 /* =====================================================
-              DOWNLOAD BUTTON
-===================================================== */
-
-const downloadGlacierBtn =
-
-    document.getElementById(
-
-        "download-glacier-btn"
-
-    );
-
-
-/* =====================================================
-            GET STATE FIELD FROM GEOJSON
+            GET STATE FIELD
 ===================================================== */
 
 function getState(properties){
@@ -1111,7 +1387,6 @@ function getState(properties){
         return "";
 
     }
-
 
     return (
 
@@ -1127,7 +1402,7 @@ function getState(properties){
 
 
 /* =====================================================
-            GET GLACIER NAME FROM GEOJSON
+            GET GLACIER NAME
 ===================================================== */
 
 function getGlacierName(properties){
@@ -1137,7 +1412,6 @@ function getGlacierName(properties){
         return "";
 
     }
-
 
     return (
 
@@ -1161,9 +1435,7 @@ function populateStateDropdown(data){
     const stateSelect =
 
         document.getElementById(
-
             "state-select"
-
         );
 
 
@@ -1173,9 +1445,7 @@ function populateStateDropdown(data){
     data.features.forEach(function(feature){
 
         const state = getState(
-
             feature.properties
-
         );
 
 
@@ -1229,9 +1499,7 @@ function populateGlacierDropdown(selectedState){
     const glacierSelect =
 
         document.getElementById(
-
             "glacier-select"
-
         );
 
 
@@ -1251,9 +1519,7 @@ function populateGlacierDropdown(selectedState){
 
 
     glacierSelect.appendChild(
-
         defaultOption
-
     );
 
 
@@ -1272,7 +1538,6 @@ function populateGlacierDropdown(selectedState){
     if(selectedState === "ALL"){
 
         filteredFeatures =
-
             glacierData.features;
 
     }
@@ -1288,9 +1553,7 @@ function populateGlacierDropdown(selectedState){
                     return (
 
                         getState(
-
                             feature.properties
-
                         ) === selectedState
 
                     );
@@ -1307,15 +1570,11 @@ function populateGlacierDropdown(selectedState){
         function(a,b){
 
             return getGlacierName(
-
                 a.properties
-
             ).localeCompare(
 
                 getGlacierName(
-
                     b.properties
-
                 )
 
             );
@@ -1332,9 +1591,7 @@ function populateGlacierDropdown(selectedState){
             const name =
 
                 getGlacierName(
-
                     feature.properties
-
                 );
 
 
@@ -1343,18 +1600,14 @@ function populateGlacierDropdown(selectedState){
                 const option =
 
                     document.createElement(
-
                         "option"
-
                     );
 
 
                 option.value =
 
                     glacierData.features.indexOf(
-
                         feature
-
                     );
 
 
@@ -1362,9 +1615,7 @@ function populateGlacierDropdown(selectedState){
 
 
                 glacierSelect.appendChild(
-
                     option
-
                 );
 
             }
@@ -1401,22 +1652,13 @@ function filterGlaciersByState(selectedState){
 
     resetFeatureInfo();
 
-
     selectedGlacierFeature = null;
-
-    downloadGlacierBtn.disabled = true;
 
 
     populateGlacierDropdown(
-
         selectedState
-
     );
 
-
-    /* =================================================
-                    ALL STATES
-    ================================================= */
 
     if(selectedState === "ALL"){
 
@@ -1429,7 +1671,6 @@ function filterGlaciersByState(selectedState){
                 style:glacierStyle,
 
                 onEachFeature:
-
                     glacierFeatureEvents
 
             }
@@ -1455,10 +1696,6 @@ function filterGlaciersByState(selectedState){
     }
 
 
-    /* =================================================
-                  FILTER SELECTED STATE
-    ================================================= */
-
     const filteredFeatures =
 
         glacierData.features.filter(
@@ -1468,9 +1705,7 @@ function filterGlaciersByState(selectedState){
                 return (
 
                     getState(
-
                         feature.properties
-
                     ) === selectedState
 
                 );
@@ -1498,17 +1733,12 @@ function filterGlaciersByState(selectedState){
             style:glacierStyle,
 
             onEachFeature:
-
                 glacierFeatureEvents
 
         }
 
     ).addTo(map);
 
-
-    /* =================================================
-                  ZOOM TO STATE GLACIERS
-    ================================================= */
 
     if(
 
@@ -1544,7 +1774,6 @@ function filterGlaciersByState(selectedState){
 function glacierFeatureEvents(
 
     feature,
-
     layer
 
 ){
@@ -1553,34 +1782,18 @@ function glacierFeatureEvents(
 
         click:function(e){
 
-            /* Reset glacier styles */
-
             resetAllLayers();
 
 
-            /* Highlight selected glacier */
-
             glacierHighlight(
-
                 e.target
-
             );
 
-
-            /* Store selected glacier */
 
             selectedGlacierFeature = feature;
 
 
-            /* Enable download button */
-
-            downloadGlacierBtn.disabled = false;
-
-
-            /* Read glacier attributes */
-
             const properties =
-
                 feature.properties;
 
 
@@ -1601,23 +1814,17 @@ function glacierFeatureEvents(
             );
 
 
-            /* Automatically select glacier */
-
             const glacierSelect =
 
                 document.getElementById(
-
                     "glacier-select"
-
                 );
 
 
             const index =
 
                 glacierData.features.indexOf(
-
                     feature
-
                 );
 
 
@@ -1626,6 +1833,13 @@ function glacierFeatureEvents(
                 glacierSelect.value = index;
 
             }
+
+
+            /* ENABLE DOWNLOAD */
+
+            document.getElementById(
+                "download-btn"
+            ).disabled = false;
 
         }
 
@@ -1654,8 +1868,6 @@ function selectGlacierFromDropdown(
 
         selectedGlacierFeature = null;
 
-        downloadGlacierBtn.disabled = true;
-
         resetFeatureInfo();
 
         return;
@@ -1666,36 +1878,19 @@ function selectGlacierFromDropdown(
     const feature =
 
         glacierData.features[
-
             Number(featureIndex)
-
         ];
 
 
     if(!feature){
-
-        selectedGlacierFeature = null;
-
-        downloadGlacierBtn.disabled = true;
 
         return;
 
     }
 
 
-    /* Store selected glacier */
-
     selectedGlacierFeature = feature;
 
-
-    /* Enable download button */
-
-    downloadGlacierBtn.disabled = false;
-
-
-    /* =================================================
-              FIND CORRESPONDING LEAFLET LAYER
-    ================================================= */
 
     let selectedLayer = null;
 
@@ -1707,9 +1902,7 @@ function selectGlacierFromDropdown(
             function(layer){
 
                 if(
-
                     layer.feature === feature
-
                 ){
 
                     selectedLayer = layer;
@@ -1723,28 +1916,19 @@ function selectGlacierFromDropdown(
     }
 
 
-    /* Reset all glacier styles */
-
     resetAllLayers();
 
-
-    /* Highlight selected glacier */
 
     if(selectedLayer){
 
         glacierHighlight(
-
             selectedLayer
-
         );
 
     }
 
 
-    /* Read glacier attributes */
-
     const properties =
-
         feature.properties;
 
 
@@ -1765,9 +1949,12 @@ function selectGlacierFromDropdown(
     );
 
 
-    /* =================================================
-                    ZOOM TO GLACIER
-    ================================================= */
+    /* ENABLE DOWNLOAD */
+
+    document.getElementById(
+        "download-btn"
+    ).disabled = false;
+
 
     if(
 
@@ -1778,7 +1965,6 @@ function selectGlacierFromDropdown(
     ){
 
         const bounds =
-
             selectedLayer.getBounds();
 
 
@@ -1806,59 +1992,217 @@ function selectGlacierFromDropdown(
 
 
 /* =====================================================
-          DOWNLOAD SELECTED GLACIER
+              DOWNLOAD BUTTON
+===================================================== */
+
+document.getElementById(
+    "download-btn"
+).addEventListener(
+
+    "click",
+
+    function(){
+
+        if(!selectedGlacierFeature){
+
+            alert(
+                "Please select a glacier first."
+            );
+
+            return;
+
+        }
+
+
+        /*
+        IMPORTANT:
+
+        At this stage we only OPEN
+        the login interface.
+
+        Authentication will later
+        be connected to Python +
+        SQLite.
+        */
+
+
+        document.getElementById(
+            "login-overlay"
+        ).style.display = "flex";
+
+
+        document.getElementById(
+            "login-email"
+        ).focus();
+
+    }
+
+);
+
+
+/* =====================================================
+                    CLOSE LOGIN
+===================================================== */
+
+document.getElementById(
+    "login-close"
+).addEventListener(
+
+    "click",
+
+    function(){
+
+        document.getElementById(
+            "login-overlay"
+        ).style.display = "none";
+
+    }
+
+);
+
+
+/* =====================================================
+                CLICK OUTSIDE LOGIN
+===================================================== */
+
+document.getElementById(
+    "login-overlay"
+).addEventListener(
+
+    "click",
+
+    function(e){
+
+        if(
+            e.target === this
+        ){
+
+            this.style.display = "none";
+
+        }
+
+    }
+
+);
+
+
+/* =====================================================
+                LOGIN BUTTON
+===================================================== */
+
+document.getElementById(
+    "login-btn"
+).addEventListener(
+
+    "click",
+
+    function(){
+
+        const email =
+
+            document.getElementById(
+                "login-email"
+            ).value.trim();
+
+
+        const password =
+
+            document.getElementById(
+                "login-password"
+            ).value;
+
+
+        const message =
+
+            document.getElementById(
+                "login-message"
+            );
+
+
+        if(!email || !password){
+
+            message.innerText =
+
+                "Please enter your email and password.";
+
+            message.style.display = "block";
+
+            return;
+
+        }
+
+
+        /*
+        TEMPORARY LOGIN
+
+        This is NOT real authentication.
+
+        It only demonstrates the
+        user interface.
+
+        */
+
+        message.style.display = "none";
+
+
+        downloadSelectedGlacier();
+
+
+        document.getElementById(
+            "login-overlay"
+        ).style.display = "none";
+
+    }
+
+);
+
+
+/* =====================================================
+              DOWNLOAD SELECTED GLACIER
 ===================================================== */
 
 function downloadSelectedGlacier(){
 
     if(!selectedGlacierFeature){
 
+        alert(
+            "No glacier selected."
+        );
+
         return;
 
     }
 
 
-    /* =================================================
-          CREATE SINGLE-FEATURE GEOJSON
-    ================================================= */
+    /* Create FeatureCollection */
 
-    const selectedGlacierGeoJSON = {
+    const selectedData = {
 
         type:"FeatureCollection",
 
         features:[
-
             selectedGlacierFeature
-
         ]
 
     };
 
 
-    /* =================================================
-              CONVERT TO JSON TEXT
-    ================================================= */
+    /* Convert to JSON */
 
-    const geojsonText =
+    const jsonData =
 
         JSON.stringify(
-
-            selectedGlacierGeoJSON,
-
+            selectedData,
             null,
-
             2
-
         );
 
 
-    /* =================================================
-                  CREATE BLOB
-    ================================================= */
+    /* Create file */
 
     const blob = new Blob(
 
-        [geojsonText],
+        [jsonData],
 
         {
 
@@ -1869,56 +2213,14 @@ function downloadSelectedGlacier(){
     );
 
 
-    /* =================================================
-                CREATE DOWNLOAD URL
-    ================================================= */
+    /* Create temporary URL */
 
     const url =
 
         URL.createObjectURL(blob);
 
 
-    /* =================================================
-                  GET GLACIER NAME
-    ================================================= */
-
-    const glacierName =
-
-        getGlacierName(
-
-            selectedGlacierFeature.properties
-
-        );
-
-
-    /* =================================================
-              CLEAN FILE NAME
-    ================================================= */
-
-    const safeFileName =
-
-        (
-
-            glacierName ||
-
-            "Selected_Glacier"
-
-        )
-
-        .replace(
-
-            /[<>:"/\\|?*]+/g,
-
-            "_"
-
-        )
-
-        .trim();
-
-
-    /* =================================================
-                CREATE DOWNLOAD LINK
-    ================================================= */
+    /* Create download link */
 
     const link =
 
@@ -1928,11 +2230,21 @@ function downloadSelectedGlacier(){
     link.href = url;
 
 
+    const glacierName =
+
+        getGlacierName(
+            selectedGlacierFeature.properties
+        );
+
+
     link.download =
 
-        safeFileName +
+        glacierName.replace(
+            /[^a-z0-9]/gi,
+            "_"
+        )
 
-        ".geojson";
+        + ".geojson";
 
 
     document.body.appendChild(link);
@@ -1944,26 +2256,9 @@ function downloadSelectedGlacier(){
     document.body.removeChild(link);
 
 
-    /* =================================================
-              RELEASE OBJECT URL
-    ================================================= */
-
     URL.revokeObjectURL(url);
 
 }
-
-
-/* =====================================================
-              DOWNLOAD BUTTON EVENT
-===================================================== */
-
-downloadGlacierBtn.addEventListener(
-
-    "click",
-
-    downloadSelectedGlacier
-
-);
 
 
 /* =====================================================
@@ -1993,22 +2288,14 @@ fetch("Indian_Glaciers.geojson")
 
 .then(data => {
 
-    /* Store original GeoJSON */
-
     glacierData = data;
 
-
-    /* Populate State/UT dropdown */
 
     populateStateDropdown(data);
 
 
-    /* Populate Glacier dropdown */
-
     populateGlacierDropdown("ALL");
 
-
-    /* Load all glaciers initially */
 
     glacierLayer = L.geoJSON(
 
@@ -2019,7 +2306,6 @@ fetch("Indian_Glaciers.geojson")
             style:glacierStyle,
 
             onEachFeature:
-
                 glacierFeatureEvents
 
         }
@@ -2047,9 +2333,7 @@ fetch("Indian_Glaciers.geojson")
 ===================================================== */
 
 document.getElementById(
-
     "state-select"
-
 ).addEventListener(
 
     "change",
@@ -2057,7 +2341,6 @@ document.getElementById(
     function(){
 
         const selectedState =
-
             this.value;
 
 
@@ -2065,9 +2348,7 @@ document.getElementById(
 
 
         filterGlaciersByState(
-
             selectedState
-
         );
 
     }
@@ -2080,9 +2361,7 @@ document.getElementById(
 ===================================================== */
 
 document.getElementById(
-
     "glacier-select"
-
 ).addEventListener(
 
     "change",
@@ -2090,14 +2369,11 @@ document.getElementById(
     function(){
 
         const selectedGlacier =
-
             this.value;
 
 
         selectGlacierFromDropdown(
-
             selectedGlacier
-
         );
 
     }
