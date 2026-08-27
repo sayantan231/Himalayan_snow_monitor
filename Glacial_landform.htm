@@ -17,7 +17,6 @@
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
-
 <style>
 
 /* =====================================================
@@ -326,6 +325,57 @@ body{
     color:#1f2937;
 
     font-weight:600;
+
+}
+
+
+/* =====================================================
+              DOWNLOAD GLACIER BUTTON
+===================================================== */
+
+#download-glacier-btn{
+
+    width:100%;
+
+    margin-top:20px;
+
+    padding:13px 16px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#0f4c81;
+
+    color:#ffffff;
+
+    font-family:'Inter',sans-serif;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+
+#download-glacier-btn:hover{
+
+    background:#1677b7;
+
+}
+
+
+#download-glacier-btn:disabled{
+
+    background:#cbd5e1;
+
+    color:#94a3b8;
+
+    cursor:not-allowed;
 
 }
 
@@ -644,6 +694,19 @@ body{
 
 
             </table>
+
+
+            <!-- =================================================
+                DOWNLOAD SELECTED GLACIER
+            ================================================= -->
+
+            <button
+                id="download-glacier-btn"
+                disabled>
+
+                Download Selected Glacier
+
+            </button>
 
 
             <!-- =================================================
@@ -1018,6 +1081,26 @@ let glacierData;
 
 
 /* =====================================================
+            SELECTED GLACIER
+===================================================== */
+
+let selectedGlacierFeature = null;
+
+
+/* =====================================================
+              DOWNLOAD BUTTON
+===================================================== */
+
+const downloadGlacierBtn =
+
+    document.getElementById(
+
+        "download-glacier-btn"
+
+    );
+
+
+/* =====================================================
             GET STATE FIELD FROM GEOJSON
 ===================================================== */
 
@@ -1319,6 +1402,11 @@ function filterGlaciersByState(selectedState){
     resetFeatureInfo();
 
 
+    selectedGlacierFeature = null;
+
+    downloadGlacierBtn.disabled = true;
+
+
     populateGlacierDropdown(
 
         selectedState
@@ -1479,6 +1567,16 @@ function glacierFeatureEvents(
             );
 
 
+            /* Store selected glacier */
+
+            selectedGlacierFeature = feature;
+
+
+            /* Enable download button */
+
+            downloadGlacierBtn.disabled = false;
+
+
             /* Read glacier attributes */
 
             const properties =
@@ -1554,6 +1652,10 @@ function selectGlacierFromDropdown(
 
     ){
 
+        selectedGlacierFeature = null;
+
+        downloadGlacierBtn.disabled = true;
+
         resetFeatureInfo();
 
         return;
@@ -1572,9 +1674,23 @@ function selectGlacierFromDropdown(
 
     if(!feature){
 
+        selectedGlacierFeature = null;
+
+        downloadGlacierBtn.disabled = true;
+
         return;
 
     }
+
+
+    /* Store selected glacier */
+
+    selectedGlacierFeature = feature;
+
+
+    /* Enable download button */
+
+    downloadGlacierBtn.disabled = false;
 
 
     /* =================================================
@@ -1687,6 +1803,167 @@ function selectGlacierFromDropdown(
     }
 
 }
+
+
+/* =====================================================
+          DOWNLOAD SELECTED GLACIER
+===================================================== */
+
+function downloadSelectedGlacier(){
+
+    if(!selectedGlacierFeature){
+
+        return;
+
+    }
+
+
+    /* =================================================
+          CREATE SINGLE-FEATURE GEOJSON
+    ================================================= */
+
+    const selectedGlacierGeoJSON = {
+
+        type:"FeatureCollection",
+
+        features:[
+
+            selectedGlacierFeature
+
+        ]
+
+    };
+
+
+    /* =================================================
+              CONVERT TO JSON TEXT
+    ================================================= */
+
+    const geojsonText =
+
+        JSON.stringify(
+
+            selectedGlacierGeoJSON,
+
+            null,
+
+            2
+
+        );
+
+
+    /* =================================================
+                  CREATE BLOB
+    ================================================= */
+
+    const blob = new Blob(
+
+        [geojsonText],
+
+        {
+
+            type:"application/geo+json"
+
+        }
+
+    );
+
+
+    /* =================================================
+                CREATE DOWNLOAD URL
+    ================================================= */
+
+    const url =
+
+        URL.createObjectURL(blob);
+
+
+    /* =================================================
+                  GET GLACIER NAME
+    ================================================= */
+
+    const glacierName =
+
+        getGlacierName(
+
+            selectedGlacierFeature.properties
+
+        );
+
+
+    /* =================================================
+              CLEAN FILE NAME
+    ================================================= */
+
+    const safeFileName =
+
+        (
+
+            glacierName ||
+
+            "Selected_Glacier"
+
+        )
+
+        .replace(
+
+            /[<>:"/\\|?*]+/g,
+
+            "_"
+
+        )
+
+        .trim();
+
+
+    /* =================================================
+                CREATE DOWNLOAD LINK
+    ================================================= */
+
+    const link =
+
+        document.createElement("a");
+
+
+    link.href = url;
+
+
+    link.download =
+
+        safeFileName +
+
+        ".geojson";
+
+
+    document.body.appendChild(link);
+
+
+    link.click();
+
+
+    document.body.removeChild(link);
+
+
+    /* =================================================
+              RELEASE OBJECT URL
+    ================================================= */
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* =====================================================
+              DOWNLOAD BUTTON EVENT
+===================================================== */
+
+downloadGlacierBtn.addEventListener(
+
+    "click",
+
+    downloadSelectedGlacier
+
+);
 
 
 /* =====================================================
