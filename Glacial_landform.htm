@@ -69,10 +69,6 @@ body{
 }
 
 
-/* =====================================================
-                    HEADER LOGO
-===================================================== */
-
 .header-logo{
 
     position:absolute;
@@ -88,10 +84,6 @@ body{
 }
 
 
-/* =====================================================
-                    HEADER TITLE
-===================================================== */
-
 .header-title{
 
     font-size:34px;
@@ -101,15 +93,10 @@ body{
     letter-spacing:0.5px;
 
     background:linear-gradient(
-
         90deg,
-
         #0f4c81,
-
         #1677b7,
-
         #5BBBE8
-
     );
 
     -webkit-background-clip:text;
@@ -163,11 +150,13 @@ body{
 
 }
 
+
 .sidebar-content{
 
     padding:28px;
 
 }
+
 
 .sidebar-content h2{
 
@@ -197,10 +186,6 @@ body{
 }
 
 
-/* =====================================================
-                 DROPDOWN LABEL
-===================================================== */
-
 .selector-label{
 
     display:block;
@@ -215,10 +200,6 @@ body{
 
 }
 
-
-/* =====================================================
-                  DROPDOWN
-===================================================== */
 
 .state-select,
 .glacier-select{
@@ -249,12 +230,14 @@ body{
 
 }
 
+
 .state-select:hover,
 .glacier-select:hover{
 
     border-color:#5BBBE8;
 
 }
+
 
 .state-select:focus,
 .glacier-select:focus{
@@ -265,8 +248,6 @@ body{
 
 }
 
-
-/* Disabled */
 
 .glacier-select:disabled{
 
@@ -291,11 +272,13 @@ body{
 
 }
 
+
 .info-table tr{
 
     border-bottom:1px solid #eceff3;
 
 }
+
 
 .info-table th{
 
@@ -313,6 +296,7 @@ body{
 
 }
 
+
 .info-table td{
 
     font-size:15px;
@@ -320,63 +304,6 @@ body{
     color:#1f2937;
 
     font-weight:600;
-
-}
-
-
-/* =====================================================
-                    DOWNLOAD BUTTON
-===================================================== */
-
-.download-section{
-
-    margin-top:25px;
-
-}
-
-#download-btn{
-
-    width:100%;
-
-    padding:13px 18px;
-
-    border:none;
-
-    border-radius:8px;
-
-    background:#0f4c81;
-
-    color:white;
-
-    font-family:'Inter',sans-serif;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:0.2s;
-
-}
-
-#download-btn:hover{
-
-    background:#1677b7;
-
-    transform:translateY(-1px);
-
-}
-
-#download-btn:disabled{
-
-    background:#cbd5e1;
-
-    color:#64748b;
-
-    cursor:not-allowed;
-
-    transform:none;
 
 }
 
@@ -399,6 +326,7 @@ body{
 
 }
 
+
 .legend-title{
 
     font-size:14px;
@@ -410,6 +338,7 @@ body{
     margin-bottom:12px;
 
 }
+
 
 .legend-item{
 
@@ -425,11 +354,13 @@ body{
 
 }
 
+
 .legend-item:last-child{
 
     margin-bottom:0;
 
 }
+
 
 .legend-box{
 
@@ -444,8 +375,6 @@ body{
 }
 
 
-/* Glacier legend */
-
 .glacier-legend{
 
     background:#5BBBE8;
@@ -456,206 +385,16 @@ body{
 
 
 /* =====================================================
-                  LOGIN OVERLAY
+              DOWNLOAD BUTTON
 ===================================================== */
 
-#login-overlay{
-
-    display:none;
-
-    position:fixed;
-
-    top:0;
-
-    left:0;
+.download-btn{
 
     width:100%;
 
-    height:100%;
+    margin-top:25px;
 
-    background:rgba(3,15,27,0.65);
-
-    backdrop-filter:blur(5px);
-
-    z-index:5000;
-
-    align-items:center;
-
-    justify-content:center;
-
-}
-
-
-/* =====================================================
-                    LOGIN BOX
-===================================================== */
-
-.login-box{
-
-    width:390px;
-
-    max-width:90%;
-
-    background:#ffffff;
-
-    border-radius:14px;
-
-    padding:32px;
-
-    box-shadow:0 20px 60px rgba(0,0,0,0.25);
-
-    position:relative;
-
-    animation:loginAppear .25s ease;
-
-}
-
-
-@keyframes loginAppear{
-
-    from{
-
-        opacity:0;
-
-        transform:translateY(15px) scale(.98);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:translateY(0) scale(1);
-
-    }
-
-}
-
-
-/* =====================================================
-                    LOGIN TITLE
-===================================================== */
-
-.login-title{
-
-    text-align:center;
-
-    font-size:25px;
-
-    font-weight:700;
-
-    color:#16324f;
-
-    margin-bottom:8px;
-
-}
-
-
-.login-subtitle{
-
-    text-align:center;
-
-    font-size:13px;
-
-    color:#64748b;
-
-    margin-bottom:25px;
-
-}
-
-
-/* =====================================================
-                  CLOSE BUTTON
-===================================================== */
-
-.login-close{
-
-    position:absolute;
-
-    top:14px;
-
-    right:18px;
-
-    border:none;
-
-    background:none;
-
-    font-size:25px;
-
-    color:#64748b;
-
-    cursor:pointer;
-
-}
-
-.login-close:hover{
-
-    color:#0f4c81;
-
-}
-
-
-/* =====================================================
-                    LOGIN LABEL
-===================================================== */
-
-.login-label{
-
-    display:block;
-
-    font-size:14px;
-
-    font-weight:600;
-
-    color:#475569;
-
-    margin-bottom:7px;
-
-}
-
-
-/* =====================================================
-                  LOGIN INPUT
-===================================================== */
-
-.login-input{
-
-    width:100%;
-
-    padding:12px 13px;
-
-    margin-bottom:17px;
-
-    border:1px solid #cbd5e1;
-
-    border-radius:8px;
-
-    font-family:'Inter',sans-serif;
-
-    font-size:14px;
-
-    outline:none;
-
-}
-
-.login-input:focus{
-
-    border-color:#1677b7;
-
-    box-shadow:0 0 0 3px rgba(22,119,183,0.10);
-
-}
-
-
-/* =====================================================
-                    LOGIN BUTTON
-===================================================== */
-
-#login-btn{
-
-    width:100%;
-
-    padding:13px;
+    padding:14px;
 
     border:none;
 
@@ -673,32 +412,349 @@ body{
 
     cursor:pointer;
 
-    transition:.2s;
+    transition:0.2s;
 
 }
 
-#login-btn:hover{
+
+.download-btn:hover{
+
+    background:#1677b7;
+
+    transform:translateY(-1px);
+
+}
+
+
+.download-btn:disabled{
+
+    background:#cbd5e1;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+}
+
+
+/* =====================================================
+                    MODAL OVERLAY
+===================================================== */
+
+.modal-overlay{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(6,24,38,0.60);
+
+    backdrop-filter:blur(5px);
+
+    z-index:5000;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+}
+
+
+/* =====================================================
+                    AUTH BOX
+===================================================== */
+
+.auth-box{
+
+    width:100%;
+
+    max-width:420px;
+
+    background:#ffffff;
+
+    border-radius:14px;
+
+    padding:32px;
+
+    box-shadow:0 20px 60px rgba(0,0,0,0.25);
+
+    position:relative;
+
+    animation:modalAppear 0.2s ease;
+
+}
+
+
+@keyframes modalAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(10px) scale(.98);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0) scale(1);
+
+    }
+
+}
+
+
+.auth-close{
+
+    position:absolute;
+
+    right:18px;
+
+    top:14px;
+
+    border:none;
+
+    background:none;
+
+    font-size:28px;
+
+    color:#64748b;
+
+    cursor:pointer;
+
+}
+
+
+.auth-close:hover{
+
+    color:#16324f;
+
+}
+
+
+.auth-logo{
+
+    display:block;
+
+    height:55px;
+
+    width:auto;
+
+    margin:0 auto 15px auto;
+
+}
+
+
+.auth-title{
+
+    text-align:center;
+
+    font-size:26px;
+
+    font-weight:700;
+
+    color:#16324f;
+
+    margin-bottom:7px;
+
+}
+
+
+.auth-subtitle{
+
+    text-align:center;
+
+    font-size:13px;
+
+    color:#64748b;
+
+    margin-bottom:25px;
+
+}
+
+
+/* =====================================================
+                    AUTH FORM
+===================================================== */
+
+.auth-form{
+
+    display:none;
+
+}
+
+
+.auth-form.active{
+
+    display:block;
+
+}
+
+
+.auth-field{
+
+    margin-bottom:16px;
+
+}
+
+
+.auth-field label{
+
+    display:block;
+
+    margin-bottom:7px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:#475569;
+
+}
+
+
+.auth-field input{
+
+    width:100%;
+
+    padding:12px 13px;
+
+    border:1px solid #cbd5e1;
+
+    border-radius:8px;
+
+    font-family:'Inter',sans-serif;
+
+    font-size:14px;
+
+    outline:none;
+
+}
+
+
+.auth-field input:focus{
+
+    border-color:#1677b7;
+
+    box-shadow:0 0 0 3px rgba(22,119,183,0.10);
+
+}
+
+
+.auth-submit{
+
+    width:100%;
+
+    padding:13px;
+
+    margin-top:5px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#0f4c81;
+
+    color:#ffffff;
+
+    font-family:'Inter',sans-serif;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+
+.auth-submit:hover{
 
     background:#1677b7;
 
 }
 
 
-/* =====================================================
-                    LOGIN MESSAGE
-===================================================== */
-
-#login-message{
-
-    margin-top:14px;
+.auth-switch{
 
     text-align:center;
 
+    margin-top:20px;
+
     font-size:13px;
 
-    color:#dc2626;
+    color:#64748b;
+
+}
+
+
+.auth-switch button{
+
+    border:none;
+
+    background:none;
+
+    color:#0f4c81;
+
+    font-family:'Inter',sans-serif;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+
+.auth-switch button:hover{
+
+    text-decoration:underline;
+
+}
+
+
+.auth-message{
 
     display:none;
+
+    padding:10px;
+
+    margin-bottom:15px;
+
+    border-radius:7px;
+
+    font-size:13px;
+
+    text-align:center;
+
+}
+
+
+.auth-message.error{
+
+    display:block;
+
+    background:#fef2f2;
+
+    color:#b91c1c;
+
+}
+
+
+.auth-message.success{
+
+    display:block;
+
+    background:#f0fdf4;
+
+    color:#166534;
 
 }
 
@@ -748,6 +804,12 @@ body{
         width:100%;
 
         height:40vh;
+
+    }
+
+    .auth-box{
+
+        padding:25px;
 
     }
 
@@ -804,7 +866,7 @@ body{
             <h2>Feature Information</h2>
 
 
-            <!-- SELECT STATE -->
+            <!-- STATE -->
 
             <div class="selector-section">
 
@@ -831,7 +893,7 @@ body{
             </div>
 
 
-            <!-- SELECT GLACIER -->
+            <!-- GLACIER -->
 
             <div class="selector-section">
 
@@ -863,7 +925,6 @@ body{
 
             <table class="info-table">
 
-
                 <tr>
 
                     <th>Name</th>
@@ -871,7 +932,6 @@ body{
                     <td id="feature-name">-</td>
 
                 </tr>
-
 
                 <tr>
 
@@ -881,7 +941,6 @@ body{
 
                 </tr>
 
-
                 <tr>
 
                     <th>State</th>
@@ -889,7 +948,6 @@ body{
                     <td id="feature-state">-</td>
 
                 </tr>
-
 
                 <tr>
 
@@ -899,7 +957,6 @@ body{
 
                 </tr>
 
-
                 <tr>
 
                     <th>Sub Basin</th>
@@ -907,7 +964,6 @@ body{
                     <td id="sub-basin">-</td>
 
                 </tr>
-
 
                 <tr>
 
@@ -917,25 +973,19 @@ body{
 
                 </tr>
 
-
             </table>
 
 
-            <!-- =================================================
-                    DOWNLOAD SELECTED GLACIER
-            ================================================= -->
+            <!-- DOWNLOAD BUTTON -->
 
-            <div class="download-section">
+            <button
+                id="download-btn"
+                class="download-btn"
+                disabled>
 
-                <button
-                    id="download-btn"
-                    disabled>
+                Download Selected Glacier
 
-                    🔐 Download Selected Glacier
-
-                </button>
-
-            </div>
+            </button>
 
 
             <!-- LEGEND -->
@@ -967,93 +1017,262 @@ body{
 
 
 <!-- =====================================================
-                    LOGIN OVERLAY
+                    AUTH MODAL
 ===================================================== -->
 
-<div id="login-overlay">
+<div
+    id="auth-modal"
+    class="modal-overlay">
 
 
-    <div class="login-box">
+    <div class="auth-box">
 
-
-        <!-- CLOSE -->
 
         <button
-            class="login-close"
-            id="login-close">
+            id="auth-close"
+            class="auth-close">
 
             ×
 
         </button>
 
 
-        <!-- TITLE -->
+        <!-- =================================================
+                        SIGN UP FORM
+        ================================================= -->
 
-        <div class="login-title">
+        <div
+            id="signup-form"
+            class="auth-form active">
 
-            Welcome Back
+
+            <img
+                src="Indian_Glaciology_Logo.jpg"
+                class="auth-logo"
+                alt="Indian Glaciology">
+
+
+            <div class="auth-title">
+
+                Create Account
+
+            </div>
+
+
+            <div class="auth-subtitle">
+
+                Create an account to download glacier datasets.
+
+            </div>
+
+
+            <div
+                id="signup-message"
+                class="auth-message">
+
+            </div>
+
+
+            <form id="signup">
+
+
+                <div class="auth-field">
+
+                    <label for="signup-name">
+
+                        Name
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="signup-name"
+                        placeholder="Enter your name"
+                        required>
+
+                </div>
+
+
+                <div class="auth-field">
+
+                    <label for="signup-email">
+
+                        Email
+
+                    </label>
+
+                    <input
+                        type="email"
+                        id="signup-email"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+
+                <div class="auth-field">
+
+                    <label for="signup-password">
+
+                        Password
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="signup-password"
+                        placeholder="Create a password"
+                        required>
+
+                </div>
+
+
+                <div class="auth-field">
+
+                    <label for="signup-confirm">
+
+                        Confirm Password
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="signup-confirm"
+                        placeholder="Confirm your password"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="auth-submit">
+
+                    Sign Up
+
+                </button>
+
+
+            </form>
+
+
+            <div class="auth-switch">
+
+                Already have an account?
+
+                <button
+                    type="button"
+                    id="show-login">
+
+                    Login
+
+                </button>
+
+            </div>
+
 
         </div>
 
 
-        <div class="login-subtitle">
+        <!-- =================================================
+                        LOGIN FORM
+        ================================================= -->
 
-            Login to download glacier datasets
-
-        </div>
-
-
-        <!-- EMAIL -->
-
-        <label
-            class="login-label"
-            for="login-email">
-
-            Email Address
-
-        </label>
+        <div
+            id="login-form"
+            class="auth-form">
 
 
-        <input
-            type="email"
-            id="login-email"
-            class="login-input"
-            placeholder="Enter your email"
-        >
+            <img
+                src="Indian_Glaciology_Logo.jpg"
+                class="auth-logo"
+                alt="Indian Glaciology">
 
 
-        <!-- PASSWORD -->
+            <div class="auth-title">
 
-        <label
-            class="login-label"
-            for="login-password">
+                Welcome Back
 
-            Password
-
-        </label>
+            </div>
 
 
-        <input
-            type="password"
-            id="login-password"
-            class="login-input"
-            placeholder="Enter your password"
-        >
+            <div class="auth-subtitle">
+
+                Login to download glacier datasets.
+
+            </div>
 
 
-        <!-- LOGIN -->
+            <div
+                id="login-message"
+                class="auth-message">
 
-        <button
-            id="login-btn">
-
-            Login & Download
-
-        </button>
+            </div>
 
 
-        <div id="login-message">
+            <form id="login">
 
-            Please enter your email and password.
+
+                <div class="auth-field">
+
+                    <label for="login-email">
+
+                        Email
+
+                    </label>
+
+                    <input
+                        type="email"
+                        id="login-email"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+
+                <div class="auth-field">
+
+                    <label for="login-password">
+
+                        Password
+
+                    </label>
+
+                    <input
+                        type="password"
+                        id="login-password"
+                        placeholder="Enter your password"
+                        required>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="auth-submit">
+
+                    Login
+
+                </button>
+
+
+            </form>
+
+
+            <div class="auth-switch">
+
+                Don't have an account?
+
+                <button
+                    type="button"
+                    id="show-signup">
+
+                    Sign Up
+
+                </button>
+
+            </div>
+
 
         </div>
 
@@ -1114,6 +1333,7 @@ const mapBounds = L.latLngBounds(
     [38.5,99.0]
 
 );
+
 
 map.setMaxBounds(mapBounds);
 
@@ -1241,29 +1461,20 @@ function displayFeatureInfo(
 
 ){
 
-    document.getElementById(
-        "feature-name"
-    ).innerHTML = name || "-";
+    document.getElementById("feature-name").innerHTML =
+        name || "-";
 
+    document.getElementById("feature-type").innerHTML =
+        type || "-";
 
-    document.getElementById(
-        "feature-type"
-    ).innerHTML = type || "-";
+    document.getElementById("feature-state").innerHTML =
+        state || "-";
 
+    document.getElementById("main-basin").innerHTML =
+        mainBasin || "-";
 
-    document.getElementById(
-        "feature-state"
-    ).innerHTML = state || "-";
-
-
-    document.getElementById(
-        "main-basin"
-    ).innerHTML = mainBasin || "-";
-
-
-    document.getElementById(
-        "sub-basin"
-    ).innerHTML = subBasin || "-";
+    document.getElementById("sub-basin").innerHTML =
+        subBasin || "-";
 
 
     if(
@@ -1279,22 +1490,14 @@ function displayFeatureInfo(
 
         if(!isNaN(numericArea)){
 
-            document.getElementById(
-                "feature-area"
-            ).innerHTML =
-
-                numericArea.toFixed(3)
-
-                + " km²";
+            document.getElementById("feature-area").innerHTML =
+                numericArea.toFixed(3) + " km²";
 
         }
 
         else{
 
-            document.getElementById(
-                "feature-area"
-            ).innerHTML =
-
+            document.getElementById("feature-area").innerHTML =
                 area + " km²";
 
         }
@@ -1303,9 +1506,8 @@ function displayFeatureInfo(
 
     else{
 
-        document.getElementById(
-            "feature-area"
-        ).innerHTML = "-";
+        document.getElementById("feature-area").innerHTML =
+            "-";
 
     }
 
@@ -1318,39 +1520,19 @@ function displayFeatureInfo(
 
 function resetFeatureInfo(){
 
-    document.getElementById(
-        "feature-name"
-    ).innerHTML = "-";
+    document.getElementById("feature-name").innerHTML = "-";
 
+    document.getElementById("feature-type").innerHTML = "-";
 
-    document.getElementById(
-        "feature-type"
-    ).innerHTML = "-";
+    document.getElementById("feature-state").innerHTML = "-";
 
+    document.getElementById("main-basin").innerHTML = "-";
 
-    document.getElementById(
-        "feature-state"
-    ).innerHTML = "-";
+    document.getElementById("sub-basin").innerHTML = "-";
 
+    document.getElementById("feature-area").innerHTML = "-";
 
-    document.getElementById(
-        "main-basin"
-    ).innerHTML = "-";
-
-
-    document.getElementById(
-        "sub-basin"
-    ).innerHTML = "-";
-
-
-    document.getElementById(
-        "feature-area"
-    ).innerHTML = "-";
-
-
-    document.getElementById(
-        "download-btn"
-    ).disabled = true;
+    document.getElementById("download-btn").disabled = true;
 
 }
 
@@ -1370,7 +1552,7 @@ let glacierData;
 
 
 /* =====================================================
-              CURRENT SELECTED GLACIER
+            SELECTED GLACIER
 ===================================================== */
 
 let selectedGlacierFeature = null;
@@ -1391,9 +1573,7 @@ function getState(properties){
     return (
 
         properties["state"] ??
-
         properties["State"] ??
-
         ""
 
     ).toString().trim();
@@ -1416,9 +1596,7 @@ function getGlacierName(properties){
     return (
 
         properties["Name"] ??
-
         properties["name"] ??
-
         ""
 
     ).toString().trim();
@@ -1433,10 +1611,7 @@ function getGlacierName(properties){
 function populateStateDropdown(data){
 
     const stateSelect =
-
-        document.getElementById(
-            "state-select"
-        );
+        document.getElementById("state-select");
 
 
     const states = new Set();
@@ -1444,9 +1619,8 @@ function populateStateDropdown(data){
 
     data.features.forEach(function(feature){
 
-        const state = getState(
-            feature.properties
-        );
+        const state =
+            getState(feature.properties);
 
 
         if(state){
@@ -1459,7 +1633,6 @@ function populateStateDropdown(data){
 
 
     const sortedStates =
-
         Array.from(states).sort(
 
             function(a,b){
@@ -1474,7 +1647,6 @@ function populateStateDropdown(data){
     sortedStates.forEach(function(state){
 
         const option =
-
             document.createElement("option");
 
 
@@ -1497,30 +1669,23 @@ function populateStateDropdown(data){
 function populateGlacierDropdown(selectedState){
 
     const glacierSelect =
-
-        document.getElementById(
-            "glacier-select"
-        );
+        document.getElementById("glacier-select");
 
 
     glacierSelect.innerHTML = "";
 
 
     const defaultOption =
-
         document.createElement("option");
 
 
     defaultOption.value = "";
 
     defaultOption.textContent =
-
         "Select Glacier";
 
 
-    glacierSelect.appendChild(
-        defaultOption
-    );
+    glacierSelect.appendChild(defaultOption);
 
 
     if(!glacierData){
@@ -1545,16 +1710,14 @@ function populateGlacierDropdown(selectedState){
     else{
 
         filteredFeatures =
-
             glacierData.features.filter(
 
                 function(feature){
 
                     return (
 
-                        getState(
-                            feature.properties
-                        ) === selectedState
+                        getState(feature.properties)
+                        === selectedState
 
                     );
 
@@ -1572,11 +1735,7 @@ function populateGlacierDropdown(selectedState){
             return getGlacierName(
                 a.properties
             ).localeCompare(
-
-                getGlacierName(
-                    b.properties
-                )
-
+                getGlacierName(b.properties)
             );
 
         }
@@ -1584,45 +1743,30 @@ function populateGlacierDropdown(selectedState){
     );
 
 
-    filteredFeatures.forEach(
+    filteredFeatures.forEach(function(feature){
 
-        function(feature){
-
-            const name =
-
-                getGlacierName(
-                    feature.properties
-                );
+        const name =
+            getGlacierName(feature.properties);
 
 
-            if(name){
+        if(name){
 
-                const option =
-
-                    document.createElement(
-                        "option"
-                    );
+            const option =
+                document.createElement("option");
 
 
-                option.value =
-
-                    glacierData.features.indexOf(
-                        feature
-                    );
+            option.value =
+                glacierData.features.indexOf(feature);
 
 
-                option.textContent = name;
+            option.textContent = name;
 
 
-                glacierSelect.appendChild(
-                    option
-                );
-
-            }
+            glacierSelect.appendChild(option);
 
         }
 
-    );
+    });
 
 
     glacierSelect.disabled = false;
@@ -1650,14 +1794,13 @@ function filterGlaciersByState(selectedState){
     }
 
 
-    resetFeatureInfo();
-
     selectedGlacierFeature = null;
 
 
-    populateGlacierDropdown(
-        selectedState
-    );
+    resetFeatureInfo();
+
+
+    populateGlacierDropdown(selectedState);
 
 
     if(selectedState === "ALL"){
@@ -1697,16 +1840,14 @@ function filterGlaciersByState(selectedState){
 
 
     const filteredFeatures =
-
         glacierData.features.filter(
 
             function(feature){
 
                 return (
 
-                    getState(
-                        feature.properties
-                    ) === selectedState
+                    getState(feature.properties)
+                    === selectedState
 
                 );
 
@@ -1743,7 +1884,6 @@ function filterGlaciersByState(selectedState){
     if(
 
         filteredFeatures.length > 0 &&
-
         glacierLayer.getBounds().isValid()
 
     ){
@@ -1771,12 +1911,7 @@ function filterGlaciersByState(selectedState){
             GLACIER FEATURE EVENTS
 ===================================================== */
 
-function glacierFeatureEvents(
-
-    feature,
-    layer
-
-){
+function glacierFeatureEvents(feature, layer){
 
     layer.on({
 
@@ -1785,9 +1920,7 @@ function glacierFeatureEvents(
             resetAllLayers();
 
 
-            glacierHighlight(
-                e.target
-            );
+            glacierHighlight(e.target);
 
 
             selectedGlacierFeature = feature;
@@ -1814,18 +1947,19 @@ function glacierFeatureEvents(
             );
 
 
-            const glacierSelect =
+            document.getElementById(
+                "download-btn"
+            ).disabled = false;
 
+
+            const glacierSelect =
                 document.getElementById(
                     "glacier-select"
                 );
 
 
             const index =
-
-                glacierData.features.indexOf(
-                    feature
-                );
+                glacierData.features.indexOf(feature);
 
 
             if(index !== -1){
@@ -1833,13 +1967,6 @@ function glacierFeatureEvents(
                 glacierSelect.value = index;
 
             }
-
-
-            /* ENABLE DOWNLOAD */
-
-            document.getElementById(
-                "download-btn"
-            ).disabled = false;
 
         }
 
@@ -1852,16 +1979,11 @@ function glacierFeatureEvents(
               SELECT GLACIER FROM DROPDOWN
 ===================================================== */
 
-function selectGlacierFromDropdown(
-
-    featureIndex
-
-){
+function selectGlacierFromDropdown(featureIndex){
 
     if(
 
         featureIndex === "" ||
-
         !glacierData
 
     ){
@@ -1876,7 +1998,6 @@ function selectGlacierFromDropdown(
 
 
     const feature =
-
         glacierData.features[
             Number(featureIndex)
         ];
@@ -1897,21 +2018,15 @@ function selectGlacierFromDropdown(
 
     if(glacierLayer){
 
-        glacierLayer.eachLayer(
+        glacierLayer.eachLayer(function(layer){
 
-            function(layer){
+            if(layer.feature === feature){
 
-                if(
-                    layer.feature === feature
-                ){
-
-                    selectedLayer = layer;
-
-                }
+                selectedLayer = layer;
 
             }
 
-        );
+        });
 
     }
 
@@ -1921,9 +2036,7 @@ function selectGlacierFromDropdown(
 
     if(selectedLayer){
 
-        glacierHighlight(
-            selectedLayer
-        );
+        glacierHighlight(selectedLayer);
 
     }
 
@@ -1949,8 +2062,6 @@ function selectGlacierFromDropdown(
     );
 
 
-    /* ENABLE DOWNLOAD */
-
     document.getElementById(
         "download-btn"
     ).disabled = false;
@@ -1959,7 +2070,6 @@ function selectGlacierFromDropdown(
     if(
 
         feature.geometry &&
-
         selectedLayer
 
     ){
@@ -1992,7 +2102,174 @@ function selectGlacierFromDropdown(
 
 
 /* =====================================================
-              DOWNLOAD BUTTON
+                    DOWNLOAD GLACIER
+===================================================== */
+
+function downloadSelectedGlacier(){
+
+    if(!selectedGlacierFeature){
+
+        alert("Please select a glacier first.");
+
+        return;
+
+    }
+
+
+    const feature =
+        selectedGlacierFeature;
+
+
+    const name =
+        getGlacierName(feature.properties);
+
+
+    const glacierDataForDownload = {
+
+        type:"FeatureCollection",
+
+        features:[feature]
+
+    };
+
+
+    const jsonString =
+        JSON.stringify(
+
+            glacierDataForDownload,
+
+            null,
+            2
+
+        );
+
+
+    const blob =
+        new Blob(
+
+            [jsonString],
+
+            {
+
+                type:"application/geo+json"
+
+            }
+
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+
+    link.download =
+        name.replace(
+            /[^a-z0-9]/gi,
+            "_"
+        ) + ".geojson";
+
+
+    document.body.appendChild(link);
+
+
+    link.click();
+
+
+    document.body.removeChild(link);
+
+
+    URL.revokeObjectURL(url);
+
+}
+
+
+/* =====================================================
+                  AUTH MODAL
+===================================================== */
+
+const authModal =
+    document.getElementById("auth-modal");
+
+
+const signupForm =
+    document.getElementById("signup-form");
+
+
+const loginForm =
+    document.getElementById("login-form");
+
+
+function openAuthModal(){
+
+    authModal.style.display = "flex";
+
+    showSignup();
+
+}
+
+
+function closeAuthModal(){
+
+    authModal.style.display = "none";
+
+}
+
+
+function showSignup(){
+
+    signupForm.classList.add("active");
+
+    loginForm.classList.remove("active");
+
+    clearAuthMessages();
+
+}
+
+
+function showLogin(){
+
+    signupForm.classList.remove("active");
+
+    loginForm.classList.add("active");
+
+    clearAuthMessages();
+
+}
+
+
+function clearAuthMessages(){
+
+    document.getElementById(
+        "signup-message"
+    ).className = "auth-message";
+
+
+    document.getElementById(
+        "signup-message"
+    ).innerHTML = "";
+
+
+    document.getElementById(
+        "login-message"
+    ).className = "auth-message";
+
+
+    document.getElementById(
+        "login-message"
+    ).innerHTML = "";
+
+}
+
+
+/* =====================================================
+              DOWNLOAD BUTTON EVENT
 ===================================================== */
 
 document.getElementById(
@@ -2014,26 +2291,7 @@ document.getElementById(
         }
 
 
-        /*
-        IMPORTANT:
-
-        At this stage we only OPEN
-        the login interface.
-
-        Authentication will later
-        be connected to Python +
-        SQLite.
-        */
-
-
-        document.getElementById(
-            "login-overlay"
-        ).style.display = "flex";
-
-
-        document.getElementById(
-            "login-email"
-        ).focus();
+        openAuthModal();
 
     }
 
@@ -2041,43 +2299,29 @@ document.getElementById(
 
 
 /* =====================================================
-                    CLOSE LOGIN
+                    CLOSE MODAL
 ===================================================== */
 
 document.getElementById(
-    "login-close"
+    "auth-close"
 ).addEventListener(
 
     "click",
 
-    function(){
-
-        document.getElementById(
-            "login-overlay"
-        ).style.display = "none";
-
-    }
+    closeAuthModal
 
 );
 
 
-/* =====================================================
-                CLICK OUTSIDE LOGIN
-===================================================== */
-
-document.getElementById(
-    "login-overlay"
-).addEventListener(
+authModal.addEventListener(
 
     "click",
 
     function(e){
 
-        if(
-            e.target === this
-        ){
+        if(e.target === authModal){
 
-            this.style.display = "none";
+            closeAuthModal();
 
         }
 
@@ -2087,45 +2331,104 @@ document.getElementById(
 
 
 /* =====================================================
-                LOGIN BUTTON
+                SWITCH TO LOGIN
 ===================================================== */
 
 document.getElementById(
-    "login-btn"
+    "show-login"
 ).addEventListener(
 
     "click",
 
-    function(){
+    showLogin
 
-        const email =
+);
 
+
+/* =====================================================
+                SWITCH TO SIGNUP
+===================================================== */
+
+document.getElementById(
+    "show-signup"
+).addEventListener(
+
+    "click",
+
+    showSignup
+
+);
+
+
+/* =====================================================
+                    SIGN UP
+===================================================== */
+
+document.getElementById(
+    "signup"
+).addEventListener(
+
+    "submit",
+
+    function(e){
+
+        e.preventDefault();
+
+
+        const name =
             document.getElementById(
-                "login-email"
+                "signup-name"
             ).value.trim();
 
 
-        const password =
-
+        const email =
             document.getElementById(
-                "login-password"
+                "signup-email"
+            ).value.trim().toLowerCase();
+
+
+        const password =
+            document.getElementById(
+                "signup-password"
+            ).value;
+
+
+        const confirmPassword =
+            document.getElementById(
+                "signup-confirm"
             ).value;
 
 
         const message =
-
             document.getElementById(
-                "login-message"
+                "signup-message"
             );
 
 
-        if(!email || !password){
+        if(password !== confirmPassword){
 
-            message.innerText =
+            message.className =
+                "auth-message error";
 
-                "Please enter your email and password.";
 
-            message.style.display = "block";
+            message.innerHTML =
+                "Passwords do not match.";
+
+
+            return;
+
+        }
+
+
+        if(password.length < 6){
+
+            message.className =
+                "auth-message error";
+
+
+            message.innerHTML =
+                "Password must contain at least 6 characters.";
+
 
             return;
 
@@ -2133,24 +2436,62 @@ document.getElementById(
 
 
         /*
-        TEMPORARY LOGIN
+        ---------------------------------------------------
+        PROTOTYPE ONLY
 
-        This is NOT real authentication.
+        This stores account information locally
+        in the browser.
 
-        It only demonstrates the
-        user interface.
-
+        DO NOT use this for real production passwords.
+        ---------------------------------------------------
         */
 
-        message.style.display = "none";
+
+        localStorage.setItem(
+
+            "indianGlaciologyUser",
+
+            JSON.stringify({
+
+                name:name,
+
+                email:email,
+
+                password:password
+
+            })
+
+        );
 
 
-        downloadSelectedGlacier();
+        message.className =
+            "auth-message success";
+
+
+        message.innerHTML =
+            "Account created successfully. You can now login.";
 
 
         document.getElementById(
-            "login-overlay"
-        ).style.display = "none";
+            "signup"
+        ).reset();
+
+
+        setTimeout(
+
+            function(){
+
+                showLogin();
+
+                document.getElementById(
+                    "login-email"
+                ).value = email;
+
+            },
+
+            1200
+
+        );
 
     }
 
@@ -2158,107 +2499,114 @@ document.getElementById(
 
 
 /* =====================================================
-              DOWNLOAD SELECTED GLACIER
+                      LOGIN
 ===================================================== */
 
-function downloadSelectedGlacier(){
+document.getElementById(
+    "login"
+).addEventListener(
 
-    if(!selectedGlacierFeature){
+    "submit",
 
-        alert(
-            "No glacier selected."
-        );
+    function(e){
 
-        return;
-
-    }
+        e.preventDefault();
 
 
-    /* Create FeatureCollection */
-
-    const selectedData = {
-
-        type:"FeatureCollection",
-
-        features:[
-            selectedGlacierFeature
-        ]
-
-    };
+        const email =
+            document.getElementById(
+                "login-email"
+            ).value.trim().toLowerCase();
 
 
-    /* Convert to JSON */
-
-    const jsonData =
-
-        JSON.stringify(
-            selectedData,
-            null,
-            2
-        );
+        const password =
+            document.getElementById(
+                "login-password"
+            ).value;
 
 
-    /* Create file */
+        const message =
+            document.getElementById(
+                "login-message"
+            );
 
-    const blob = new Blob(
 
-        [jsonData],
+        const storedUser =
+            localStorage.getItem(
+                "indianGlaciologyUser"
+            );
 
-        {
 
-            type:"application/geo+json"
+        if(!storedUser){
+
+            message.className =
+                "auth-message error";
+
+
+            message.innerHTML =
+                "No account found. Please sign up first.";
+
+
+            return;
 
         }
 
-    );
+
+        const user =
+            JSON.parse(storedUser);
 
 
-    /* Create temporary URL */
+        if(
 
-    const url =
+            email !== user.email ||
+            password !== user.password
 
-        URL.createObjectURL(blob);
+        ){
 
-
-    /* Create download link */
-
-    const link =
-
-        document.createElement("a");
+            message.className =
+                "auth-message error";
 
 
-    link.href = url;
+            message.innerHTML =
+                "Incorrect email or password.";
 
 
-    const glacierName =
+            return;
 
-        getGlacierName(
-            selectedGlacierFeature.properties
+        }
+
+
+        message.className =
+            "auth-message success";
+
+
+        message.innerHTML =
+            "Login successful. Starting download...";
+
+
+        localStorage.setItem(
+            "indianGlaciologyLoggedIn",
+            "true"
         );
 
 
-    link.download =
+        setTimeout(
 
-        glacierName.replace(
-            /[^a-z0-9]/gi,
-            "_"
-        )
+            function(){
 
-        + ".geojson";
+                closeAuthModal();
 
+                downloadSelectedGlacier();
 
-    document.body.appendChild(link);
+            },
 
+            800
 
-    link.click();
+        );
 
+    }
 
-    document.body.removeChild(link);
-
-
-    URL.revokeObjectURL(url);
-
-}
+);
 
 
 /* =====================================================
@@ -2273,9 +2621,7 @@ fetch("Indian_Glaciers.geojson")
     if(!response.ok){
 
         throw new Error(
-
             "Indian_Glaciers.geojson could not be loaded."
-
         );
 
     }
@@ -2320,9 +2666,7 @@ fetch("Indian_Glaciers.geojson")
     console.error(error);
 
     alert(
-
         "Unable to load Indian_Glaciers.geojson"
-
     );
 
 });
@@ -2342,9 +2686,6 @@ document.getElementById(
 
         const selectedState =
             this.value;
-
-
-        resetFeatureInfo();
 
 
         filterGlaciersByState(
@@ -2368,18 +2709,13 @@ document.getElementById(
 
     function(){
 
-        const selectedGlacier =
-            this.value;
-
-
         selectGlacierFromDropdown(
-            selectedGlacier
+            this.value
         );
 
     }
 
 );
-
 
 </script>
 
